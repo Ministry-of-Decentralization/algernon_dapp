@@ -30,16 +30,18 @@ allow users to stake tokens against content to help other users find quality con
 ### 3rd Party Libs
   - dynamodb
   - Graph Protocol
+  - Fortmatic
 
 ## Running Locally
 
 - configure .env
 
+
 - install ganache-cli and truffle globally
   - npm install -g ganache-cli truffle
 
 
-- Start a local ganache instance run on 0.0.0.0
+- Start a local ganache instance
   - yarn run-ganache
 
 
