@@ -1,0 +1,7 @@
+**/node_modules
+**/build
+**/build_webpack
+**/bin
+**/src/contracts
+.env
+scratch.txt

@@ -1,0 +1,47 @@
+# typings for graphql-code-generator, uncomment to generate Typscript types
+# scalar Bytes
+# scalar BigInt
+# scalar BigDecimal
+
+type Tag @entity {
+  id: ID!
+  tag: String!
+  topics: [Topic!] @derivedFrom(field: "tags")
+  stakes: [Stake!] @serivedFrom(field: "tag")
+  createdAt: BigInt!
+}
+
+type Topic @entity {
+  id: ID!
+  owner: User
+  tags: [Tag]!
+  contentHash: String!
+  title: String!
+  description: String
+  url: String
+  notes: String
+  supports: [Topic!]!
+  requires: [Topic!]!
+  stakes: [Stake!] @derivedFrom(field: "topic")
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}
+
+type User @entity {
+  id: ID!
+  address: Bytes
+  topics: [Topic!] @derivedFrom(field: "owner")
+  stakes: [Stake!] @derivedFrom(field: "staker")
+  firstActive: BigInt!
+  lastActive: BigInt!
+}
+
+type Stake @entity {
+  id: ID!
+  staker: User!  
+  topic: Topic!
+  tag: Tag!
+  amount: BigInt!
+  createdAt: BigInt!
+  updatedAt: BigInt!
+}

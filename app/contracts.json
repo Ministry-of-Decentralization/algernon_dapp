@@ -1,0 +1,13 @@
+{
+  "outputPath": "./src/generated",
+  "contracts": {
+  "Algernon": {
+    "source": "truffle",
+    "buildFile": "./src/contracts/Algernon.json"
+  },
+  "AlgerToken": {
+    "source": "truffle",
+    "buildFile": "./src/contracts/AlgerToken.json"
+  }
+  }
+}

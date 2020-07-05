@@ -1,0 +1,7 @@
+overwrite: true
+schema: "theGraph/schema.graphql"
+generates:
+  ./typings/generated/theGraph/index.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"

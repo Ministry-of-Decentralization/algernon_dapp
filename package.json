@@ -1,0 +1,50 @@
+{
+  "name": "drizzle-box",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-skale": "truffle deploy --reset --network skale --compile-all",
+    "deploy-develop": "truffle deploy --reset --network develop",
+    "run-ganache": "ganache-cli -h 0.0.0.0 -m \"atom picnic embrace liar joy stove more grab fog attitude matrix blossom\"",
+    "dsas": "graphql-codegen --config codegen.yml",
+    "codegen-run-gp": "graphql-codegen --config codegen-gp.yml",
+    "codegen-run-algernon": "graphql-codegen --config codegen-algernon.yml"
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/truffle-box/drizzle-box/issues"
+  },
+  "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+  "dependencies": {
+    "@graphprotocol/graph-cli": "^0.15.0",
+    "@graphprotocol/graph-ts": "^0.15.0",
+    "dotenv": "^8.2.0",
+    "graphql-hooks": "^4.0.0",
+    "graphql-schema-typescript": "^1.3.2",
+    "graphql-toolkit": "^0.7.5",
+    "openzeppelin-solidity": "^2.1.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router": "^5.0.1",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "typescript": "^3.7.2"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "1.6.1",
+    "@graphql-codegen/typescript": "1.6.1",
+    "@graphql-codegen/typescript-operations": "1.6.1",
+    "@graphql-codegen/typescript-react-apollo": "1.6.1"
+  }
+}

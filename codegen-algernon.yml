@@ -1,0 +1,7 @@
+overwrite: true
+schema: "server/src/**/*.graphql"
+generates:
+  ./typings/generated/algernon/index.d.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
