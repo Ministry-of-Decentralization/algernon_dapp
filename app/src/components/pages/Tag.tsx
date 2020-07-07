@@ -6,15 +6,19 @@ import useGetAccount from '../hooks/useGetAccount'
 import { getTag } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import TagDetail from '../organisms/Tags/TagDetail'
+import Box from '../atoms/Box'
 
-
+// @ts-ignore
 export default ({match: { params: id}}) => {
   const selectedAddress = useGetAccount()
   const {loading, tag} = getTag(theGraphClient, id.id)
-  console.log('loading and tags ', loading, tag, id)
-
-
-  const main = loading ? 'loading' : <TagDetail tag={tag} />
+  const main = loading ?
+    'loading'
+    :
+    tag ?
+      <TagDetail tag={tag} />
+      :
+      <Box>Invalid Tag</Box>
   return (
     <MainLayout
       header={<Header />}

@@ -76,7 +76,7 @@ export const getTag = (client: any, id: string) => {
       client,
       variables: {id}
     });
-
+  
   return {
     loading,
     error,

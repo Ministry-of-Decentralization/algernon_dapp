@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import { Formik } from 'formik'
 import { callMethod } from './common'
-import { getTxReceipt } from '../../../utils/blockListener'
 
 /*
 interface CallMethodProps {
@@ -31,14 +30,7 @@ interface State {
   error: any;
 }
 */
-const fetchTx = async (hash) => {
-  console.log(`fetching tx ${hash}`)
-  const rec = await getTxReceipt(hash)
-  console.log(`fetched receipt ${JSON.stringify(rec, null, 2)}`)
-  if (!rec) {
-    // etTimeout(() => fetchTx(hash), 500)
-  }
-}
+
 const Success = () => (
   <div>
     <h3>Transaction Success!</h3>
@@ -110,7 +102,6 @@ const Web3Form = ({
       const handleReceipt = (receipt) => {
         console.log(`success tx receipt on broadcast ${JSON.stringify(receipt, null, 2)}`)
         setState({...state, receipt})
-        fetchTx(receipt.transactionHash)
       }
       const handleError = (error) => setState({...state, error})
 

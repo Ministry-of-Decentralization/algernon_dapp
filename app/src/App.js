@@ -10,6 +10,7 @@ import Profile from './components/pages/Profile'
 import Topic from './components/pages/Topic'
 import Topics from './components/pages/Topics'
 import Users from './components/pages/Users'
+import About from './components/pages/About'
 
 
 import "./App.css";
@@ -23,6 +24,7 @@ class App extends Component {
       <MuiThemeProvider theme={createMuiTheme(theme)}>
         <Switch>
           <Route exact path='/' component={Overview} />
+          <Route exact path='/about' component={About} />
           <Route exact path='/tags' component={Tags} />
           <Route exact path='/tags/:id' component={Tag} />
           <Route exact path='/profile/:address' component={Profile} />
