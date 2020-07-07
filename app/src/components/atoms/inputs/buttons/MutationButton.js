@@ -3,7 +3,6 @@ import Button from '@material-ui/core/Button'
 
 export default ({mutation, mutationVariables, handleResponse, label, disabled}) => {
   const {mutationTrigger, loading, response, error, requestFinished} = mutation()
-  console.log(`inside mut button finished ${requestFinished}\n${JSON.stringify(mutationVariables, null, 2)}`)
   useEffect(() => {
     if (requestFinished) {
       handleResponse(response, error)

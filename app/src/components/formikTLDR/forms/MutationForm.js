@@ -44,7 +44,6 @@ const getContent = (
   formOnSuccess,
   onSuccess
   ) => {
-    console.log(`get content in mutform ${JSON.stringify(state, null, 2)}`)
   if (state.response) {
     console.log(`mutations success ${onSuccess}`)
     onSuccess()
@@ -84,7 +83,6 @@ const MutationForm = ({
         const [state, setState] = useState({response: null, pending:null, errror: null})
         
         const handleResponse = onSubmit({setSubmitting, setState, resetForm})
-        console.log(`in sign up values ${JSON.stringify(values, null, 2)}\n${JSON.stringify(staticMutationVariables, null, 2)}`)
         const mutationVariables = {...values, ...staticMutationVariables}
 
         return getContent(
