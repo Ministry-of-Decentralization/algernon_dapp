@@ -8,8 +8,7 @@ export default (
   const {
     connectedAddress,
     user,
-    refetchUser,
-    stakeAddress
+    refetchUser
    } = props
 
    const userInfo = <UserInfo profile={user} />

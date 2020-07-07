@@ -61,6 +61,7 @@ allow users to stake tokens against content to help other users find quality con
 - Start the dynamo-db container
   - docker run -p 8002:8000 amazon/dynamodb-local
 
+
 - Start the server
   - cd server/ && yarn start
 

@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import web3 from 'web3'
 
 export const signUpSchema = {
   defaultValues: {

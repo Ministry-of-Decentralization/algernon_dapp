@@ -129,7 +129,7 @@ const MutationAndWeb3Form = ({
         const handleError = (error) => setState({...state, error})
 
         const setOpen = () => setState({...state, isOpen: true})
-        const resetAndSetOpen = () => setState({...initialFormState, isOpen: true})
+        // const resetAndSetOpen = () => setState({...initialFormState, isOpen: true})
 
         const cancelForm = () => {
           resetForm()

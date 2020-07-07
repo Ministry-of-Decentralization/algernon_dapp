@@ -19,7 +19,7 @@ export default (
           <p>{organization}</p>
           <h6>Bio</h6>
           <p>{description}</p>
-          <img src={profileImage} />
+          <img alt="profile" src={profileImage} />
         </div>
       )
     }

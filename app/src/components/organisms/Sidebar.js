@@ -1,18 +1,11 @@
 import React from 'react'
 import styled from  'styled-components'
 import { Link } from 'react-router-dom'
-import Button from '../atoms/inputs/buttons/Button'
 
 const MenuLink = ({url, label}) => (
   <LinkWrapper>
     <Link to={url}>{label}</Link>
   </LinkWrapper>
-)
-
-const ButtonLink = ({url, label}) => (
-  <Button>
-    <Link to={url}>{label}</Link>
-  </Button>
 )
 
 const links = [
