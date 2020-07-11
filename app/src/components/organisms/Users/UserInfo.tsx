@@ -1,9 +1,12 @@
 import React from 'react'
 import Badge from '../../molecules/user/Badge'
+import { User as UserType } from 'algernonTypes'
 
-
+interface Props {
+  profile: UserType
+}
 export default (
-  props
+  { profile }: Props
   ) => {
     const {
       stakeAddress, 
@@ -11,7 +14,7 @@ export default (
       organization,
       description,
       profileImage,
-     } = props.profile
+     } = profile
       return (
         <div>
           <Badge address={stakeAddress} username={username} />
@@ -19,9 +22,7 @@ export default (
           <p>{organization}</p>
           <h6>Bio</h6>
           <p>{description}</p>
-          <img alt="profile" src={profileImage} />
+          {profileImage ? <img alt="profile" src={profileImage} /> : null}
         </div>
       )
     }
-
-  
