@@ -70,7 +70,7 @@ allow users to stake tokens against content to help other users find quality con
   - cd app/ && yarn start
 
 ### Data Flow
-![Data Flow Diagram](https://github.com/Ministry-of-Decentralization/algernon_dapp/images/algernon_data_flow.png)
+![Data Flow Diagram](images/algernon_data_flow.png)
 
 # Known Issues
 
