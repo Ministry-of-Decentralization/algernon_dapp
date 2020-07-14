@@ -9,6 +9,7 @@ const BoxComponent = ({
   p = 1,
   m = 1,
   width = "100%",
+  style= {},
   children
 }) => {
   return (
@@ -21,6 +22,7 @@ const BoxComponent = ({
       p={p}
       m={m}
       width={width}
+      style={style}
     >
       {children}
     </Box>

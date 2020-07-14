@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
-import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 import TextFieldsIcon from '@material-ui/icons/TextFields';
 import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
@@ -50,7 +50,7 @@ const Sidebar = props => {
     },
     {
       title: 'Courses',
-      icon: <ShoppingBasketIcon />,
+      icon: <MenuBookIcon />,
       shouldRender: () => true,
       getHref: () => '/topics',
     },
@@ -67,38 +67,6 @@ const Sidebar = props => {
       getHref: () => '/users',
     }
   ];
-
-  const links = [
-    /*
-    {
-      shouldRender: (address) => !address,
-      comp: ButtonLink,
-      props: {
-        onClick: () => null
-      }
-    },
-    */
-    {
-      shouldRender: (address) => !!address,
-      url: (address) => `/profile/${address}`,
-      label: 'My Profile'
-    },
-    {
-      shouldRender: () => true,
-      url: () => '/topics',
-      label: 'All Courses'
-    },
-    {
-      shouldRender: () => true,
-      url: () => '/tags',
-      label: 'Tags'
-    },
-    {
-      shouldRender: () => true,
-      url: () => '/users',
-      label: 'Users'
-    }
-  ]
 
   const showPages = pages.filter(page => page.shouldRender(selectedAddress))
     .map(page => ({
