@@ -14,11 +14,12 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles(theme => ({
-  root: {flex: '0 45%'},
+  root: {flex: '0 40%'},
   imageContainer: {
     height: 64,
     width: 64,
-    margin: '0 auto',
+    margin: '2em 0',
+    marginBottom: '1em',
     border: `1px solid ${theme.palette.divider}`,
     borderRadius: '5px',
     overflow: 'hidden',
