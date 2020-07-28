@@ -30,7 +30,7 @@ const getLatestDeployment = (deployments: any) => {
 // const wsProvider = new WebsocketProvider(schainEndpoint);
 
 
-const fm = new Fortmatic(process.env.REACT_APP_FORTMATIC_API_KEY!, {rpcUrl: chainEndpoint!, chainId: 1337});
+export const fm = new Fortmatic(process.env.REACT_APP_FORTMATIC_API_KEY!, {rpcUrl: chainEndpoint!, chainId: 1337});
 
 const httppProvider = new HttpProvider(chainEndpoint!)
 

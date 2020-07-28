@@ -10,6 +10,7 @@ import { getTags } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 import Box from '../atoms/Box'
+import Box3 from '../organisms/Users/3Box' 
 
 
 export default (props) => {
@@ -22,7 +23,8 @@ export default (props) => {
   const connectedAddress = useGetAccount()
 
 
-  const main = !userLoading && user ? 
+  const main = !userLoading && user ?
+  <div>
     <ProfileMain
       user={user}
       userLoading={userLoading}
@@ -32,6 +34,8 @@ export default (props) => {
       topics={topics}
       refetchTopics={refetchTopics}
       refetchUser={refetchUser} />
+      <Box3 address={address} />
+  </div>
       :
       <Box>No registered user for this address</Box>
   return (
