@@ -9,7 +9,6 @@ import ErrorMessage from './ErrorMessage';
 
 const SelectUI = (props) => {
   const [field, meta] = useField(props);
-  console.log('field in select ', field.onChange)
   const isError = meta.touched && !!meta.error
   const selectOptions = props.optionItems || 
     props.options.map(

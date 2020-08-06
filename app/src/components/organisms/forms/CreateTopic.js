@@ -3,6 +3,7 @@ import { Form } from 'formik'
 import { createTopicSchema } from '../../../schemas/topic'
 import { algernonContract } from '../../../utils/web3'
 import Select from '../../atoms/inputs/Select'
+import AutoComplete from '../../atoms/inputs/AutoComplete'
 import Text from '../../atoms/inputs/Text'
 import RichText from '../../atoms/inputs/RichText'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
@@ -10,7 +11,7 @@ import Button from '../../atoms/inputs/buttons/MutationButton'
 import { addFile } from '../../../queries/fileStorage'
 import { formatAddFileVariables } from '../../formikTLDR/forms/common'
 import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
-
+import { theGraphClient } from '../../../utils/apolloClient'
 
 
 const Success = ({title}) => (
@@ -49,41 +50,47 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
     <Text
       label="Title"
       name="title"
-      type="string" 
+      type="string"
+      fullWidth={true} 
     />
     <Text
       label="Url"
       name="url"
-      type="url" 
+      type="url"
+      fullWidth={true} 
     />
     <Text
       label="Description"
       name="description"
-      type="string" 
+      type="string"
+      fullWidth={true} 
     />
     <RichText
       label="Notes"
       name="notes"
     />
+    <div>
+      <Select
+        label="Requires Courses"
+        name="requires"
+        options={topicOptions}
+        multiple={true}
+      />
+    </div>
+    <div>
+      <Select
+        label="Supports Course"
+        name="supports"
+        options={topicOptions}
+        multiple={true}
+      />
+    </div>
     <Select
       label="Tags"
       name="tags"
       options={tagOptions}
       multiple={true}
-    />
-    <div>
-    <Select
-      label="Requires Courses"
-      name="requires"
-      options={topicOptions}
-      multiple={true}
-    />
-    </div>
-    <Select
-      label="Supports Course"
-      name="supports"
-      options={topicOptions}
-      multiple={true}
+      fullWidth={true} 
     />
     <div>
       <TriggerButton
@@ -99,6 +106,7 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         label='Create Course'
       />
     </div>
+    <AutoComplete client={theGraphClient} />
   </Form>
 )
 
