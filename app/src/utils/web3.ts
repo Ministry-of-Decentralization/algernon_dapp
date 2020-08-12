@@ -40,10 +40,9 @@ export const ipfs = initIpfs(ipfsEndpoint)
 
 
 const getWeb3 = () => {
-  if (window.ethereum) {
+  if (true){//window.ethereum) {
     // @ts-ignore
     const web3 = new Web3(fm.getProvider())//window.ethereum)
-    console.log(`returning web3 from window.ethereum ${JSON.stringify(web3.currentProvider, null, 2)}`)
     return web3
     try {
       // Request account access if needed

@@ -12,8 +12,6 @@ export default () => {
   const selectedAddress = useGetAccount()
   const {loading, topics} = getTopics(theGraphClient, 0, 100)
 
-  console.log(`topics page topics ${JSON.stringify(topics, null, 2)} -- ${loading}`)
-
   const main = loading ? loading : <TopicList topics={topics!} />
   return (
     <MainLayout

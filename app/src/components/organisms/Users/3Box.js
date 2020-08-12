@@ -5,7 +5,7 @@ import Button from '../../atoms/inputs/buttons/Button'
 import Text from '@material-ui/core/TextField'
 import { Box } from '@material-ui/core'
 
-const updateProfile = async (openBox, field, value = 'cirsteve') => {
+const updateProfile = async (openBox, field, value = 'carl') => {
   console.log(`update  profile ${field} -- ${value}`)
   const profileUpdate = await openBox.public.set(field, value)
   console.log(`updated profile ${profileUpdate}`)
@@ -35,9 +35,9 @@ export default ({address}) => {
   const [box, setBox] = useState({})
   
   const getProfile = async (address) => {
-    console.log(`profile for address ${address}\n${profile}`)
+    console.log(`getting profile for address ${address}`)
     const profile = await Box3.getProfile(address)
-    console.log(`profile for address ${address}\n${Object.keys(profile)}`)
+    console.log(`profile for address ${address}\n<><> ${JSON.stringify(profile, null, 2)} <><>`)
     const verifiedAccounts = await Box3.getVerifiedAccounts(profile)
     console.log(`verified accounts\n${Object.keys(verifiedAccounts)}`)
 
@@ -57,15 +57,21 @@ export default ({address}) => {
   }
   
   const connectTo3Box = async () => {
-    const openBox = await Box3.openBox(address, fm.getProvider())
+    const provider = fm.getProvider()
+    try {
+    const openBox = await Box3.openBox(address, provider)
     console.log(`opened 3box`)
-    await openBox.syncDone
+    
+     await openBox.syncDone
     console.log(`synceded 3box ${Object.keys(openBox)}`)
     const space = await openSpace(openBox, 'algernon')
     const profile = await openBox.public.all()
     const learning = await space.public.all()
     console.log(`all ${Object.keys(profile)} -- ${profile.name} - ${learning.currentlyLearning}`)
     setBox({...box, openBox, profile})
+  } catch (e) {
+    console.log(`error opening box ${e.message}`)
+  }
   }
 
   useEffect(() => {
