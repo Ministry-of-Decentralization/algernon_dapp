@@ -1,7 +1,7 @@
 import React from 'react'
 import MainLayout from '../layouts/MainLayout'
-import Header from '../organisms/Header'
-import Sidebar from '../organisms/Sidebar'
+import Header from '../materialDashboard/layouts/Topbar'
+import Sidebar from '../materialDashboard/layouts/Sidebar'
 import useGetAccount from '../hooks/useGetAccount'
 import { getTag } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
@@ -22,6 +22,7 @@ export default ({match: { params: id}}) => {
   return (
     <MainLayout
       header={<Header />}
+      // @ts-ignore
       sidebar={<Sidebar selectedAddress={selectedAddress} />}
       main={main}
     />

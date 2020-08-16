@@ -50,8 +50,6 @@ const MetaAndForm = ({formProps, defaultContent}: MetaAndFormProps) => {
     </Flex>
   )
 
-  console.log(`default content meta forms ${{}.toString.call(defaultContent)}`)
-
   const Default: React.FC = () => (
     <Flex flexDirection="column">
       <Flex>
