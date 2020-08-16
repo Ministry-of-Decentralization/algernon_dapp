@@ -143,6 +143,8 @@ export const GET_TOPIC = gql`
       requires {
         id
         title
+        url
+        description
         owner {
           id
           address
@@ -151,6 +153,8 @@ export const GET_TOPIC = gql`
       supports {
         id
         title
+        url
+        description
         owner {
           id
           address

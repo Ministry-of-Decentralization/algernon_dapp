@@ -75,6 +75,7 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         name="requires"
         options={topicOptions}
         multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
       />
     </div>
     <div>
@@ -83,15 +84,18 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         name="supports"
         options={topicOptions}
         multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
       />
     </div>
-    <Select
-      label="Tags"
-      name="tags"
-      options={tagOptions}
-      multiple={true}
-      fullWidth={true} 
-    />
+    <div>
+      <Select
+        label="Tags"
+        name="tags"
+        options={tagOptions}
+        multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
+      />
+    </div>
     <div>
       <TriggerButton
         onClick={cancelForm}
@@ -106,7 +110,7 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         label='Create Course'
       />
     </div>
-    <AutoComplete client={theGraphClient} />
+    
   </Form>
 )
 

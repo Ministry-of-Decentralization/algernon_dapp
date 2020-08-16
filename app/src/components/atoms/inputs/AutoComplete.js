@@ -6,8 +6,6 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import parse from 'autosuggest-highlight/parse';
-import throttle from 'lodash/throttle';
 import { getFilteredTags } from '../../../queries/tag'
 import useAccumulatedList from '../../hooks/useAccumulatedList';
 
@@ -29,13 +27,16 @@ export default function AutoComplete(props) {
 
   const fetchList = (input) => getFilteredTags(props.client, input)
   const [loadingOptions, options, updateFilter] = useAccumulatedList(fetchList);
+  console.log(`inside autocomplete ${JSON.stringify(field, null,2)}`)
+  console.log(`inside autocomplete meta ${meta.value}`)
+
 
   return (
     <Autocomplete
       {...field}
       {...props}
       style={{ width: 300 }}
-      getOptionLabel={props.getOptionLabel}// (option) => (typeof option === 'string' ? option : option.description)}
+      getOptionLabel={(option) => typeof option === 'string' ? option : option.label || 'missigg'}
       filterOptions={(x) => x}
       options={options}
       autoComplete
@@ -43,8 +44,8 @@ export default function AutoComplete(props) {
       filterSelectedOptions
       value={value}
       onChange={(event, newValue) => {
-        console.log(`autocomplete onchange: ${JSON.stringify(newValue)}`)
-        setValue(newValue);
+        console.log(`autocomplete onchange: ${event.target.value}`)
+        field.onChange(event);
       }}
       onInputChange={(event, newInputValue) => {
         console.log(`autocomplete oninputchange: ${newInputValue}`)

@@ -9,7 +9,6 @@ import ErrorMessage from './ErrorMessage';
 
 const SelectUI = (props) => {
   const [field, meta] = useField(props);
-  console.log('field in select ', field.onChange)
   const isError = meta.touched && !!meta.error
   const selectOptions = props.optionItems || 
     props.options.map(
@@ -17,7 +16,7 @@ const SelectUI = (props) => {
     )
 
   return (
-    <FormControl className={props.classes.formControl}>
+    <FormControl style={props.style}>
       <InputLabel>{props.label}</InputLabel>
       <Select
         {...field}
