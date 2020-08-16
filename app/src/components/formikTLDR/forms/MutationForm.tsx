@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Formik } from 'formik'
+import { MutationFormProps } from '../types'
 
 const onSubmit = ({setSubmitting, setState, resetForm })  => (response, error) => {
   console.log(`got update user pro response ${JSON.stringify(response)}`)
@@ -62,42 +63,36 @@ const getContent = (
   return getForm(mutationVariables, isValid, handleResponse)
 }
 
-const MutationForm = ({
-  defaultValues,
-  schema,
-  getForm,
-  staticMutationVariables,
-  successEl,
-  pendingEl,
-  errorEl,
-  formOnSuccess,
-  onSuccess = () => {}
-}) => {
+const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: MutationFormProps}) => {
+  {
+    const {values, setSubmitting, resetForm, isValid} = formikProps
+    const [state, setState] = useState({response: null, pending:null, errror: null})
+    
+    const handleResponse = onSubmit({setSubmitting, setState, resetForm})
+    const mutationVariables = {...values, ...formProps.staticMutationVariables}
+
+    return getContent(
+      formProps.getForm,
+      state,
+      mutationVariables,
+      handleResponse,
+      isValid,
+      formProps.stateEls.successEl,
+      formProps.stateEls.pendingEl,
+      formProps.stateEls.errorEl,
+      formProps.formOnSuccess,
+      formProps.onSuccess
+      ) 
+  }}
+}
+
+const MutationForm = (formProps: MutationFormProps) => {
   return (
     <Formik
-      initialValues={defaultValues}
-      validationSchema={schema}
+      initialValues={formProps.defaultValues}
+      validationSchema={formProps.schema}
     >
-      {(props) => {
-        const {values, setSubmitting, resetForm, isValid} = props
-        const [state, setState] = useState({response: null, pending:null, errror: null})
-        
-        const handleResponse = onSubmit({setSubmitting, setState, resetForm})
-        const mutationVariables = {...values, ...staticMutationVariables}
-
-        return getContent(
-          getForm,
-          state,
-          mutationVariables,
-          handleResponse,
-          isValid,
-          successEl,
-          pendingEl,
-          errorEl,
-          formOnSuccess,
-          onSuccess
-          ) 
-      }}
+      {(props) => <InnerForm formikProps={props} formProps={formProps} />}
     </Formik>
   );
 };
