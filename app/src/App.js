@@ -14,7 +14,7 @@ import About from './components/pages/About'
 
 
 import "./App.css";
-import theme from './theme.js'
+import theme from './theme';
 // import drizzleOptions from "./drizzleOptions";
 // import MyContainer from "./MyContainer";
 

@@ -1,5 +1,5 @@
-import { gql, ApolloClient } from 'apollo-boost';
-import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import { useQuery, useLazyQuery } from '@apollo/react-hooks';
 import { Tag as TagType } from 'theGraphTypes';
 
 interface TagQueryVars {
@@ -7,6 +7,11 @@ interface TagQueryVars {
   first?: number,
   ids?: string[],
   id?: string
+}
+
+interface TagFilteredQueryVars {
+  tag_contains: string,
+  first: number
 }
 
 interface GetTagsData {
@@ -82,4 +87,25 @@ export const getTag = (client: any, id: string) => {
     error,
     tag: data ? data.tag : null
   } 
+}
+
+export const GET_FILTERED_TAGS = gql`
+  query tags($tag_contains: String!, $first: Int!){
+    tags(where: {tag_contains: $tag_contains}, first: $first) {
+      id
+      tag
+      topics {
+        id
+      }
+    }
+}
+`;
+
+export const getFilteredTags = (client: any, tag_contains: string) => {
+  const limit = 50
+  return client.query(
+    {
+      query: GET_FILTERED_TAGS,
+      variables: {tag_contains, first: limit}
+    });
 }

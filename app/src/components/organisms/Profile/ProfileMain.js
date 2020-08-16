@@ -20,7 +20,15 @@ const Profile = ({address, connectedAddress, tagOptions, topics, refetchTopics, 
 
   return (
     <div>
-      {!userLoading ? <ProfileInfo connectedAddress={connectedAddress} user={user} refetchUser={refetchUser} unlockedContract={unlockedContract} /> : 'Loading...'}
+      {!userLoading ? 
+        <ProfileInfo
+          connectedAddress={connectedAddress}
+          user={user}
+          refetchUser={refetchUser}
+          unlockedContract={unlockedContract} />
+        :
+        'Loading...'
+      }
       {create}
       <h3>Courses</h3>
       { topics != null ? <TopicList topics={topics} /> : 'loading'}

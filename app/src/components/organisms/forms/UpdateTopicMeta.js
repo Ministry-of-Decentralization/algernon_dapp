@@ -49,38 +49,57 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
     <Text
       label="Title"
       name="title"
-      type="string" 
+      type="string"
+      fullWidth={true} 
     />
     <Text
       label="Url"
       name="url"
-      type="url" 
+      type="url"
+      fullWidth={true} 
     />
     <Text
       label="Description"
       name="description"
-      type="string" 
-    />
-    <Select
-      label="Tags"
-      name="tags"
-      options={tagOptions}
-      multiple={true}
+      type="string"
+      fullWidth={true}
     />
     <div>
-    <Select
-      label="Requires Courses"
-      name="requires"
-      options={topicOptions}
-      multiple={true}
-    />
+      <Select
+        label="Tags"
+        name="tags"
+        options={tagOptions}
+        multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
+      />
     </div>
-    <Select
-      label="Support Courses"
-      name="supports"
-      options={topicOptions}
-      multiple={true}
-    />
+    <div>
+      <Select
+        label="Requires Courses"
+        name="requires"
+        options={topicOptions}
+        multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
+      />
+    </div>
+    <div>
+      <Select
+        label="Supports Course"
+        name="supports"
+        options={topicOptions}
+        multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
+      />
+    </div>
+    <div>
+      <Select
+        label="Tags"
+        name="tags"
+        options={tagOptions}
+        multiple={true}
+        style={{width: '60%', marginBottom: '1.5em'}}
+      />
+    </div>
     <div>
       <TriggerButton
         onClick={cancelForm}

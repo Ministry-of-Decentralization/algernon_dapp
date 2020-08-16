@@ -42,7 +42,6 @@ const TopicMetaForm = ({formProps, defaultContent}: NotesAndFormProps) => {
       {form}
     </Flex>
   )
-  console.log(`default content notes forms ${{}.toString.call(defaultContent)}`)
 
   const Default: React.FC = () => (
     <Flex flexDirection="column">

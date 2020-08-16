@@ -1,7 +1,7 @@
 import React from 'react'
 import MainLayout from '../layouts/MainLayout'
-import Header from '../organisms/Header'
-import Sidebar from '../organisms/Sidebar'
+import Header from '../materialDashboard/layouts/Topbar'
+import Sidebar from '../materialDashboard/layouts/Sidebar'
 import TopicList from '../organisms/Topics/TopicList'
 import useGetAccount from '../hooks/useGetAccount'
 import { getTopics } from '../../queries/topic'
@@ -18,6 +18,7 @@ export default () => {
   return (
     <MainLayout
       header={<Header />}
+      // @ts-ignore
       sidebar={<Sidebar selectedAddress={selectedAddress} />}
       main={main}
     />

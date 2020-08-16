@@ -23,12 +23,27 @@ type TopicDetailProps = {
   refetchTopic: any
 }
 
+const RelatedCourse = (props:any) => {
+  const topic = props.topic
+  const style = {
+    border: '1px solid  black'
+  }
+  return (
+    <Paper>
+      <Link to={`/topic/${topic.id}`} element={<div>{topic.title}</div>} />
+      <a target="blank" href={'//'+topic.url}>{topic.url}</a>
+      <p>{topic.description}</p>
+    </Paper>
+  )
+}
+
 export default (props: TopicDetailProps): React.ReactNode => {
   const { connectedAddress, topic, topicOptions, tagOptions, refetchTopic } = props
   const { title, url, description, owner, notes, requires, supports, tags, createdAt, updatedAt } = topic
+  const containerStyle = { margin:"2em", padding: "2em" }
 
   const Notes: React.FC = () => (
-    <Flex flexDirection="column">
+    <Flex flexDirection="column" style={{ margin:"1em", padding: "1em" }}>
       <h3>Curriculum</h3>
       <Paper>
         <RichText value={notes} />
@@ -37,7 +52,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
   )
 
   const MetaDetails: React.FC = () => (
-    <Paper style={{marginBottom:"2em"}}>
+    <Paper style={containerStyle}>
       <Flex flexDirection="column">
         <h1>{title}</h1>
         <Box>
@@ -57,11 +72,12 @@ export default (props: TopicDetailProps): React.ReactNode => {
         </Box>
         
         <Flex justifyContent="space-around">
-          <Flex flexDirection="column">
-            <h3>Requires Courses</h3> {requires.length ? requires.map(topic => <Link id={topic.id} to={`/topic/${topic.id}`} element={<div>{topic.title}</div>} />) : '-'}
+          <Flex flexDirection="column" style={{width: '50%'}}>
+            <h3>Requires Courses</h3>
+            {requires.length ? requires.map(topic => <RelatedCourse id={topic.id} topic={topic} />) : '-'}
           </Flex>
           <Flex flexDirection="column">
-            <h3>Supports Courses</h3> {supports.length ? supports.map(topic => <Link id={topic.id} to={`/topic/${topic.id}`}  element={<div>{topic.title}</div>} />) : '-'}
+            <h3>Supports Courses</h3> {supports.length ? supports.map(topic => <RelatedCourse id={topic.id} topic={topic}  />) : '-'}
           </Flex>
         </Flex>
       </Flex>

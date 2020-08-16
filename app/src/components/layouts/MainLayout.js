@@ -8,10 +8,10 @@ export default ({ header, sidebar, main }) =>
       <Box justifyContent="center">{header}</Box>
     </Flex>
     <div style={{ display: 'flex', direction: 'row', marginTop: '1em' }}>
-      <div style={{ width: '15%' }}>
+      <div style={{ width: '15%', backgroundColor: '#edf1f5' }}>
         {sidebar}
       </div>
-      <div style={{ width: '80%', paddingLeft: '2.5%' }}>
+      <div style={{ width: '80%', paddingLeft: '2.5%', marginTop: '1.5em' }}>
         {main}
       </div>
     </div>

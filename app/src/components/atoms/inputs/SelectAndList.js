@@ -16,7 +16,7 @@ const SelectUI = (props) => {
     )
 
   return (
-    <FormControl style={props.style}>
+    <FormControl className={props.classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
       <Select
         {...field}
