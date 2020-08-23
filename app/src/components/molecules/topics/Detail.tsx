@@ -25,9 +25,7 @@ type TopicDetailProps = {
 
 const RelatedCourse = (props:any) => {
   const topic = props.topic
-  const style = {
-    border: '1px solid  black'
-  }
+
   return (
     <Paper>
       <Link to={`/topic/${topic.id}`} element={<div>{topic.title}</div>} />

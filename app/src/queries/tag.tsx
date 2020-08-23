@@ -34,7 +34,7 @@ export const GET_TAGS = gql`
 }
 `;
 
-export const getTags = (client: any, skip: number, first: number) => {
+export const useGetTags = (client: any, skip: number, first: number) => {
   const {loading, error, data} =  useQuery<GetTagsData, TagQueryVars>(
     GET_TAGS,
     {
@@ -74,7 +74,7 @@ export const GET_TAG = gql`
 }
 `;
 
-export const getTag = (client: any, id: string) => {
+export const useGetTag = (client: any, id: string) => {
   const {loading, error, data} = useQuery<GetTagData, TagQueryVars>(
     GET_TAG,
     {

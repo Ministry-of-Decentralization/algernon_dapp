@@ -8,8 +8,8 @@ import Text from '../../atoms/inputs/Text'
 import RichText from '../../atoms/inputs/RichText'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
 import Button from '../../atoms/inputs/buttons/MutationButton'
-import { addFile } from '../../../queries/fileStorage'
-import { formatAddFileVariables } from '../../formikTLDR/forms/common'
+import { useAddFile } from '../../../queries/fileStorage'
+import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
 import { theGraphClient } from '../../../utils/apolloClient'
 
@@ -119,27 +119,34 @@ const getMethodArgs = () => (values) => (mutationResponse) => {
   return [values.tags, mutationResponse]
 }
 
-const CreateTopicForm = ({ connectedAddress, tagOptions, topicOptions, refetchTopics }) => (
-  <MutationAndWeb3Form
-    defaultValues={createTopicSchema.defaultValues}
-    schema={createTopicSchema.schema}
-    connectedAddress={connectedAddress}
-    getForm={getForm(addFile, tagOptions, topicOptions)}
-    getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields)}
-    contractMethod={algernonContract.methods.createTopic}
-    getMethodArgs={getMethodArgs()}
-    successEl={Success}
-    pendingOnChainEl={PendingOnChain}
-    pendingOffChainEl={PendingOffChain}
-    signatureRequiredEl={SignatureRequired}
-    errorEl={FormError}
-    onSuccess={() => setTimeout(refetchTopics, 1000)}
-    formOnSuccess={true}
-    triggerEl={<TriggerButton
+const CreateTopicForm = ({ connectedAddress, tagOptions, topicOptions, refetchTopics }) => {
+  const formProps = {
+    connectedAddress,
+    defaultValues: createTopicSchema.defaultValues,
+    schema:createTopicSchema.schema,
+    getForm: getForm(useAddFile, tagOptions, topicOptions),
+    getMutationVariables: formatAddFileVariables(createTopicSchema.contentFields),
+    contractMethod: algernonContract.methods.createTopic,
+    getMethodArgs: getMethodArgs(),
+    stateEls: {
+      successEl: Success,
+      pendingOnChainEl: PendingOnChain,
+      pendingOffChainEl: PendingOffChain,
+      signatureRequiredEl: SignatureRequired,
+      errorEl: FormError
+    },
+    onSuccess: () => setTimeout(refetchTopics, 1000),
+    formOnSuccess: true,
+    triggerEl: <TriggerButton
       label="Create Course"
       color="secondary"
-    />}
-  />
-)
+    />
+  }
+  return (
+    <MutationAndWeb3Form
+    formProps={formProps}
+    />
+  )
+}
 
 export default CreateTopicForm

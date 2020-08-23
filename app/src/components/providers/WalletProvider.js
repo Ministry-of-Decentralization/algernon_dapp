@@ -1,9 +1,5 @@
 import React, { createContext, useReducer, useMemo } from 'react'
-
-const WALLET_TYPES = {
-  METAMASK: 'METAMASK',
-  FORTMATIC: 'FORTMATIC'
-}
+import wallets from '../../utils/wallets'
 
 const UPDATE_TYPES = {
   SET_WALLET_TYPE: 'SET_WALLET_TYPE',
@@ -17,15 +13,11 @@ const initialState = {
 
 const reducer = (state, action) => {
   switch(action.type) {
-    case UPDATE_TYPES.SET_WALLET_TYPE:
-      return {
-        ...state,
-        walletType: action.payload.walletType
-      }
     case UPDATE_TYPES.SET_WALLET:
       return {
         ...state,
-        wallet: action.payload.wallet
+        walletType: action.payload.walletType,
+        wallet: wallets[action.payload.walletType].connectWallet()
       }
     default:
       return state
@@ -40,8 +32,7 @@ export default ({children}) => {
   const contextValue = useMemo(() => {
     return {
       wallet: state,
-      setWalletType: (walletType) => dispatch({type: UPDATE_TYPES.SET_WALLET_TYPE, payload: {walletType}}),
-      setWallet: (wallet) => dispatch({type: UPDATE_TYPES.SET_WALLET, payload: {wallet}})
+      setWallet: (walletType) => dispatch({type: UPDATE_TYPES.SET_WALLET, payload: {walletType}}),
     };
   }, [state, dispatch]);
 

@@ -71,15 +71,16 @@ const getWeb3 = () => {
 
 
 export const windowWeb3 = window.web3
-export const web3 = getWeb3()
+// export const web3 = getWeb3()
 
+/*
 const getChainId = async () => {
   const id = await web3.eth.getChainId()
   console.log(`chain id ${id}`)
 }
 
 getChainId()
-
+*/
 export const ethersProvider = new ethers.providers.JsonRpcProvider(chainEndpoint!)
 
 const getChainCode = async () => {
@@ -120,7 +121,9 @@ export const ethersAlgernon = new ethers.Contract(
 
 const algerTokenAddress = AlgerTokenArtifact.networks[networkId].address;
 
+/*
 export const algerTokenContract = new AlgerToken(
   web3, 
   algerTokenAddress
 )
+*/

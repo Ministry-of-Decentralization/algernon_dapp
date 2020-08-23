@@ -43,7 +43,7 @@ export const GET_TOPICS = gql`
 }
 `;
 
-export const getTopics = (client: any, skip: number, first: number) => {
+export const useGetTopics = (client: any, skip: number, first: number) => {
   const {loading, error, data} =  useQuery<GetTopicsData, TopicListQueryVars>(GET_TOPICS, {client, variables: {skip, first}});
 
   return {
@@ -73,7 +73,7 @@ export const GET_TOPICS_BY_ID = gql`
 }
 `;
 
-export const getTopicsById = (client: any, skip: number, first: number, ids: string[]) => {
+export const useGetTopicsById = (client: any, skip: number, first: number, ids: string[]) => {
   const {loading, error, data, refetch} =  useQuery<GetTopicsData, TopicListQueryVars>(GET_TOPICS_BY_ID, {client, variables: {skip, first, ids}});
 
   return {
@@ -101,7 +101,7 @@ export const GET_TOPICS_FOR_OWNER = gql`
 }
 `
 
-export const getTopicsForOwner = (client: any, skip: number, first: number, owner: string) => {
+export const useGetTopicsForOwner = (client: any, skip: number, first: number, owner: string) => {
   const checksummedAddress = web3.utils.toHex(owner)
   const {loading, error, data, refetch} =  useQuery<GetTopicsData, TopicListQueryVars>(
     GET_TOPICS_FOR_OWNER,
@@ -164,7 +164,7 @@ export const GET_TOPIC = gql`
 }
 `;
 
-export const getTopic = (client: any, id: string) => {
+export const useGetTopic = (client: any, id: string) => {
   const {loading, error, data, refetch} = useQuery<GetTopicData, TopicItemQueryVars>(
     GET_TOPIC,
     {client,

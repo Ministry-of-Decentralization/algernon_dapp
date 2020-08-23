@@ -44,7 +44,7 @@ export const GET_USERS = gql`
   }
 `;
 
-export const getUsers = () => {
+export const useGetUsers = () => {
   const {loading, error, data} = useQuery<GetUsersData, {}>(GET_USERS);
   return {
     loading,
@@ -68,7 +68,7 @@ const GET_USER = gql`
   }
 `;
 
-export const getUser = (stakeAddress: string) => {
+export const useGetUser = (stakeAddress: string) => {
   const response = useQuery<GetUserData, UserItemQueryVars>(
     GET_USER,
     {
@@ -92,7 +92,7 @@ export const CREATE_USER = gql`
   }
 `
 
-export const createUser = () => {
+export const useCreateUser = () => {
   const [mutationTrigger, { loading, error, data } ] = useMutation<CreateUserData, MutationCreateUserArgs>(
     CREATE_USER
     );
@@ -119,7 +119,7 @@ export const UPDATE_USER_PROFILE = gql`
   }
 `
 
-export const updateUserProfile = () => {
+export const useUpdateUserProfile = () => {
   const [mutationTrigger, { loading, error, data } ] = useMutation<UpdateUserData, MutationUpdateUserProfileArgs>(
     UPDATE_USER_PROFILE,
     {

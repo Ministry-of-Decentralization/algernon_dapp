@@ -4,9 +4,9 @@ import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
 import ProfileMain from '../organisms/Profile/ProfileMain'
 import useGetAccount from '../hooks/useGetAccount'
-import { getUser } from '../../queries/user';
-import { getTopicsForOwner } from '../../queries/topic'
-import { getTags } from '../../queries/tag'
+import { useGetUser } from '../../queries/user';
+import { useGetTopicsForOwner } from '../../queries/topic'
+import { useGetTags } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 import Box from '../atoms/Box'
@@ -15,11 +15,11 @@ import Box3 from '../organisms/Users/3Box'
 
 export default (props) => {
   const address = props.match.params.address
-  const { topics, refetch: refetchTopics } = getTopicsForOwner(theGraphClient, 0, 100, address)
-  const { tags } = getTags(theGraphClient, 0, 100)
+  const { topics, refetch: refetchTopics } = useGetTopicsForOwner(theGraphClient, 0, 100, address)
+  const { tags } = useGetTags(theGraphClient, 0, 100)
   const tagOptions = tagsToOptions(tags || [])
 
-  const { user, loading : userLoading, refetch: refetchUser } = getUser(address);
+  const { user, loading : userLoading, refetch: refetchUser } = useGetUser(address);
   const connectedAddress = useGetAccount()
 
 

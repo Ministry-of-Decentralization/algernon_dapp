@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { signUpSchema } from '../../../schemas/user'
 import Text from '../../atoms/inputs/Text'
 import Button from '../../atoms/inputs/buttons/MutationButton'
-import { createUser } from '../../../queries/user'
+import { useCreateUser } from '../../../queries/user'
 import MutationForm from '../../formikTLDR/forms/MutationForm'
 
 
@@ -21,7 +21,7 @@ const getForm = (connectedAddres) => (mutationVariables, isValid, handleResponse
     <Text label="User Name" name="username" type="string" />
     <Text label="Password" name="password" type="password" />
     <Button
-      mutation={createUser}
+      mutation={useCreateUser}
       mutationVariables={{input:mutationVariables}}
       handleResponse={handleResponse}
       disabled={!isValid}

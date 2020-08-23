@@ -3,7 +3,7 @@ import { Form } from 'formik'
 import { profileSchema } from '../../../schemas/user'
 import Text from '../../atoms/inputs/Text'
 import Button from '../../atoms/inputs/buttons/MutationButton'
-import { updateUserProfile } from '../../../queries/user'
+import { useUpdateUserProfile } from '../../../queries/user'
 import MutationForm from '../../formikTLDR/forms/MutationForm'
 
 
@@ -27,7 +27,7 @@ const getForm = () => (mutationVariables, isValid, handleResponse) => (
       cols={30}
     />
     <Button
-      mutation={updateUserProfile}
+      mutation={useUpdateUserProfile}
       mutationVariables={{update:mutationVariables}}
       handleResponse={handleResponse}
       disabled={!isValid}

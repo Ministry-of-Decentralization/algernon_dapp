@@ -7,8 +7,8 @@ import Select from '../../atoms/inputs/Select'
 import Text from '../../atoms/inputs/Text'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
 import Button from '../../atoms/inputs/buttons/MutationButton'
-import { addFile } from '../../../queries/fileStorage'
-import { formatAddFileVariables } from '../../formikTLDR/forms/common'
+import { useAddFile } from '../../../queries/fileStorage'
+import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
 
 
@@ -125,7 +125,7 @@ const UpdateTopicMetaForm = ({ connectedAddress, tagOptions, topicOptions, topic
     defaultValues={{...topic, tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)}}
     schema={updateTopicMetaSchema.schema}
     connectedAddress={connectedAddress}
-    getForm={getForm(addFile, tagOptions, topicOptions)}
+    getForm={getForm(useAddFile, tagOptions, topicOptions)}
     getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields, {notes: topic.notes})}
     contractMethod={algernonContract.methods.updateTopic}
     getMethodArgs={getMethodArgs(topic.id)}

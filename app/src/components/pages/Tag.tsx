@@ -3,7 +3,7 @@ import MainLayout from '../layouts/MainLayout'
 import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
 import useGetAccount from '../hooks/useGetAccount'
-import { getTag } from '../../queries/tag'
+import { useGetTag } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import TagDetail from '../organisms/Tags/TagDetail'
 import Box from '../atoms/Box'
@@ -11,7 +11,7 @@ import Box from '../atoms/Box'
 // @ts-ignore
 export default ({match: { params: id}}) => {
   const selectedAddress = useGetAccount()
-  const {loading, tag} = getTag(theGraphClient, id.id)
+  const {loading, tag} = useGetTag(theGraphClient, id.id)
   const main = loading ?
     'loading'
     :

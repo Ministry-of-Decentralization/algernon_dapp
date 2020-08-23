@@ -1,18 +1,9 @@
-import React, {useState, useEffect, useMemo} from 'react'
+import React, {useState, useMemo} from 'react'
 import throttle from 'lodash/throttle';
 
 
 export default (fetchList) => {
   const [state, setState] = useState({list: [], loading: false, input: ''})
-
-  const onCompleted = (response) => {
-    console.log(`onCompleted ${response}`)
-    setState({
-      ...state,
-      list: [...state.list, ...response.tags],
-      loading: false
-    })
-  }
 
   const fetch = useMemo(
     () =>
@@ -20,7 +11,7 @@ export default (fetchList) => {
         setState({...state, loadging: true})
         console.log(`getting list ${input}`)
         const response = await fetchList(input);
-        setState({...state, loadging: false, list: [...state.list, ...response.data.tags]})
+        setState({...state, loading: false, list: [...state.list, ...response.data.tags]})
       }, 200),
     [],
   );

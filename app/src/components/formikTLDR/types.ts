@@ -1,9 +1,16 @@
-import { any } from "prop-types";
+export interface FormStateEls {
+  successEl?: any;
+  pendingEl?: any;
+  errorEl?: any;
+}
 
-interface FormStateEls {
-  successEl?: JSX.Element;
-  pendingEl?: JSX.Element;
-  errorEl?: JSX.Element;
+export interface BasicFormProps {
+  defaultValues: any;
+  schema: any;
+  getForm: any;
+  stateEls: FormStateEls;
+  submit: any;
+  getSubmitArgs: any;
 }
 
 export interface MutationFormProps {
@@ -29,12 +36,12 @@ export interface Web3FormProps {
   formOnSuccess: boolean;
 }
 
-interface MutationAndWeb3FormStateEls {
-  successEl?: JSX.Element;
-  pendingOnChainEl?: JSX.Element;
-  pendingOffChainEl?: JSX.Element;
-  signatureRequiredEl?: JSX.Element;
-  errorE?: JSX.Element;
+export interface MutationAndWeb3FormStateEls {
+  successEl?: any;
+  pendingOnChainEl?: any;
+  pendingOffChainEl?: any;
+  signatureRequiredEl?: any;
+  errorEl?: any;
 }
 
 export interface MutationAndWeb3FormProps {

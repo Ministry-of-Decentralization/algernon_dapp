@@ -1,15 +1,8 @@
 import React, {useState} from 'react'
 import { Formik } from 'formik'
-import { callMethod } from './common'
-import { MutationAndWeb3FormProps } from '../types'
-import { string } from 'prop-types'
-
-
-const Success = () => (
-  <div>
-    <h3>Success!</h3>
-  </div>
-)
+import { callMethod } from './utils'
+import { Success } from './common'
+import { MutationAndWeb3FormProps, MutationAndWeb3FormStateEls } from '../types'
 
 const Error = () => (
   <div>
@@ -36,19 +29,15 @@ const PendingOnChain = () => (
 )
 
 const getContent = (
-  getForm,
-  state,
-  mutationVariables,
-  handleResponse,
-  isValid,
-  cancelForm,
-  successEl,
-  pendingOnChainEl,
-  pendingOffChainEl,
-  signatureRequiredEl,
-  errorEl,
-  formOnSuccess,
-  triggerEl) => {
+  getForm: any,
+  state: any,
+  mutationVariables: any,
+  handleResponse: any,
+  isValid: boolean,
+  cancelForm: any,
+  stateEls: MutationAndWeb3FormStateEls,
+  formOnSuccess = false,
+  triggerEl?: JSX.Element) => {
   if (!state.isOpen && triggerEl) {
     return triggerEl
   }
@@ -57,30 +46,28 @@ const getContent = (
     return (
       <div>
         {triggerEl}
-        { successEl ? successEl(state.receipt) : <Success /> }
+        { stateEls.successEl ? stateEls.successEl(state.receipt) : <Success /> }
       </div>
     )
   } else if (state.error) {
-    return errorEl ? errorEl(state.error) : <Error error={state.error} />
+    // @ts-ignore
+    return stateEls.errorEl ? stateEls.errorEl(state.error) : <Error error={state.error} />
   } else if (state.txHash) {
-    return pendingOnChainEl ? pendingOnChainEl(state.txHash) : <PendingOnChain />
+    return stateEls.pendingOnChainEl ? stateEls.pendingOnChainEl(state.txHash) : <PendingOnChain />
   } else if (state.offChainCompleted) {
-    return signatureRequiredEl ? signatureRequiredEl() : <SignatureRequired />
+    return stateEls.signatureRequiredEl ? stateEls.signatureRequiredEl() : <SignatureRequired />
   } else if (state.offChainPending) {
-    return pendingOffChainEl ? pendingOffChainEl() : <PendingOffChain />
+    return stateEls.pendingOffChainEl ? stateEls.pendingOffChainEl() : <PendingOffChain />
   }
   
 
   return getForm(mutationVariables, isValid, handleResponse, cancelForm)
 }
 
-
-
-
 const handleMutationResponse = (
-  executeTransaction,
-  getMethodArgs
-) => (response) => {
+  executeTransaction: any,
+  getMethodArgs: any
+) => (response: any) => {
   console.log(`handling mutation response${response}`)
   const methodArgs = getMethodArgs(response)
   console.log(`handling mutation method args${methodArgs}`)
@@ -89,7 +76,7 @@ const handleMutationResponse = (
   executeTransaction(methodArgs)
 }
 
-interace InnerFormState {
+interface InnerFormState {
   receipt: any;
   txHash?: string;
   error: any;
@@ -98,88 +85,93 @@ interace InnerFormState {
   isOpen: boolean;
 }
 
-const defaultState = {
+const defaultState:InnerFormState = {
   receipt: null,
-  txHash: null,
+  txHash: undefined,
   error: null,
   offChainPending: false,
   offChainCompleted: false,
   isOpen: false
 }
 
-const InnerForm = ({formikProps, formProps}) => {
-    const initialFormState = {...initialState, isOpen: triggerEl ? false :  true}
+const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: MutationAndWeb3FormProps}) => {
+  const {
+    contractMethod,
+    connectedAddress,
+    onSuccess,
+    getMethodArgs,
+    getForm,
+    stateEls,
+    formOnSuccess,
+    getMutationVariables } = formProps
+  const initialFormState = {...defaultState, isOpen: formProps.triggerEl ? false :  true}
 
-    const {values, setSubmitting, resetForm, isValid} = formikProps
-    const [state, setState] = useState({...defaultState})
-    
-    const handleTxHash = (txHash: string) => setState({...state, txHash})
-    const handleReceipt = (receipt: any) => setState({...state, receipt})
-    const handleError = (error: any) => setState({...state, error})
+  const {values, setSubmitting, resetForm, isValid} = formikProps
+  const [state, setState] = useState({...initialFormState})
+  
+  const handleTxHash = (txHash: string) => setState({...state, txHash})
+  const handleReceipt = (receipt: any) => setState({...state, receipt})
+  const handleError = (error: any) => setState({...state, error})
 
-    const setOpen = () => setState({...state, isOpen: true})
-    // const resetAndSetOpen = () => setState({...initialFormState, isOpen: true})
+  const setOpen = () => setState({...state, isOpen: true})
+  // const resetAndSetOpen = () => setState({...initialFormState, isOpen: true})
 
-    const cancelForm = () => {
-      resetForm()
-      setState({...initialFormState})
-    }
+  const cancelForm = () => {
+    resetForm()
+    setState({...initialFormState})
+  }
 
-    triggerEl = triggerEl && <span onClick={setOpen}>{triggerEl}</span>
-    
+  const triggerEl = formProps.triggerEl && <span onClick={setOpen}>{formProps.triggerEl}</span>
+  
 
-    const executeTransaction = (
-      contractMethod,
-      connectedAddress,
-      handleTxHash,
-      handleReceipt,
-      handleError,
-      resetForm,
-      onSuccess,
-      setSubmitting
-      ) => (args) => callMethod({
-      contractMethod,
-      connectedAddress,
-      args,
-      handleTxHash,
-      handleReceipt,
-      handleError,
-      resetForm,
-      onSuccess,
-      setSubmitting
-    })
+  const executeTransaction = (
+    contractMethod: string,
+    connectedAddress: string,
+    handleTxHash: any,
+    handleReceipt: any,
+    handleError: any,
+    resetForm: any,
+    onSuccess: any,
+    setSubmitting: any
+    ) => (args: any) => callMethod({
+    contractMethod,
+    connectedAddress,
+    args,
+    handleTxHash,
+    handleReceipt,
+    handleError,
+    resetForm,
+    onSuccess,
+    setSubmitting
+  })
 
-    const handleResponse = handleMutationResponse(
-        executeTransaction(
-          contractMethod,
-          connectedAddress,
-          handleTxHash,
-          handleReceipt,
-          handleError,
-          resetForm,
-          onSuccess,
-          setSubmitting
-        ),
-        getMethodArgs(values)
-      )
+  const handleResponse = handleMutationResponse(
+      executeTransaction(
+        contractMethod,
+        connectedAddress,
+        handleTxHash,
+        handleReceipt,
+        handleError,
+        resetForm,
+        onSuccess,
+        setSubmitting
+      ),
+      getMethodArgs(values)
+    )
 
-    const mutationVariables = getMutationVariables({...values})
+  const mutationVariables = getMutationVariables({...values})
 
-    return getContent(
-      getForm,
-      state,
-      mutationVariables,
-      handleResponse,
-      isValid,
-      cancelForm, 
-      successEl,
-      pendingOnChainEl,
-      pendingOffChainEl,
-      signatureRequiredEl,
-      errorEl,
-      formOnSuccess,
-      triggerEl
-      )
+  return getContent(
+    getForm,
+    state,
+    mutationVariables,
+    handleResponse,
+    isValid,
+    cancelForm, 
+    stateEls,
+    formOnSuccess,
+    triggerEl
+    )
 }
 
 const MutationAndWeb3Form = (formProps: MutationAndWeb3FormProps) => {

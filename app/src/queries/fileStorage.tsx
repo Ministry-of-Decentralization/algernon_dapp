@@ -18,7 +18,7 @@ const GET_FILE = gql`
   }
 `;
 
-export const getFile = (hash: string, parseJson?: boolean) => {
+export const useGetFile = (hash: string, parseJson?: boolean) => {
   const response = useQuery<GetFileData, QueryGetFileArgs>(GET_FILE, {variables: {hash}});
   console.log('getFile ', response)
   const file = response.data ?
@@ -38,7 +38,7 @@ const ADD_FILE = gql`
   }
 `;
 
-export const addFile = () => {
+export const useAddFile = () => {
   const [mutationTrigger, { loading, error, data} ] = useMutation<AddFileData, MutationAddFileArgs>(ADD_FILE);
 
   return {

@@ -30,17 +30,24 @@ const getForm = (submit, isValid) => (
   </Form>
 )
 
-const CreateTagForm = ({ connectedAddress }) => (
-  <Web3Form
-    defaultValues={createTagSchema.defaultValues}
-    schema={createTagSchema.schema}
-    getForm={getForm}
-    contractMethod={algernonContract.methods.addMasterTag}
-    connectedAddress={connectedAddress}
-    methodArgs={['tag']}
-    successEl={Success}
-    formOnSuccess={true}
-  />
-)
+const CreateTagForm = ({ connectedAddress }) => {
+  const formProps = {
+    defaultValues: createTagSchema.defaultValues,
+    schema: createTagSchema.schema,
+    getForm: getForm,
+    contractMethod: algernonContract.methods.addMasterTag,
+    connectedAddress,
+    methodArgs: ['tag'],
+    stateEls: {
+      successEl: Success
+    },
+    formOnSuccess: true
+  }
+  return (
+    <Web3Form
+      formProps={formProps}
+    />
+  )
+}
 
 export default CreateTagForm

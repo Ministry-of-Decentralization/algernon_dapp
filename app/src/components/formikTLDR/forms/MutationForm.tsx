@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
 import { Formik } from 'formik'
-import { MutationFormProps } from '../types'
+import { MutationFormProps, FormStateEls } from '../types'
+import { Success, Error, Pending } from './common'
 
-const onSubmit = ({setSubmitting, setState, resetForm })  => (response, error) => {
+const onSubmit = ({ setSubmitting, setState, resetForm }: { setSubmitting: any, setState: any, resetForm: any })  => (response: any, error: any) => {
   console.log(`got update user pro response ${JSON.stringify(response)}`)
   if (response.loading) {
   } else if (error) {
@@ -15,36 +16,21 @@ const onSubmit = ({setSubmitting, setState, resetForm })  => (response, error) =
   }
 }
 
-const Success = () => (
-  <div>
-    <h3>Success!</h3>
-  </div>
-)
-
-const Error = () => (
-  <div>
-    <h3>Transaction Error!</h3>
-  </div>
-)
-
-const Pending = () => (
-  <div>
-    <h3>Transaction Pending</h3>
-  </div>
-)
-
 const getContent = (
-  getForm,
-  state,
-  mutationVariables,
-  handleResponse,
-  isValid,
-  successEl,
-  pendingEl,
-  errorEl,
-  formOnSuccess,
-  onSuccess
+  getForm: any,
+  state: any,
+  mutationVariables: any,
+  handleResponse: any,
+  isValid: boolean,
+  stateEls: FormStateEls,
+  formOnSuccess: boolean,
+  onSuccess: any
   ) => {
+  const {
+    successEl,
+    pendingEl,
+    errorEl } = stateEls
+  
   if (state.response) {
     console.log(`mutations success ${onSuccess}`)
     onSuccess()
@@ -55,6 +41,7 @@ const getContent = (
       </div>
     )
   } else if (state.error) {
+    // @ts-ignore
     return errorEl ? errorEl(state.error) : <Error error={state.error} />
   } else if (state.pending) {
     return pendingEl ? pendingEl() : <Pending />
@@ -77,13 +64,11 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
       mutationVariables,
       handleResponse,
       isValid,
-      formProps.stateEls.successEl,
-      formProps.stateEls.pendingEl,
-      formProps.stateEls.errorEl,
+      formProps.stateEls,
       formProps.formOnSuccess,
       formProps.onSuccess
       ) 
-  }}
+  }
 }
 
 const MutationForm = (formProps: MutationFormProps) => {
@@ -91,6 +76,7 @@ const MutationForm = (formProps: MutationFormProps) => {
     <Formik
       initialValues={formProps.defaultValues}
       validationSchema={formProps.schema}
+      onSubmit={(vals) => console.log(`form was submitted ${vals}`)}
     >
       {(props) => <InnerForm formikProps={props} formProps={formProps} />}
     </Formik>
