@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form } from 'formik'
 import { createTagSchema } from '../../../schemas/tag'
-import { algernonContract } from '../../../utils/web3'
 
 import Web3Form from '../../formikTLDR/forms/Web3Form'
 import Text from '../../atoms/inputs/Text'
@@ -30,12 +29,12 @@ const getForm = (submit, isValid) => (
   </Form>
 )
 
-const CreateTagForm = ({ connectedAddress }) => {
+const CreateTagForm = ({ connectedAddress, algernonInstance }) => {
   const formProps = {
     defaultValues: createTagSchema.defaultValues,
     schema: createTagSchema.schema,
     getForm: getForm,
-    contractMethod: algernonContract.methods.addMasterTag,
+    contractMethod: algernonInstance.methods.addMasterTag,
     connectedAddress,
     methodArgs: ['tag'],
     stateEls: {

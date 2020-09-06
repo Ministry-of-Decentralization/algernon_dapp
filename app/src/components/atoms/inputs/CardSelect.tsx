@@ -10,20 +10,21 @@ import Flex from '../Flex';
 
 const SelectUI = (props:any) => {
   const [field, meta, helper] = useField(props);
-  const isError = meta.touched && !!meta.error
+  const isError = false// meta.touched && !!meta.error
   const optionItems = props.options.map(
       ((o:any) => <CardItem key={o.value} {...o} onClick={() => helper.setValue(o.value)} isSelected={o.value === field.value} />)
     )
 
+  console.log(`selecting card ${JSON.stringify(meta, null,2)}`)
   return (
     <FormControl style={props.style}>
       <InputLabel>{props.label}</InputLabel>
       <Flex>
         {optionItems}
       </Flex>
-      <ErrorMessage
+      {isError && <ErrorMessage
         isError={isError}
-        errorMsg={meta.error} />
+      errorMsg={meta.error} /> }
     </FormControl>
   )
 }
@@ -43,10 +44,10 @@ const SelectUI = (props:any) => {
     flexWrap: 'wrap',
   },
   chip: {
-    margin: theme.spacing.unit / 4,
+    margin: '0.5em',
   },
   noLabel: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: '0.5em',
   },
 });
 

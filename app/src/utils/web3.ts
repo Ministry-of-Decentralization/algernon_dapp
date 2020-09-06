@@ -104,14 +104,14 @@ const getChainCode = async () => {
 
 const algernonAddress = getLatestDeployment(AlgernonArtifact.networks).address//[networkId].address;
 
-const getDeployedContract = (abi: any, address: string) => {
-  const web3 = getWeb3()
+const getDeployedContract = (web3: any, abi: any, address: string) => {
   const contract =  new web3.eth.Contract(abi, address)
   return contract
 }
 
-export const algernonContract = getDeployedContract(AlgernonArtifact.abi, algernonAddress)
+// export const algernonContract = getDeployedContract(null, AlgernonArtifact.abi, algernonAddress)
 
+export const getAlgernonInstance = (web3: any) => getDeployedContract(web3, AlgernonArtifact.abi, algernonAddress)
 
 export const ethersAlgernon = new ethers.Contract(
   AlgernonArtifact.networks[networkId].address,

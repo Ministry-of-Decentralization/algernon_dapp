@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { getThemeProps } from '@material-ui/styles';
 
-export default function Modal(props) {
+interface Props {
+  triggerText: string;
+  title: string;
+  contentText: string;
+  getForm: any;
+}
+
+export default function Modal(props: Props) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -21,7 +25,7 @@ export default function Modal(props) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="outlined" style={{color: "#fff"}} onClick={handleClickOpen}>
         {props.triggerText}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -30,16 +34,8 @@ export default function Modal(props) {
           <DialogContentText>
             {props.contentText}
           </DialogContentText>
-          {props.fields}
+          {props.getForm(handleClose)}
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            { props.cancelText || 'Cancel'}
-          </Button>
-          <Button onClick={handleClose} color="primary">
-            {props.submitText || 'Submit'}
-          </Button>
-        </DialogActions>
       </Dialog>
     </div>
   );

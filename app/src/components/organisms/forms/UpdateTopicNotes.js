@@ -1,7 +1,6 @@
 import React from 'react'
 import { Form } from 'formik'
 import { createTopicSchema, updateTopicNotesSchema } from '../../../schemas/topic'
-import { algernonContract } from '../../../utils/web3'
 import RichText from '../../atoms/inputs/RichText'
 import Button from '../../atoms/inputs/buttons/MutationButton'
 import { useAddFile } from '../../../queries/fileStorage'
@@ -63,7 +62,7 @@ const getMethodArgs = (id) => (values) => (mutationResponse) => {
   return [id, values.tags, mutationResponse]
 }
 
-const UpdateTopicNotesForm = ({ connectedAddress, topic, refetchTopic, onSuccess }) => {
+const UpdateTopicNotesForm = ({ connectedAddress, algernonInstance, topic, refetchTopic, onSuccess }) => {
   return (
     <MutationAndWeb3Form
       defaultValues={{...topic, tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)}}
@@ -71,7 +70,7 @@ const UpdateTopicNotesForm = ({ connectedAddress, topic, refetchTopic, onSuccess
       connectedAddress={connectedAddress}
       getForm={getForm(useAddFile)}
       getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields, topic)}
-      contractMethod={algernonContract.methods.updateTopic}
+      contractMethod={algernonInstance.methods.updateTopic}
       getMethodArgs={getMethodArgs(topic.id)}
       successEl={Success}
       pendingOnChainEl={PendingOnChain}

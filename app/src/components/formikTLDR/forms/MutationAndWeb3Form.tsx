@@ -146,18 +146,18 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
   })
 
   const handleResponse = handleMutationResponse(
-      executeTransaction(
-        contractMethod,
-        connectedAddress,
-        handleTxHash,
-        handleReceipt,
-        handleError,
-        resetForm,
-        onSuccess,
-        setSubmitting
-      ),
-      getMethodArgs(values)
-    )
+    executeTransaction(
+      contractMethod,
+      connectedAddress,
+      handleTxHash,
+      handleReceipt,
+      handleError,
+      resetForm,
+      onSuccess,
+      setSubmitting
+    ),
+    getMethodArgs(values)
+  )
 
   const mutationVariables = getMutationVariables({...values})
 
@@ -171,10 +171,10 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
     stateEls,
     formOnSuccess,
     triggerEl
-    )
+  )
 }
 
-const MutationAndWeb3Form = (formProps: MutationAndWeb3FormProps) => {
+const MutationAndWeb3Form = ({formProps}:{formProps: MutationAndWeb3FormProps}) => {
   return (
     <Formik
       initialValues={formProps.defaultValues}

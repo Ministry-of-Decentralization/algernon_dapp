@@ -1,5 +1,4 @@
 import React, { createContext, useReducer, useMemo } from 'react'
-import wallets from '../../utils/wallets'
 
 const UPDATE_TYPES = {
   SET_WALLET_TYPE: 'SET_WALLET_TYPE',
@@ -8,16 +7,22 @@ const UPDATE_TYPES = {
 
 const initialState = {
   walletType: null,
-  wallet: null
+  wallet: null,
+  address: null,
+  provider: null
 }
 
 const reducer = (state, action) => {
   switch(action.type) {
     case UPDATE_TYPES.SET_WALLET:
+      console.log(`reducin ${action.payload.address}`)
       return {
         ...state,
         walletType: action.payload.walletType,
-        wallet: wallets[action.payload.walletType].connectWallet()
+        wallet: action.payload.wallet,
+        address: action.payload.address,
+        provider: action.payload.provider,
+        algernonInstance: action.payload.algernonInstance
       }
     default:
       return state
@@ -28,11 +33,11 @@ export const WalletContext = createContext(null)
 
 export default ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-
+  console.log(`state inside provider ${state && state.address}`)
   const contextValue = useMemo(() => {
     return {
-      wallet: state,
-      setWallet: (walletType) => dispatch({type: UPDATE_TYPES.SET_WALLET, payload: {walletType}}),
+      ...state,
+      setWallet: ({ walletType, wallet, address, algernonInstance, provider }) => dispatch({type: UPDATE_TYPES.SET_WALLET, payload: { walletType, wallet, address, algernonInstance, provider }})
     };
   }, [state, dispatch]);
 

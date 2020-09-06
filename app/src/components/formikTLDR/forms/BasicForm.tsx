@@ -5,10 +5,14 @@ import { BasicFormProps } from '../types'
 const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: BasicFormProps}) => {
   {
     const {values, isValid} = formikProps
-    const { getForm, getSubmitArgs, submit } = formProps
+    const { getForm, getSubmitArgs, submit, cancel } = formProps
     
-    const onSubmit = () => submit(getSubmitArgs(values))
-    return getForm(isValid, onSubmit)
+    const onSubmit = async () => {
+      const args  = await getSubmitArgs(values)
+      console.log(`subbing ${args.address}`)
+      submit(args)
+    }
+    return getForm(isValid, onSubmit, cancel)
   }
 }
 

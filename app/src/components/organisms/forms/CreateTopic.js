@@ -1,9 +1,7 @@
 import React from 'react'
 import { Form } from 'formik'
 import { createTopicSchema } from '../../../schemas/topic'
-import { algernonContract } from '../../../utils/web3'
 import Select from '../../atoms/inputs/Select'
-import AutoComplete from '../../atoms/inputs/AutoComplete'
 import Text from '../../atoms/inputs/Text'
 import RichText from '../../atoms/inputs/RichText'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
@@ -11,7 +9,6 @@ import Button from '../../atoms/inputs/buttons/MutationButton'
 import { useAddFile } from '../../../queries/fileStorage'
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
-import { theGraphClient } from '../../../utils/apolloClient'
 
 
 const Success = ({title}) => (
@@ -114,20 +111,20 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
   </Form>
 )
 
-const getMethodArgs = () => (values) => (mutationResponse) => {
-  console.log(`inside getMethos srgs respnse os ${mutationResponse}`)
+const getMethodArgs = (values) => (mutationResponse) => {
+  console.log(`inside getMethos args respnse os ${mutationResponse}`)
   return [values.tags, mutationResponse]
 }
 
-const CreateTopicForm = ({ connectedAddress, tagOptions, topicOptions, refetchTopics }) => {
+const CreateTopicForm = ({ connectedAddress, algernonInstance, tagOptions, topicOptions, refetchTopics }) => {
   const formProps = {
     connectedAddress,
     defaultValues: createTopicSchema.defaultValues,
     schema:createTopicSchema.schema,
     getForm: getForm(useAddFile, tagOptions, topicOptions),
     getMutationVariables: formatAddFileVariables(createTopicSchema.contentFields),
-    contractMethod: algernonContract.methods.createTopic,
-    getMethodArgs: getMethodArgs(),
+    contractMethod: algernonInstance.methods.createTopic,
+    getMethodArgs: getMethodArgs,
     stateEls: {
       successEl: Success,
       pendingOnChainEl: PendingOnChain,
@@ -139,7 +136,7 @@ const CreateTopicForm = ({ connectedAddress, tagOptions, topicOptions, refetchTo
     formOnSuccess: true,
     triggerEl: <TriggerButton
       label="Create Course"
-      color="secondary"
+      color="primary"
     />
   }
   return (

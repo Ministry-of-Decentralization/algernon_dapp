@@ -11,6 +11,7 @@ export interface BasicFormProps {
   stateEls: FormStateEls;
   submit: any;
   getSubmitArgs: any;
+  cancel: any;
 }
 
 export interface MutationFormProps {

@@ -1,13 +1,14 @@
 import React, { useContext } from 'react'
 import Box from '../../atoms/Box'
 import { WalletContext } from '../../providers/WalletProvider'
+import SelectWallet from '../forms/SelectWallet'
+import Address from '../../atoms/Address'
 
 export default ({style}: any) => {
-  const connectedWallet = useContext(WalletContext)
   // @ts-ignore
-  const status = connectedWallet.wallet.wallet ? 'Hot Dog' : 'Not Hot Dog'
-   // @ts-ignore
-  console.log(`Connected wallet ${JSON.stringify(connectedWallet.wallet, null, 2)}`)
+  const { wallet, setWallet, address } = useContext(WalletContext)
+  // @ts-ignore
+  const status = wallet ? <Address address={address} length={6} /> : <SelectWallet setWallet={setWallet} />
   return (
     <Box style={style}>
       {status}

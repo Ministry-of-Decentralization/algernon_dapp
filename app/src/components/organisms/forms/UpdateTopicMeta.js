@@ -120,14 +120,14 @@ const getMethodArgs = (id) => (values) => (mutationResponse) => {
   return [id, values.tags, mutationResponse]
 }
 
-const UpdateTopicMetaForm = ({ connectedAddress, tagOptions, topicOptions, topic, refetchTopic, onSuccess }) => (
+const UpdateTopicMetaForm = ({ connectedAddress, algernonInstance, tagOptions, topicOptions, topic, refetchTopic, onSuccess }) => (
   <MutationAndWeb3Form
     defaultValues={{...topic, tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)}}
     schema={updateTopicMetaSchema.schema}
     connectedAddress={connectedAddress}
     getForm={getForm(useAddFile, tagOptions, topicOptions)}
     getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields, {notes: topic.notes})}
-    contractMethod={algernonContract.methods.updateTopic}
+    contractMethod={algernonInstance.methods.updateTopic}
     getMethodArgs={getMethodArgs(topic.id)}
     successEl={Success}
     pendingOnChainEl={PendingOnChain}
