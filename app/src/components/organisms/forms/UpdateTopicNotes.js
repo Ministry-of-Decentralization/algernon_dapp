@@ -1,12 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form } from 'formik'
 import { createTopicSchema, updateTopicNotesSchema } from '../../../schemas/topic'
 import RichText from '../../atoms/inputs/RichText'
-import Button from '../../atoms/inputs/buttons/MutationButton'
-import { useAddFile } from '../../../queries/fileStorage'
+import Button from '../../atoms/inputs/buttons/Button'
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
-import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
-
+import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
+import { FileStoreContext } from '../../providers/FileStoreProvider'
 
 
 const Success = ({title}) => (
@@ -40,7 +39,7 @@ const PendingOnChain = () => (
   </div>
 )
 
-const getForm = (mutation) => (mutationVariables, isValid, handleResponse, cancelForm) => (
+const getForm = () => (submitForm, isValid, cancelForm) => (
   <Form>
     <RichText
       label="Notes"
@@ -48,9 +47,7 @@ const getForm = (mutation) => (mutationVariables, isValid, handleResponse, cance
     />
     <div>
       <Button
-        mutation={mutation}
-        mutationVariables={mutationVariables}
-        handleResponse={handleResponse}
+        onClick={submitForm}
         disabled={!isValid}
         label='Update Course'
       />
@@ -63,24 +60,34 @@ const getMethodArgs = (id) => (values) => (mutationResponse) => {
 }
 
 const UpdateTopicNotesForm = ({ connectedAddress, algernonInstance, topic, refetchTopic, onSuccess }) => {
+  const { client: ipfs } = useContext(FileStoreContext)
+
   return (
-    <MutationAndWeb3Form
-      defaultValues={{...topic, tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)}}
-      schema={updateTopicNotesSchema.schema}
-      connectedAddress={connectedAddress}
-      getForm={getForm(useAddFile)}
-      getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields, topic)}
-      contractMethod={algernonInstance.methods.updateTopic}
-      getMethodArgs={getMethodArgs(topic.id)}
-      successEl={Success}
-      pendingOnChainEl={PendingOnChain}
-      pendingOffChainEl={PendingOffChain}
-      signatureRequiredEl={SignatureRequired}
-      errorEl={FormError}
-      formOnSuccess={false}
-      onSuccess={() => {
-        onSuccess && onSuccess()
-        setTimeout(refetchTopic, 1000)
+    <CallAndWeb3Form
+      formProps={{
+        defaultValues:{
+          ...topic,
+          tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)
+        },
+        schema: updateTopicNotesSchema.schema,
+        connectedAddress,
+        getForm: getForm(),
+        call: ipfs.saveFile,
+        getCallVariables: formatAddFileVariables(createTopicSchema.contentFields, topic),
+        contractMethod: algernonInstance.methods.updateTopic,
+        getMethodArgs: getMethodArgs(topic.id),
+        stateEls: {
+          successEl: Success,
+          pendingOnChainEl: PendingOnChain,
+          pendingOffChainEl: PendingOffChain,
+          signatureRequiredEl: SignatureRequired,
+          errorEl: FormError
+        },
+        formOnSuccess: false,
+        onSuccess: () => {
+          onSuccess && onSuccess()
+          setTimeout(refetchTopic, 1000)
+        }
       }}
     />
   )

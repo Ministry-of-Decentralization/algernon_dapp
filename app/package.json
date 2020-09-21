@@ -34,7 +34,7 @@
     "formik": "^2.1.4",
     "fortmatic": "^2.0.6",
     "graphql": "^15.2.0",
-    "ipfs-http-client": "^42.0.0",
+    "ipfs-http-client": "^47.0.1",
     "lodash": "^4.17.15",
     "lodash.throttle": "^4.1.1",
     "multi-hash": "^0.1.1",

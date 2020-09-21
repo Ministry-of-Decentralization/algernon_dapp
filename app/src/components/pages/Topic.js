@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
-import useGetAccount from '../hooks/useGetAccount'
 import TopicDetail from '../molecules/topics/Detail'
 import { useGetTopic, useGetTopics } from '../../queries/topic'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions, topicsToOptions } from '../atoms/inputs/optionsFormatters'
 import { useGetTags } from '../../queries/tag'
+import { WalletContext } from '../providers/WalletProvider'
 
 export default ({match: { params: id}}) => {
   id = id.id
 
-  const connectedAddress = useGetAccount()
+  const { algernonInstance, address: connectedAddress } = useContext(WalletContext)
+
   const { loading, topic, refetch: refetchTopic } = useGetTopic(theGraphClient, id)
   const { topics } = useGetTopics(theGraphClient, 0, 100)
   const topicOptions = topicsToOptions(topics || [])
@@ -23,6 +24,7 @@ export default ({match: { params: id}}) => {
     'loading' :
     <TopicDetail
       connectedAddress={connectedAddress}
+      algernonInstance={algernonInstance}
       topic={topic}
       topicOptions={topicOptions}
       tagOptions={tagOptions}

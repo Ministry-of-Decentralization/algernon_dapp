@@ -1,16 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form } from 'formik'
 import { createTopicSchema, updateTopicMetaSchema } from '../../../schemas/topic'
-import { algernonContract } from '../../../utils/web3'
 import Select from '../../atoms/inputs/Select'
 // import RichText from '../../atoms/inputs/RichText'
 import Text from '../../atoms/inputs/Text'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
-import Button from '../../atoms/inputs/buttons/MutationButton'
-import { useAddFile } from '../../../queries/fileStorage'
+import Button from '../../atoms/inputs/buttons/Button'
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
-import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
-
+import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
+import { FileStoreContext } from '../../providers/FileStoreProvider'
 
 
 const Success = ({title}) => (
@@ -44,7 +42,7 @@ const PendingOnChain = () => (
   </div>
 )
 
-const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isValid, handleResponse, cancelForm) => (
+const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
   <Form>
     <Text
       label="Title"
@@ -106,9 +104,7 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         label="Cancel"
       />
       <Button
-        mutation={mutation}
-        mutationVariables={mutationVariables}
-        handleResponse={handleResponse}
+        onClick={submitForm}
         disabled={!isValid}
         label='Update Course'
       />
@@ -120,26 +116,37 @@ const getMethodArgs = (id) => (values) => (mutationResponse) => {
   return [id, values.tags, mutationResponse]
 }
 
-const UpdateTopicMetaForm = ({ connectedAddress, algernonInstance, tagOptions, topicOptions, topic, refetchTopic, onSuccess }) => (
-  <MutationAndWeb3Form
-    defaultValues={{...topic, tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)}}
-    schema={updateTopicMetaSchema.schema}
-    connectedAddress={connectedAddress}
-    getForm={getForm(useAddFile, tagOptions, topicOptions)}
-    getMutationVariables={formatAddFileVariables(createTopicSchema.contentFields, {notes: topic.notes})}
-    contractMethod={algernonInstance.methods.updateTopic}
-    getMethodArgs={getMethodArgs(topic.id)}
-    successEl={Success}
-    pendingOnChainEl={PendingOnChain}
-    pendingOffChainEl={PendingOffChain}
-    signatureRequiredEl={SignatureRequired}
-    errorEl={FormError}
-    formOnSuccess={false}
-    onSuccess={() => {
-      onSuccess && onSuccess()
-      setTimeout(refetchTopic, 1000)
+const UpdateTopicMetaForm = ({ connectedAddress, algernonInstance, tagOptions, topicOptions, topic, refetchTopic, onSuccess }) => {
+  const { client: ipfs } = useContext(FileStoreContext)
+  return (
+    <CallAndWeb3Form
+    formProps={{
+      defaultValues: {
+        ...topic,
+        tags: topic.tags.map(t => t.id), requires: topic.requires.map(r => r.id), supports: topic.supports.map(t => t.id)
+      },
+      schema: updateTopicMetaSchema.schema,
+      connectedAddress,
+      getForm: getForm(tagOptions, topicOptions),
+      call: ipfs.saveFile,
+      getCallVariables: formatAddFileVariables(createTopicSchema.contentFields, {notes: topic.notes}),
+      contractMethod: algernonInstance.methods.updateTopic,
+      getMethodArgs: getMethodArgs(topic.id),
+      stateEls: {
+        successEl: Success,
+        pendingOnChainEl: PendingOnChain,
+        pendingOffChainEl: PendingOffChain,
+        signatureRequiredEl: SignatureRequired,
+        errorEl: FormError
+      },
+      formOnSuccess: false,
+      onSuccess: () => {
+        onSuccess && onSuccess()
+        setTimeout(refetchTopic, 1000)
+      }
     }}
-  />
-)
+    />
+  )
+}
 
 export default UpdateTopicMetaForm

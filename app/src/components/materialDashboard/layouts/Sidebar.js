@@ -63,7 +63,7 @@ const Sidebar = props => {
     {
       title: 'Users',
       icon: <PeopleIcon />,
-      shouldRender: () => true,
+      shouldRender: () => false,
       getHref: () => '/users',
     }
   ];

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Formik } from 'formik'
 import { callMethod } from './utils'
 import { Success } from './common'
-import { MutationAndWeb3FormProps, MutationAndWeb3FormStateEls } from '../types'
+import { CallAndWeb3FormProps, MutationAndWeb3FormStateEls } from '../types'
 
 const Error = () => (
   <div>
@@ -31,8 +31,7 @@ const PendingOnChain = () => (
 const getContent = (
   getForm: any,
   state: any,
-  mutationVariables: any,
-  handleResponse: any,
+  submitForm: any,
   isValid: boolean,
   cancelForm: any,
   stateEls: MutationAndWeb3FormStateEls,
@@ -61,16 +60,16 @@ const getContent = (
   }
   
 
-  return getForm(mutationVariables, isValid, handleResponse, cancelForm)
+  return getForm(submitForm, isValid, cancelForm)
 }
 
-const handleMutationResponse = (
+const handleCallResponse = (
   executeTransaction: any,
   getMethodArgs: any
 ) => (response: any) => {
-  console.log(`handling mutation response${response}`)
+  console.log(`handling call response${response}`)
   const methodArgs = getMethodArgs(response)
-  console.log(`handling mutation method args${methodArgs}`)
+  console.log(`handling call method args${methodArgs}`)
 
 
   executeTransaction(methodArgs)
@@ -94,7 +93,7 @@ const defaultState:InnerFormState = {
   isOpen: false
 }
 
-const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: MutationAndWeb3FormProps}) => {
+const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: CallAndWeb3FormProps}) => {
   const {
     contractMethod,
     connectedAddress,
@@ -103,7 +102,8 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
     getForm,
     stateEls,
     formOnSuccess,
-    getMutationVariables } = formProps
+    call,
+    getCallVariables } = formProps
   const initialFormState = {...defaultState, isOpen: formProps.triggerEl ? false :  true}
 
   const {values, setSubmitting, resetForm, isValid} = formikProps
@@ -145,7 +145,7 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
     setSubmitting
   })
 
-  const handleResponse = handleMutationResponse(
+  const handleResponse = handleCallResponse(
     executeTransaction(
       contractMethod,
       connectedAddress,
@@ -159,13 +159,20 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
     getMethodArgs(values)
   )
 
-  const mutationVariables = getMutationVariables({...values})
+
+
+  const callVariables = getCallVariables({...values})
+
+  const submitForm = async () => {
+    const callResponse = await call(callVariables)
+    console.log(`inside CallAndWeb3Form got call response\n${callResponse}`)
+    handleResponse(callResponse)
+  }
 
   return getContent(
     getForm,
     state,
-    mutationVariables,
-    handleResponse,
+    submitForm, 
     isValid,
     cancelForm, 
     stateEls,
@@ -174,7 +181,7 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Mutat
   )
 }
 
-const MutationAndWeb3Form = ({formProps}:{formProps: MutationAndWeb3FormProps}) => {
+const CallAndWeb3Form = ({formProps}:{formProps: CallAndWeb3FormProps}) => {
   return (
     <Formik
       initialValues={formProps.defaultValues}
@@ -186,4 +193,4 @@ const MutationAndWeb3Form = ({formProps}:{formProps: MutationAndWeb3FormProps}) 
   )
 };
 
-export default MutationAndWeb3Form
+export default CallAndWeb3Form

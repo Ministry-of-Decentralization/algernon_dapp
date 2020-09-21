@@ -16,6 +16,8 @@ import About from './components/pages/About'
 import "./App.css";
 import theme from './theme.js'
 import WalletProvider from "./components/providers/WalletProvider";
+import FileStoreProvider from "./components/providers/FileStoreProvider";
+
 // import drizzleOptions from "./drizzleOptions";
 // import MyContainer from "./MyContainer";
 
@@ -24,16 +26,18 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={createMuiTheme(theme)}>
         <WalletProvider>
-          <Switch>
-            <Route exact path='/' component={Overview} />
-            <Route exact path='/about' component={About} />
-            <Route exact path='/tags' component={Tags} />
-            <Route exact path='/tags/:id' component={Tag} />
-            <Route exact path='/profile/:address' component={Profile} />
-            <Route exact path='/topic/:id' component={Topic} />
-            <Route exact path='/topics' component={Topics} />
-            <Route exact path='/users' component={Users} />
-          </Switch>
+          <FileStoreProvider>
+            <Switch>
+              <Route exact path='/' component={Overview} />
+              <Route exact path='/about' component={About} />
+              <Route exact path='/tags' component={Tags} />
+              <Route exact path='/tags/:id' component={Tag} />
+              <Route exact path='/profile/:address' component={Profile} />
+              <Route exact path='/topic/:id' component={Topic} />
+              <Route exact path='/topics' component={Topics} />
+              <Route exact path='/users' component={Users} />
+            </Switch>
+          </FileStoreProvider>
         </WalletProvider>
       </MuiThemeProvider>
 

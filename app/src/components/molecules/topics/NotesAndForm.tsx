@@ -7,6 +7,7 @@ import Flex from '../../atoms/Flex'
 
 type NotesFormProps = {
   connectedAddress: string,
+  algernonInstance: any,
   topic: any,
   refetchTopic: any
 }
@@ -19,6 +20,7 @@ type NotesAndFormProps = {
 const TopicMetaForm = ({formProps, defaultContent}: NotesAndFormProps) => {
   const {
     connectedAddress,
+    algernonInstance,
     topic,
     refetchTopic
   } = formProps
@@ -28,6 +30,7 @@ const TopicMetaForm = ({formProps, defaultContent}: NotesAndFormProps) => {
   const form = (
     <UpdateTopicNotesForm
       connectedAddress={connectedAddress}
+      algernonInstance={algernonInstance}
       topic={topic} 
       refetchTopic={refetchTopic}
       onSuccess={() => setSwapped(false)}

@@ -20,7 +20,8 @@ type TopicDetailProps = {
   tagOptions: string[],
   topicOptions: string[],
   topic: any,
-  refetchTopic: any
+  refetchTopic: any,
+  algernonInstance: any
 }
 
 const RelatedCourse = (props:any) => {
@@ -36,7 +37,7 @@ const RelatedCourse = (props:any) => {
 }
 
 export default (props: TopicDetailProps): React.ReactNode => {
-  const { connectedAddress, topic, topicOptions, tagOptions, refetchTopic } = props
+  const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
   const { title, url, description, owner, notes, requires, supports, tags, createdAt, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
 
@@ -86,6 +87,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
     <MetaAndForm
       formProps ={{
         connectedAddress,
+        algernonInstance,
         topic,
         topicOptions,
         tagOptions,
@@ -99,6 +101,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
     <NotesAndForm
       formProps ={{
         connectedAddress,
+        algernonInstance,
         topic,
         refetchTopic
       }}

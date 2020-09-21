@@ -16,7 +16,7 @@ const AlgernonArtifact = require("../contracts/Algernon.json")
 
 const chainEndpoint = process.env.REACT_APP_LOCAL_CHAIN_ENDPOINT
 
-const ipfsEndpoint = process.env.IPFS_ENDPOINT
+const ipfsEndpoint = process.env.IPFS_ENDPOINT || '/ip4/0.0.0.0/tcp/5001'
 
 const networkId = '1587695479278'
 console.log(process.env)

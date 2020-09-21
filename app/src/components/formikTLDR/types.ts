@@ -58,3 +58,18 @@ export interface MutationAndWeb3FormProps {
   onSuccess: any;
   triggerEl?: JSX.Element; 
 }
+
+export interface CallAndWeb3FormProps {
+  defaultValues: any;
+  schema: any;
+  connectedAddress: string;
+  getForm: any;
+  getCallVariables: any;
+  call: any;
+  contractMethod: string;
+  getMethodArgs: any;
+  stateEls: MutationAndWeb3FormStateEls;
+  formOnSuccess: boolean;
+  onSuccess: any;
+  triggerEl?: JSX.Element; 
+}

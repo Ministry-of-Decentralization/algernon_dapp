@@ -17,7 +17,6 @@ export const formatAddFileVariables = (contentFields, staticValues = {}) => (val
     acc[field] = allValues[field]
     return acc
   }, {})
-  return {
-    file:JSON.stringify(contentValues)
-  }
+  return JSON.stringify(contentValues)
+
 }

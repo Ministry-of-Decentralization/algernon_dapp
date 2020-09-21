@@ -1,14 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Form } from 'formik'
 import { createTopicSchema } from '../../../schemas/topic'
 import Select from '../../atoms/inputs/Select'
 import Text from '../../atoms/inputs/Text'
 import RichText from '../../atoms/inputs/RichText'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
-import Button from '../../atoms/inputs/buttons/MutationButton'
-import { useAddFile } from '../../../queries/fileStorage'
+import Button from '../../atoms/inputs/buttons/Button'
+
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
-import MutationAndWeb3Form from '../../formikTLDR/forms/MutationAndWeb3Form'
+import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
+import { FileStoreContext } from '../../providers/FileStoreProvider'
 
 
 const Success = ({title}) => (
@@ -42,7 +43,7 @@ const PendingOnChain = () => (
   </div>
 )
 
-const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isValid, handleResponse, cancelForm) => (
+const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
   <Form>
     <Text
       label="Title"
@@ -100,9 +101,7 @@ const getForm = (mutation, tagOptions, topicOptions) => (mutationVariables, isVa
         color="secondary"
       />
       <Button
-        mutation={mutation}
-        mutationVariables={mutationVariables}
-        handleResponse={handleResponse}
+        onClick={submitForm}
         disabled={!isValid}
         label='Create Course'
       />
@@ -117,12 +116,14 @@ const getMethodArgs = (values) => (mutationResponse) => {
 }
 
 const CreateTopicForm = ({ connectedAddress, algernonInstance, tagOptions, topicOptions, refetchTopics }) => {
+  const { client: ipfs } = useContext(FileStoreContext)
   const formProps = {
     connectedAddress,
     defaultValues: createTopicSchema.defaultValues,
     schema:createTopicSchema.schema,
-    getForm: getForm(useAddFile, tagOptions, topicOptions),
-    getMutationVariables: formatAddFileVariables(createTopicSchema.contentFields),
+    getForm: getForm(tagOptions, topicOptions),
+    call: ipfs.saveFile,
+    getCallVariables: formatAddFileVariables(createTopicSchema.contentFields),
     contractMethod: algernonInstance.methods.createTopic,
     getMethodArgs: getMethodArgs,
     stateEls: {
@@ -140,7 +141,7 @@ const CreateTopicForm = ({ connectedAddress, algernonInstance, tagOptions, topic
     />
   }
   return (
-    <MutationAndWeb3Form
+    <CallAndWeb3Form
     formProps={formProps}
     />
   )

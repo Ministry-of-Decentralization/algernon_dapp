@@ -7,6 +7,7 @@ import Flex from '../../atoms/Flex'
 
 type MetaFormProps = {
   connectedAddress: string,
+  algernonInstance: any,
   tagOptions: string[],
   topicOptions: string[],
   topic: any,
@@ -21,6 +22,7 @@ type MetaAndFormProps = {
 const MetaAndForm = ({formProps, defaultContent}: MetaAndFormProps) => {
   const {
     connectedAddress,
+    algernonInstance,
     tagOptions,
     topicOptions,
     topic,
@@ -32,6 +34,7 @@ const MetaAndForm = ({formProps, defaultContent}: MetaAndFormProps) => {
   const MetaForm = () => (
     <UpdateTopicMetaForm
       connectedAddress={connectedAddress}
+      algernonInstance={algernonInstance}
       topic={topic} 
       topicOptions={topicOptions}
       tagOptions={tagOptions}
