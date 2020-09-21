@@ -28,7 +28,6 @@ allow users to stake tokens against content to help other users find quality con
  - backend providing connections to different datastores or services
 
 ### 3rd Party Libs
-  - dynamodb
   - Graph Protocol
   - Fortmatic
 
@@ -56,15 +55,6 @@ allow users to stake tokens against content to help other users find quality con
 - update theGraph/subgraph.yaml with Alergernon contract address from deploy step
 - Start the theGraph app
   - cd theGraph/ && yarn create-local deploy-local
-
-
-- Start the dynamo-db container
-  - docker run -p 8002:8000 amazon/dynamodb-local
-
-
-- Start the server
-  - cd server/ && yarn start
-
 
 - Run the app
   - cd app/ && yarn start
