@@ -10,6 +10,8 @@ import RichText from '../../atoms/RichText'
 import Badge from '../user/Badge'
 import MetaAndForm from './MetaAndForm'
 import NotesAndForm from './NotesAndForm'
+import UpdateTopicMetaForm from '../../organisms/forms/UpdateTopicMeta'
+
 
 const equalAddresses = (addressA: string, addressB: string) => {
   return typeof addressA === 'string' && typeof addressB === 'string' && addressA.toLowerCase() === addressB.toLowerCase()
@@ -41,6 +43,8 @@ export default (props: TopicDetailProps): React.ReactNode => {
   const { title, url, description, owner, notes, requires, supports, tags, createdAt, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
 
+  const isOwner = equalAddresses(owner.address, connectedAddress)
+
   const Notes: React.FC = () => (
     <Flex flexDirection="column" style={{ margin:"1em", padding: "1em" }}>
       <h3>Curriculum</h3>
@@ -52,6 +56,18 @@ export default (props: TopicDetailProps): React.ReactNode => {
 
   const MetaDetails: React.FC = () => (
     <Paper style={containerStyle}>
+      <Flex>
+        {isOwner &&
+          <UpdateTopicMetaForm
+            connectedAddress={connectedAddress}
+            algernonInstance={algernonInstance}
+            topic={topic} 
+            topicOptions={topicOptions}
+            tagOptions={tagOptions}
+            refetchTopic={refetchTopic}
+          />
+        }
+      </Flex>
       <Flex flexDirection="column">
         <h1>{title}</h1>
         <Box>
@@ -109,11 +125,11 @@ export default (props: TopicDetailProps): React.ReactNode => {
     />
   )
 
-  const isOwner = equalAddresses(owner.address, connectedAddress)
+
   
   return (
     <Fragment>
-      {isOwner ? editableMeta : <MetaDetails />}
+      <MetaDetails />
       {isOwner? editableNotes : <Notes />}
     </Fragment>
   )

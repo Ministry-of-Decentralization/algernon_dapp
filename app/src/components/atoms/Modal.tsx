@@ -7,6 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 interface Props {
   triggerText: string;
+  triggerColor?: string;
   title: string;
   contentText: string;
   getForm: any;
@@ -22,13 +23,14 @@ export default function Modal(props: Props) {
   const handleClose = () => {
     setOpen(false);
   };
+  const color = props.triggerColor || "#fff"
 
   return (
-    <div>
-      <Button variant="outlined" style={{color: "#fff"}} onClick={handleClickOpen}>
+    <div >
+      <Button variant="outlined" style={{ color }} onClick={handleClickOpen}>
         {props.triggerText}
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose}  aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>

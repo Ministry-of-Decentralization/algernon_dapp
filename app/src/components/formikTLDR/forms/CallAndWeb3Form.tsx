@@ -37,15 +37,14 @@ const getContent = (
   stateEls: MutationAndWeb3FormStateEls,
   formOnSuccess = false,
   triggerEl?: JSX.Element) => {
-  if (!state.isOpen && triggerEl) {
+  if (false && !state.isOpen && triggerEl) {
     return triggerEl
   }
 
   if (state.receipt) {
     return (
       <div>
-        {triggerEl}
-        { stateEls.successEl ? stateEls.successEl(state.receipt) : <Success /> }
+        { stateEls.successEl ? stateEls.successEl({cancel: cancelForm, reciept: state.receipt }) : <Success /> }
       </div>
     )
   } else if (state.error) {
@@ -119,6 +118,7 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: CallA
   const cancelForm = () => {
     resetForm()
     setState({...initialFormState})
+    formProps.cancelForm()
   }
 
   const triggerEl = formProps.triggerEl && <span onClick={setOpen}>{formProps.triggerEl}</span>

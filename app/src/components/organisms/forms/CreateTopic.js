@@ -4,20 +4,25 @@ import { createTopicSchema } from '../../../schemas/topic'
 import Select from '../../atoms/inputs/Select'
 import Text from '../../atoms/inputs/Text'
 import RichText from '../../atoms/inputs/RichText'
+import Modal from '../../atoms/Modal'
 import TriggerButton from '../../atoms/inputs/buttons/Button'
 import Button from '../../atoms/inputs/buttons/Button'
 
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
 import { FileStoreContext } from '../../providers/FileStoreProvider'
+import { getTopicSelectRenderValues } from '../../../utils/formatters'
 
+const Success = ({receipt, cancel}) => {
+  console.log(`in success ${receipt}`)
+  return (
+    <div>
+      <h3>Course Created!</h3>
 
-const Success = ({title}) => (
-  <div>
-    <h3>Course Created!</h3>
-    <h4>{title}</h4>
-  </div>
-)
+      <Button onClick={cancel} label='Return to Courses' />
+    </div>
+  )
+}
 
 const FormError = ({error}) => (
   <div>
@@ -44,7 +49,7 @@ const PendingOnChain = () => (
 )
 
 const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
-  <Form>
+  <Form style={{width: "50em"}}>
     <Text
       label="Title"
       name="title"
@@ -63,17 +68,14 @@ const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) 
       type="string"
       fullWidth={true} 
     />
-    <RichText
-      label="Notes"
-      name="notes"
-    />
     <div>
       <Select
         label="Requires Courses"
         name="requires"
         options={topicOptions}
         multiple={true}
-        style={{width: '60%', marginBottom: '1.5em'}}
+        renderValue={getTopicSelectRenderValues(topicOptions)}
+        style={{width: '100%', marginBottom: '1.5em'}}
       />
     </div>
     <div>
@@ -82,7 +84,8 @@ const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) 
         name="supports"
         options={topicOptions}
         multiple={true}
-        style={{width: '60%', marginBottom: '1.5em'}}
+        renderValue={getTopicSelectRenderValues(topicOptions)}
+        style={{width: '100%', marginBottom: '1.5em'}}
       />
     </div>
     <div>
@@ -141,8 +144,17 @@ const CreateTopicForm = ({ connectedAddress, algernonInstance, tagOptions, topic
     />
   }
   return (
-    <CallAndWeb3Form
-    formProps={formProps}
+    <Modal 
+      triggerText='Create Course'
+      triggerColor="#3f51b5"
+      title='Create a New Course'
+      contentText=''
+      getForm={(cancelForm) => {
+        return (
+          <CallAndWeb3Form
+            formProps={{ ...formProps, cancelForm }}
+          />)
+      }}
     />
   )
 }

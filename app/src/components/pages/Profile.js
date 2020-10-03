@@ -8,8 +8,7 @@ import { useGetTopicsForOwner } from '../../queries/topic'
 import { useGetTags } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
-import Box from '../atoms/Box'
-import Box3 from '../organisms/Users/3Box' 
+
 import { WalletContext } from '../providers/WalletProvider'
 
 
@@ -36,10 +35,6 @@ export default (props) => {
         topics={topics || []}
         refetchTopics={refetchTopics}
         refetchUser={refetchUser}
-      />
-      <Box3
-        address={address}
-        provider={provider}
       />
     </div>
   )

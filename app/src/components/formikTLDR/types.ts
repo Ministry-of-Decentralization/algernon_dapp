@@ -71,5 +71,6 @@ export interface CallAndWeb3FormProps {
   stateEls: MutationAndWeb3FormStateEls;
   formOnSuccess: boolean;
   onSuccess: any;
-  triggerEl?: JSX.Element; 
+  triggerEl?: JSX.Element;
+  cancelForm?: any;
 }
