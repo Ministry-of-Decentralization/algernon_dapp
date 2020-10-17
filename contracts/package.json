@@ -1,0 +1,32 @@
+{
+  "name": "drizzle-box",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-skale": "truffle deploy --reset --network skale --compile-all",
+    "deploy-develop": "truffle deploy --reset --network develop"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/truffle-box/drizzle-box.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/truffle-box/drizzle-box/issues"
+  },
+  "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+  "dependencies": {
+    "@openzeppelin/test-helpers": "^0.5.7",
+    "dotenv": "^8.2.0",
+    "openzeppelin-solidity": "^3.2.0",
+    "truffle-hdwallet-provider": "^1.0.17",
+    "typescript": "^3.7.2"
+  }
+}

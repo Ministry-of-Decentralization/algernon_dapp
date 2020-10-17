@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 /** @title Tags. */
 contract Tags {
@@ -24,7 +24,7 @@ contract Tags {
 
   function removeTag(uint256 _toRemove, uint256[]  storage _sourceIdxs) internal {
     _sourceIdxs[_toRemove] = _sourceIdxs[_sourceIdxs.length-1];
-    _sourceIdxs.length--;
+    _sourceIdxs.pop();
   }
 
   function doesTagExist(string memory _tag) public view returns (bool) {

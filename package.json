@@ -11,10 +11,7 @@
     "deploy-skale": "truffle deploy --reset --network skale --compile-all",
     "deploy-develop": "truffle deploy --reset --network develop",
     "run-ganache": "ganache-cli -h 0.0.0.0 -m \"atom picnic embrace liar joy stove more grab fog attitude matrix blossom\"",
-    "dsas": "graphql-codegen --config codegen.yml",
-    "codegen-run-gp": "graphql-codegen --config codegen-gp.yml",
-    "codegen-run-algernon": "graphql-codegen --config codegen-algernon.yml"
-
+    "codegen-run-gp": "graphql-codegen --config codegen-gp.yml"
   },
   "repository": {
     "type": "git",

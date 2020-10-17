@@ -1,0 +1,61 @@
+Arguments: 
+  /home/steve/.nvm/versions/node/v11.15.0/bin/node /usr/share/yarn/bin/yarn.js
+
+PATH: 
+  /home/steve/.cargo/bin:/home/steve/.nvm/versions/node/v11.15.0/bin:/home/steve/.cargo/bin:/home/steve/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  11.15.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  SyntaxError: /home/steve/codes/algernon_dapp/package.json: Unexpected token } in JSON at position 552
+      at JSON.parse (<anonymous>)
+      at /usr/share/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/share/yarn/lib/cli.js:310:30)
+      at /usr/share/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "drizzle-box",
+    "version": "1.0.0",
+    "description": "",
+    "main": "truffle-config.js",
+    "directories": {
+      "test": "test"
+    },
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "deploy-skale": "truffle deploy --reset --network skale --compile-all",
+      "deploy-develop": "truffle deploy --reset --network develop"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/truffle-box/drizzle-box.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/truffle-box/drizzle-box/issues"
+    },
+    "homepage": "https://github.com/truffle-box/drizzle-box#readme",
+    "dependencies": {
+      "dotenv": "^8.2.0",
+      "openzeppelin-solidity": "^2.1.1",
+      "truffle-hdwallet-provider": "^1.0.17",
+      "typescript": "^3.7.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

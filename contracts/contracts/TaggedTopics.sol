@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 import './Topics.sol';
 
@@ -72,11 +72,11 @@ contract TaggedTopics is Topics {
 
   topics[_topicId].tagIds[_topicTagsIdx] = topics[_topicId].tagIds[topics[_topicId].tagIds.length-1];
 
-  topics[_topicId].tagIds.length--;
+  topics[_topicId].tagIds.pop();
 
   userTopicsByTag[_tagId][msg.sender][_taggedUserTopicsIdx] = userTopicsByTag[_tagId][msg.sender][userTopicsByTag[_tagId][msg.sender].length-1];
 
-  userTopicsByTag[_tagId][msg.sender].length--;
+  userTopicsByTag[_tagId][msg.sender].pop();
 
   emit TopicTagUpdated(_topicId, _tagId, false);
   }

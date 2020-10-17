@@ -1,8 +1,8 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
 import './TaggedTopics.sol';
 import './Percent.sol';
-import './ERC20.sol';
+import "openzeppelin-solidity/contracts/token/ERC777/IERC777.sol";
 
 contract Algernon is TaggedTopics, Percent {
   address owner;
@@ -21,8 +21,6 @@ contract Algernon is TaggedTopics, Percent {
     owner = msg.sender;
     TOKEN_ADDRESS = _tokenAddress;
   }
-
-  function () external {}
 
   function createTopic(uint256[] memory _tagIds, string memory fileName) public returns (uint) {
     uint topicId = createUserTopic(fileName, _tagIds, msg.sender);
@@ -94,7 +92,7 @@ contract Algernon is TaggedTopics, Percent {
   }
 
   function getContractTokenBalance() public view returns (uint256) {
-    return IERC20(TOKEN_ADDRESS).balanceOf(address(this));
+    return IERC777(TOKEN_ADDRESS).balanceOf(address(this));
   }
 
   function getAlgernonTokenBalance(address _account) public view returns (uint) {
@@ -102,17 +100,17 @@ contract Algernon is TaggedTopics, Percent {
   }
 
   function depositTokens(uint _amt) public {
-    uint depositerBalance = IERC20(TOKEN_ADDRESS).balanceOf(msg.sender);
+    uint depositerBalance = IERC777(TOKEN_ADDRESS).balanceOf(msg.sender);
     require(depositerBalance >= _amt, 'Insufficient token balance');
 
-    IERC20(TOKEN_ADDRESS).transferFrom(msg.sender, address(this), _amt);
+    IERC777(TOKEN_ADDRESS).operatorSend(msg.sender, address(this), _amt, "", "");
     tokenBalances[msg.sender] += _amt;
   }
 
   function withdrawTokens(uint _amt) public {
     require(tokenBalances[msg.sender] >= _amt, 'Insufficient token balance');
     tokenBalances[msg.sender] -= _amt;
-    IERC20(TOKEN_ADDRESS).transfer(msg.sender, _amt);
+    IERC777(TOKEN_ADDRESS).send(msg.sender, _amt, "");
 
   }
  }

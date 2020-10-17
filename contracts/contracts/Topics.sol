@@ -1,10 +1,9 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.6.0;
 
-import './Multihash.sol';
 import './Tags.sol';
 
 /** @title Users. */
-contract Topics is Multihash, Tags {
+contract Topics is Tags {
   uint256 topicId;
 
   struct Topic {
