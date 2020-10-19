@@ -2841,6 +2841,11 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+husky-run@^0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/husky-run/-/husky-run-0.0.0.tgz#b1ec3808d781ca0811d1f69b88ea345455476900"
+  integrity sha512-gYI6/jEHQ1fjqVTAAxnH+TAJ0haLYA42z1tFnn51g/pIFR9HS3WNWtgb/g230bYxGYKzsLfdSg+rQO1pBtp4fg==
+
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"

@@ -60,35 +60,16 @@
     "resolve": "1.8.1",
     "rimble-ui": "^0.14.0",
     "styled-components": "^5.1.0",
-    "truffle": "^5.0.4",
-    "truffle-contract": "^4.0.5",
-    "truffle-hdwallet-provider": "^1.0.17",
     "typescript": "^3.7.2",
     "uuid": "^3.3.3",
     "web3": "^1.2.1",
-    "web3x-codegen": "^4.0.4",
-    "web3x-es": "^4.0.5",
     "yup": "^0.28.4"
-  },
-  "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.15.0",
-    "@graphprotocol/graph-ts": "^0.15.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "compile-contracts": "truffle compile",
-    "deploy-skale": "truffle deploy --network skale --reset",
-    "build-contract": "solc contracts/Gravity.sol --abi -o abis --overwrite && solc contracts/Gravity.sol --bin -o bin --overwrite",
-    "create": "graph create cirsteve/algerNote --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create cirsteve/algerNote --node http://127.0.0.1:8020",
-    "contract-codegen": "yarn web3x-codegen",
-    "graph-codegen": "graph codegen",
-    "gbuild": "graph build",
-    "deploy-gp": "graph deploy cirsteve/algerNote --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
-    "deploy-gp-local": "graph deploy cirsteve/algerNote --ipfs http://localhost:5001 --node http://127.0.0.1:8020"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
