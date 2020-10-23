@@ -45,7 +45,8 @@ allow users to stake tokens against content to help other users find quality con
 
 
 - Deploy smart contracts to ganache instance
-  - yarn deploy-develop
+  - cd contracts/
+  - yarn deploy-development
 
 
 - Run a theGraph Node
