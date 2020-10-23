@@ -15,11 +15,11 @@ const SelectUI = (props:any) => {
       ((o:any) => <CardItem key={o.value} {...o} onClick={() => helper.setValue(o.value)} isSelected={o.value === field.value} />)
     )
 
-  console.log(`selecting card ${JSON.stringify(meta, null,2)}`)
+  console.log(`selecting card ${props.classes.formControl}`)
   return (
-    <FormControl style={props.style}>
+    <FormControl className={props.classes.formControl}>
       <InputLabel>{props.label}</InputLabel>
-      <Flex>
+      <Flex justifyContent="space-around">
         {optionItems}
       </Flex>
       {isError && <ErrorMessage
@@ -36,8 +36,7 @@ const SelectUI = (props:any) => {
   },
   formControl: {
     margin: theme.spacing.unit,
-    minWidth: 120,
-    maxWidth: 300,
+    width: '100%'
   },
   chips: {
     display: 'flex',

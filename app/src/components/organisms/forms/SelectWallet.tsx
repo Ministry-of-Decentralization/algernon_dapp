@@ -28,13 +28,16 @@ const walletOptions = [
 ]
 
 const getForm = (isValid: boolean, submit: any, close: any) => (
+  <div style={{width: "22em", padding: '1em'}}>
   <Form>
     <CardSelect name='walletType' options={walletOptions} />
-    <Flex>
+    <Flex justifyContent="flex-end" mt='2em'>
       <Button
         onClick={() => {
           close();
         }}
+        style={{marginRight: '2em'}}
+        variant='outlined'
         label="Cancel" />
       <Button
         onClick={() => {
@@ -42,9 +45,10 @@ const getForm = (isValid: boolean, submit: any, close: any) => (
           close();
         }}
         disabled={!isValid}
-        label="Sign Up" />
+        label="Sign In" />
     </Flex>
   </Form>
+  </div>
 )
 
 const getSubmitArgs = async (values: any) => {

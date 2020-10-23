@@ -9,7 +9,12 @@ const useStyles = (isSelected:boolean) => makeStyles({
   root: {
     maxWidth: 345,
     cursor: 'pointer',
-    opacity: `${isSelected ? '100%' : '50%'}` 
+    textAlign:'center',
+    margin: '0.5em',
+    opacity: `${isSelected ? '100%' : '50%'}`,
+    '&:hover': {
+      background: "#3f51b5",
+   },
   },
   media: {
     height: 140,

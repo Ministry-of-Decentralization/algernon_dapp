@@ -30,7 +30,7 @@ export default function Modal(props: Props) {
       <Button variant="outlined" style={{ color }} onClick={handleClickOpen}>
         {props.triggerText}
       </Button>
-      <Dialog open={open} onClose={handleClose}  aria-labelledby="form-dialog-title">
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>
