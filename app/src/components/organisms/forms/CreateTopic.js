@@ -146,7 +146,6 @@ const CreateTopicForm = ({ connectedAddress, algernonInstance, tagOptions, topic
   return (
     <Modal 
       triggerText='Create Course'
-      triggerColor="#3f51b5"
       title='Create a New Course'
       contentText=''
       getForm={(cancelForm) => {

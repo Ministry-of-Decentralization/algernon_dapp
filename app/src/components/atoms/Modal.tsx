@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from './inputs/buttons/Button';
 
 interface Props {
   triggerText: string;
@@ -27,9 +27,11 @@ export default function Modal(props: Props) {
 
   return (
     <div >
-      <Button variant="outlined" style={{ color }} onClick={handleClickOpen}>
-        {props.triggerText}
-      </Button>
+      <Button
+        style={{ color }}
+        onClick={handleClickOpen}
+        label={props.triggerText}
+      />
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>
