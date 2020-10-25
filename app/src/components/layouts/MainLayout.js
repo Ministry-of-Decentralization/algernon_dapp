@@ -7,7 +7,7 @@ export default ({ header, sidebar, main }) =>
     <Flex>
       <Box justifyContent="center">{header}</Box>
     </Flex>
-    <div style={{ display: 'flex', direction: 'row', marginTop: '1em' }}>
+    <div style={{ display: 'flex', direction: 'row', marginTop: '1em', height: 'inherit' }}>
       <div style={{ width: '15%', backgroundColor: '#edf1f5' }}>
         {sidebar}
       </div>

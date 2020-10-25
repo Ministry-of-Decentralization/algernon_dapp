@@ -2,6 +2,7 @@ import React from 'react'
 import TopicList from '../Topics/TopicList'
 import CreateTopic from '../forms/CreateTopic'
 import { topicsToOptions } from '../../atoms/inputs/optionsFormatters'
+import BlockieAddress from '../../molecules/user/BlockieAddress'
 
 const Profile = ({address, connectedAddress, algernonInstance, tagOptions, topics, refetchTopics, unlockedContract}) => {
   const create = address === connectedAddress ?
@@ -21,7 +22,7 @@ const Profile = ({address, connectedAddress, algernonInstance, tagOptions, topic
   return (
     <div>
   
-        <div>Address {address}</div>
+        <BlockieAddress address={address} />
 
       {create}
       <h3>Courses</h3>

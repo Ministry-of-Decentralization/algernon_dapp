@@ -38,19 +38,20 @@ const Topbar = props => {
       className={clsx(classes.root, className)}
     >
       <Toolbar>
-        <RouterLink to="/">
-          <img
-            alt="Logo"
-            src={mouseLogo}
-            style={{height: '2em', width: '2em', margin: '0.4em'}}
-          />
-        </RouterLink>
-        <Flex>
-          <div className={classes.headerName} style={{width: '4em'}}>Algernon</div>
-          <div className={classes.headerTagline} style={{width: '9em'}}>The Open Blockchain School</div>
-        </Flex>
-   
-          <ConnectedWallet style={{justifyContent: 'flex-end'}} />
+          <RouterLink to="/">
+            <img
+              alt="Logo"
+              src={mouseLogo}
+              style={{height: '2em', width: '2em', margin: '0.4em'}}
+            />
+          </RouterLink>
+          <Flex>
+            <div className={classes.headerName} style={{width: '4em'}}>Algernon</div>
+            <div className={classes.headerTagline} style={{width: '9em'}}>The Open Blockchain School</div>
+          </Flex>
+          <div style={{marginLeft: 'auto', order: 2}}>
+            <ConnectedWallet />
+          </div>
       </Toolbar>
     </AppBar>
   );

@@ -79,7 +79,7 @@ const SelectWalletForm = ({setWallet}: any) => {
 
 return (
   <Modal 
-    triggerText='Not Hot Dog'
+    triggerText='Sign In'
     title='Connect Your Wallet'
     contentText=''
     getForm={(cancel: any) => <BasicForm
