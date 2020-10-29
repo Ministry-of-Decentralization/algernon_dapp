@@ -141,7 +141,7 @@ const UpdateTopicMetaForm = ({ connectedAddress, algernonInstance, tagOptions, t
   return (
     <Modal 
       triggerText='Update Course'
-      triggerColor="#3f51b5"
+      triggerColor="#FFF"
       title='Update Course Details'
       contentText=''
       getForm={(cancelForm) => (
