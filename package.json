@@ -8,8 +8,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "deploy-skale": "truffle deploy --reset --network skale --compile-all",
-    "deploy-develop": "truffle deploy --reset --network develop",
     "run-ganache": "ganache-cli -h 0.0.0.0 -m \"atom picnic embrace liar joy stove more grab fog attitude matrix blossom\"",
     "codegen-run-gp": "graphql-codegen --config codegen-gp.yml"
   },
