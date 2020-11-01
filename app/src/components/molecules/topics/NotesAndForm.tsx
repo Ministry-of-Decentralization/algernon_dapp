@@ -25,7 +25,7 @@ const TopicMetaForm = ({formProps, defaultContent}: NotesAndFormProps) => {
     refetchTopic
   } = formProps
   const [swapped, setSwapped] = useState(false)
-  const label = swapped ? 'Cancel' : 'Edit'
+  const label = swapped ? 'Cancel' : 'Update Curriculum'
 
   const form = (
     <UpdateTopicNotesForm

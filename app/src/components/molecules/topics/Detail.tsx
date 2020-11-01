@@ -31,8 +31,7 @@ const RelatedCourse = (props:any) => {
 
   return (
     <Paper>
-      <Link to={`/topic/${topic.id}`} element={<div>{topic.title}</div>} />
-      <a target="blank" href={'//'+topic.url}>{topic.url}</a>
+      <Link to={`/topic/${topic.id}`} element={<h4>{topic.title}</h4>} />
       <p>{topic.description}</p>
     </Paper>
   )
@@ -40,10 +39,15 @@ const RelatedCourse = (props:any) => {
 
 export default (props: TopicDetailProps): React.ReactNode => {
   const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
-  const { title, url, description, owner, notes, requires, supports, tags, createdAt, updatedAt } = topic
+  const { title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
 
   const isOwner = equalAddresses(owner.address, connectedAddress)
+  const createdEl = (
+    <div style={{color: '#808080', marginTop: '.5em', fontStyle: 'italic'}}>
+      Last Updated: {new Date(1000*updatedAt).toDateString()}
+    </div>
+  )
 
   const Notes: React.FC = () => (
     <Flex flexDirection="column" style={{ margin:"1em", padding: "1em" }}>
@@ -55,7 +59,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
   )
 
   const MetaDetails: React.FC = () => (
-    <Paper style={containerStyle}>
+    <div style={{marginTop: '2em'}}>
       <Flex>
         {isOwner &&
           <UpdateTopicMetaForm
@@ -68,35 +72,36 @@ export default (props: TopicDetailProps): React.ReactNode => {
           />
         }
       </Flex>
-      <Flex flexDirection="column">
-        <h1>{title}</h1>
-        <Box>
-          <a target="blank" href={'//'+url}>{url}</a>
-        </Box>
-        <Box>
-        Created: {new Date(1000*createdAt).toLocaleString()} | Updated: {new Date(1000*updatedAt).toLocaleString()}
-        </Box>
-            
-        <Badge address={owner.address} />
-        <Box>
-          {tags.map(tag => <Link id={tag.tag} to={`/tags/${tag.id}`} element={<Chip style={{cursor: 'pointer'}} label={tag.tag} />} />)}
-        </Box>
-        
-        <Box>
-          {description}
-        </Box>
-        
-        <Flex justifyContent="space-around">
-          <Flex flexDirection="column" style={{width: '50%'}}>
-            <h3>Requires Courses</h3>
-            {requires.length ? requires.map(topic => <RelatedCourse id={topic.id} topic={topic} />) : '-'}
+      <Paper style={containerStyle}>
+        <Flex flexDirection="column">
+          <Flex style={{marginLeft: 'auto'}}>
+            <Badge address={owner.address} subEl={createdEl} />
           </Flex>
-          <Flex flexDirection="column">
-            <h3>Supports Courses</h3> {supports.length ? supports.map(topic => <RelatedCourse id={topic.id} topic={topic}  />) : '-'}
+          <Box>
+            <h1>{title}</h1>
+          </Box>
+         
+          <Box>
+            <a target="blank" href={'//'+url}>{url}</a>
+          </Box>
+          <Box>
+            {description}
+          </Box>
+          <Box>
+            {tags.map(tag => <Link id={tag.tag} to={`/tags/${tag.id}`} element={<Chip style={{cursor: 'pointer'}} label={tag.tag} />} />)}
+          </Box>
+          <Flex justifyContent="space-around">
+            <Flex flexDirection="column" style={{width: '50%'}}>
+              <h3>Requires Courses</h3>
+              {requires.length ? requires.map(topic => <RelatedCourse id={topic.id} topic={topic} />) : '-'}
+            </Flex>
+            <Flex flexDirection="column">
+              <h3>Supports Courses</h3> {supports.length ? supports.map(topic => <RelatedCourse id={topic.id} topic={topic}  />) : '-'}
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Paper>
+      </Paper>
+    </div>
   )
 
   const editableMeta = (

@@ -10,14 +10,13 @@ export default (
   ) => {
     const {
       stakeAddress, 
-      username,
       organization,
       description,
       profileImage,
      } = profile
       return (
         <div>
-          <Badge address={stakeAddress} username={username} />
+          <Badge address={stakeAddress} />
           <h6>Organization</h6>
           <p>{organization}</p>
           <h6>Bio</h6>
