@@ -31,7 +31,7 @@ const initClient = async (setClient) => {
 }
 const Provider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  console.log(`state inside provider ${state && state.address}`)
+  console.log(`state inside filestore provider ${state.client}`)
 
   const contextValue = useMemo(() => {
     return {

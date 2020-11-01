@@ -43,12 +43,6 @@ const Sidebar = props => {
 
   const pages = [
     {
-      shouldRender: (address) => !!address,
-      title: 'Account',
-      getHref: (address) => `/profile/${address}`,
-      icon: <AccountBoxIcon />
-    },
-    {
       title: 'Courses',
       icon: <MenuBookIcon />,
       shouldRender: () => true,

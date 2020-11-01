@@ -5,10 +5,10 @@ import { Topic as TopicType } from 'theGraphTypes';
 interface TopicListProps {
   topics: TopicType[]
 }
-const TopicList = ({ topics }:TopicListProps) => {
+const TopicList = ({ topics }: TopicListProps) => {
   return (
     <div>
-      {topics.length ? 
+      {topics.length ?
         topics.map(topic => <TopicListItem key={topic.id} {...topic} />)
         : 'No Courses'
       }

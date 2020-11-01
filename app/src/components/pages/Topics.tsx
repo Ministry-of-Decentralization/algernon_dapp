@@ -12,8 +12,13 @@ export default () => {
   // @ts-ignore
   const { address } = useContext(WalletContext)
   const {loading, topics} = useGetTopics(theGraphClient, 0, 100)
-
-  const main = loading ? loading : <TopicList topics={topics!} />
+  const topicList = (
+    <div>
+      <h2>Explore Courses</h2>
+      <TopicList topics={topics!} />
+    </div>
+  )
+  const main = loading ? loading : topicList
   return (
     <MainLayout
       header={<Header />}

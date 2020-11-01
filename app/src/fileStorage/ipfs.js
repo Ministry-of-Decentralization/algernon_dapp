@@ -5,6 +5,7 @@ export default async (ipfsEndpoint) => {
   ipfsEndpoint = "/ip4/0.0.0.0/tcp/5001" || ipfsEndpoint || process.env.IPFS_ENDPOINT || "/ip4/0.0.0.0/tcp/5001"
 
   const ipfsClient = ipfs(ipfsEndpoint)
+
   const clientId = await ipfsClient.id()
   console.log(`initing ipfs client at ${ipfsEndpoint} -- client id ${clientId}`)
 

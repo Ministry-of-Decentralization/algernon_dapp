@@ -6,7 +6,7 @@ export default ({address, size, scale}) => (
   <Blockies
     seed={address}
     size={size || 9}
-    scale={scale || 4}
+    scale={scale || 5}
   />
 
 )
