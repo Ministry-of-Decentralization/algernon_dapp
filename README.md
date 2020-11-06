@@ -59,7 +59,7 @@ allow users to stake tokens against content to help other users find quality con
 
 - Run the app
   - cd app/ && yarn start
-development
+
 ### Data Flow
 ![Data Flow Diagram](images/algernon_data_flow.png)
 
