@@ -3,6 +3,7 @@
 **/build_webpack
 **/bin
 **/src/contracts
+**/generated
 .env
 scratch.txt
 **/data
