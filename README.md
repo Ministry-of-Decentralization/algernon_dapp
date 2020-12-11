@@ -55,7 +55,7 @@ allow users to stake tokens against content to help other users find quality con
 
 - update theGraph/subgraph.yaml with Alergernon contract address from deploy step
 - Start the theGraph app
-  - cd theGraph/ && yarn create-local deploy-local
+  - cd theGraph/ && yarn create-local && yarn deploy-local
 
 - Run the app
   - cd app/ && yarn start
