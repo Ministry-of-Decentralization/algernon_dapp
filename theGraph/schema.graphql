@@ -6,6 +6,8 @@
 type Tag @entity {
   id: ID!
   tag: String!
+  parent: Tag
+  children: [Tag!] @derivedFrom(field: "parent")
   topics: [Topic!] @derivedFrom(field: "tags")
   stakes: [Stake!] @serivedFrom(field: "tag")
   createdAt: BigInt!
