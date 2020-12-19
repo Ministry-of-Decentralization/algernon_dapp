@@ -9,7 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy-skale": "truffle deploy --reset --network skale --compile-all",
-    "deploy-local": "truffle deploy --reset --network development"
+    "deploy-local": "truffle deploy --reset --network development",
+    "compile": "truffle compile"
   },
   "repository": {
     "type": "git",
