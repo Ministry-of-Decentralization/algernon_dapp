@@ -1,4 +1,5 @@
 import React from 'react'
+import web3 from 'web3'
 import { Form } from 'formik'
 import { selectWalletSchema, SUPPORTED_WALLETS } from '../../../schemas/wallet'
 import wallets from '../../../utils/wallets'
@@ -11,6 +12,10 @@ import Flex from '../../atoms/Flex'
 import Modal from '../../atoms/Modal'
 import { getAlgernonInstance } from '../../../utils/web3'
 
+const ROLE_TYPES = {
+  ADMIN: 'DEFAULT_ADMIN_ROLE',
+  TAGGER: 'TAGGER_ROLE'
+}
 
 const walletOptions = [
   {
@@ -57,11 +62,15 @@ const getSubmitArgs = async (values: any) => {
   // @ts-ignore
   const address = await wallets[values.walletType].getAddress(wallet)
   const algernonInstance = getAlgernonInstance(wallet)
-  console.log(`got a wallet ${wallet} -- ${address} -- ${algernonInstance}`)
+  const isAdmin = await algernonInstance.methods.isAdmin(address).call()
+  const isTagger = await algernonInstance.methods.isTagger(address).call()
+  console.log(`got wallet address:${address}-- admin:${isAdmin}`)
   return {
     walletType: values.walletType,
     wallet,
     address,
+    isAdmin,
+    isTagger,
     provider,
     algernonInstance
   }

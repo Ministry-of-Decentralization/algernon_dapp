@@ -34,9 +34,9 @@ const CreateTagForm = ({ connectedAddress, algernonInstance }) => {
     defaultValues: createTagSchema.defaultValues,
     schema: createTagSchema.schema,
     getForm: getForm,
-    contractMethod: algernonInstance.methods.addMasterTag,
+    contractMethod: algernonInstance.methods.addTag,
     connectedAddress,
-    methodArgs: ['tag'],
+    methodArgs: ['tag', 'parent'],
     stateEls: {
       successEl: Success
     },

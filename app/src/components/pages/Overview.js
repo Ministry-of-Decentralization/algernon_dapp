@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import MainLayout from '../layouts/MainLayout'
 import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
 import CollegeCards from '../organisms/Colleges/CollegeCards'
-import useGetAccount from '../hooks/useGetAccount'
+import { WalletContext } from '../providers/WalletProvider'
 import AccountTreeIcon from '@material-ui/icons/AccountTree'
 import PeopleIcon from '@material-ui/icons/People'
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption'
@@ -35,12 +35,13 @@ const colleges = [
 ]
 
 export default () => {
-  const selectedAddress = useGetAccount()
+  // @ts-ignore
+  const { address, isAdmin } = useContext(WalletContext)
 
   return (
     <MainLayout
       header={<Header />}
-      sidebar={<Sidebar selectedAddress={selectedAddress} />}
+      sidebar={<Sidebar selectedAddress={address} isAdmin={isAdmin} />}
       main={<CollegeCards colleges={colleges}  />}
     />
   )

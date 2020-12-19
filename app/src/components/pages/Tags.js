@@ -10,14 +10,14 @@ import { WalletContext } from '../providers/WalletProvider'
 
 export default () => {
   // @ts-ignore
-  const { algernonInstance, address } = useContext(WalletContext)
+  const { address, isAdmin } = useContext(WalletContext)
   const {loading, tags} = useGetTags(theGraphClient, 0, 100)
-
-  const main = loading ? 'loading' : <TagsMain connectedAddress={address} algernonInstance={algernonInstance} tags={tags} />
+  console.log(`inside tags ${address} -- ${isAdmin}`)
+  const main = loading ? 'loading' : <TagsMain tags={tags} />
   return (
     <MainLayout
       header={<Header />}
-      sidebar={<Sidebar selectedAddress={address} />}
+      sidebar={<Sidebar selectedAddress={address} isAdmin={isAdmin} />}
       main={main}
     />
   )

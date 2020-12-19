@@ -11,7 +11,7 @@ import Topic from './components/pages/Topic'
 import Topics from './components/pages/Topics'
 import Users from './components/pages/Users'
 import About from './components/pages/About'
-
+import Admin from './components/pages/Admin'
 
 import "./App.css";
 import theme from './theme.js'
@@ -29,6 +29,7 @@ class App extends Component {
           <FileStoreProvider>
             <Switch>
               <Route exact path='/' component={Overview} />
+              <Route exact path='/admin' component={Admin} />
               <Route exact path='/about' component={About} />
               <Route exact path='/tags' component={Tags} />
               <Route exact path='/tags/:id' component={Tag} />

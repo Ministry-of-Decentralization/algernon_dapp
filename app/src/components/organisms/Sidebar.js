@@ -37,6 +37,11 @@ const links = [
     shouldRender: () => true,
     url: () => '/users',
     label: 'Users'
+  },
+  {
+    shouldRender: (_, isAdmin) => isAdmin,
+    url: () => `/admin`,
+    label: 'Admin'
   }
 ]
 
@@ -50,9 +55,9 @@ const LinkWrapper = styled.div`
   margin-bottom: 1.5em;
 `
 
-const Sidebar = ({ selectedAddress }) => (
+const Sidebar = ({ selectedAddress, isAdmin }) => (
     <Menu>
-      {links.map(link => link.shouldRender(selectedAddress) ? <MenuLink key={link.url} url={link.url(selectedAddress)} label={link.label} /> : null)}
+      {links.map(link => link.shouldRender(selectedAddress, isAdmin) ? <MenuLink key={link.url} url={link.url(selectedAddress)} label={link.label} /> : null)}
     </Menu>
   )
 

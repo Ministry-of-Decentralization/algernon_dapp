@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import ImageIcon from '@material-ui/icons/Image';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
-  const { open, variant, onClose, className, selectedAddress, ...rest } = props;
+  const { open, variant, onClose, className, selectedAddress, isAdmin,  ...rest } = props;
 
   const classes = useStyles();
 
@@ -55,6 +55,12 @@ const Sidebar = props => {
       getHref: () => '/tags',
     },
     {
+      title: 'Admin',
+      icon: <AssignmentIcon />,
+      shouldRender: (_, isAdmin) => isAdmin,
+      getHref: () => '/admin',
+    },
+    {
       title: 'Users',
       icon: <PeopleIcon />,
       shouldRender: () => false,
@@ -62,7 +68,7 @@ const Sidebar = props => {
     }
   ];
 
-  const showPages = pages.filter(page => page.shouldRender(selectedAddress))
+  const showPages = pages.filter(page => page.shouldRender(selectedAddress, isAdmin))
     .map(page => ({
       ...page,
       href: page.getHref(selectedAddress)
