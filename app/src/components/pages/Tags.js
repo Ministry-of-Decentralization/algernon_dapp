@@ -12,7 +12,6 @@ export default () => {
   // @ts-ignore
   const { address, isAdmin } = useContext(WalletContext)
   const {loading, tags} = useGetTags(theGraphClient, 0, 100)
-  console.log(`inside tags ${address} -- ${isAdmin}`)
   const main = loading ? 'loading' : <TagsMain tags={tags} />
   return (
     <MainLayout

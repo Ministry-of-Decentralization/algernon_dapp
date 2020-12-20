@@ -1,5 +1,5 @@
 import React from 'react'
-import TagList from '../Tags/TagList'
+import Paper from '../../atoms/Paper'
 import CreateTagForm from '../forms/CreateTag'
 
 interface AdminMainProps {
@@ -11,9 +11,11 @@ interface AdminMainProps {
 const Main = ({connectedAddress, algernonInstance, tags}: AdminMainProps) => {
 
   return (
-    <div>
-    <CreateTagForm connectedAddress={connectedAddress}  algernonInstance={algernonInstance} />
-    <TagList tags={tags} />
+    <div style={{padding: '2em'}}>
+    <Paper>
+      <CreateTagForm connectedAddress={connectedAddress}  algernonInstance={algernonInstance} tags={tags} />
+    </Paper>
+
     </div>
   )
 }
