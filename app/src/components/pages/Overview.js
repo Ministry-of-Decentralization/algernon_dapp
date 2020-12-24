@@ -36,12 +36,12 @@ const colleges = [
 
 export default () => {
   // @ts-ignore
-  const { address, isAdmin } = useContext(WalletContext)
+  const { address, canViewAdmin } = useContext(WalletContext)
 
   return (
     <MainLayout
       header={<Header />}
-      sidebar={<Sidebar selectedAddress={address} isAdmin={isAdmin} />}
+      sidebar={<Sidebar selectedAddress={address} canViewAdmin={canViewAdmin} />}
       main={<CollegeCards colleges={colleges}  />}
     />
   )

@@ -11,7 +11,7 @@ import { WalletContext } from '../providers/WalletProvider'
 // @ts-ignore
 export default ({match: { params: id}}) => {
   // @ts-ignore
-  const { address, isAdmin } = useContext(WalletContext)
+  const { address, canViewAdmin } = useContext(WalletContext)
   const {loading, tag} = useGetTag(theGraphClient, id.id)
   const main = loading ?
     'loading'
@@ -24,7 +24,7 @@ export default ({match: { params: id}}) => {
     <MainLayout
       header={<Header />}
       // @ts-ignore
-      sidebar={<Sidebar selectedAddress={address} isAdmin={isAdmin} />}
+      sidebar={<Sidebar selectedAddress={address} canViewAdmin={canViewAdmin} />}
       main={main}
     />
   )

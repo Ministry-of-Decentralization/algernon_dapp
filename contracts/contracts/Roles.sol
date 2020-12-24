@@ -18,7 +18,23 @@ contract Roles is AccessControl {
         return hasRole(DEFAULT_ADMIN_ROLE, _addr);
     }
 
-      function isTagger(address _addr) public view returns (bool) {
+    function grantAdminRole(address _addr) public {
+        grantRole(DEFAULT_ADMIN_ROLE, _addr);
+    }
+
+    function revokeAdminRole(address _addr) public {
+        revokeRole(DEFAULT_ADMIN_ROLE, _addr);
+    }
+
+    function isTagger(address _addr) public view returns (bool) {
         return hasRole(TAGGER_ROLE, _addr);
+    }
+
+    function grantTaggerRole(address _addr) public {
+        grantRole(TAGGER_ROLE, _addr);
+    }
+
+    function revokeTaggerRole(address _addr) public {
+        revokeRole(TAGGER_ROLE, _addr);
     }
 }

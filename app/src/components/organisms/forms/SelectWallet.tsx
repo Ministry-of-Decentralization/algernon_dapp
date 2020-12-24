@@ -12,11 +12,6 @@ import Flex from '../../atoms/Flex'
 import Modal from '../../atoms/Modal'
 import { getAlgernonInstance } from '../../../utils/web3'
 
-const ROLE_TYPES = {
-  ADMIN: 'DEFAULT_ADMIN_ROLE',
-  TAGGER: 'TAGGER_ROLE'
-}
-
 const walletOptions = [
   {
     icon: <FortmaticIcon size={6} />,

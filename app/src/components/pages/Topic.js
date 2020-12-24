@@ -12,7 +12,7 @@ import { WalletContext } from '../providers/WalletProvider'
 export default ({match: { params: id}}) => {
   id = id.id
 
-  const { algernonInstance, isAdmin, address: connectedAddress } = useContext(WalletContext)
+  const { algernonInstance, canViewAdmin, address: connectedAddress } = useContext(WalletContext)
 
   const { loading, topic, refetch: refetchTopic } = useGetTopic(theGraphClient, id)
   const { topics } = useGetTopics(theGraphClient, 0, 100)
@@ -34,7 +34,7 @@ export default ({match: { params: id}}) => {
   return (
     <MainLayout
       header={<Header />}
-      sidebar={<Sidebar selectedAddress={connectedAddress} isAdmin={isAdmin} />}
+      sidebar={<Sidebar selectedAddress={connectedAddress} canViewAdmin={canViewAdmin} />}
       main={ main }
     />
   )

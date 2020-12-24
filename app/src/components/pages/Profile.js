@@ -19,7 +19,7 @@ export default (props) => {
 
   const { user, loading : userLoading, refetch: refetchUser } = useGetUser(address);
   // @ts-ignore
-  const { algernonInstance, address: connectedAddress, isAdmin } = useContext(WalletContext)
+  const { algernonInstance, address: connectedAddress, canViewAdmin } = useContext(WalletContext)
 
   console.log(`in profile address ${address} -- connected address ${connectedAddress} -- ${algernonInstance}`)
   const main = (
@@ -40,7 +40,7 @@ export default (props) => {
   return (
   <MainLayout
     header={<Header />}
-    sidebar={<Sidebar selectedAddress={connectedAddress} isAdmin={isAdmin} />}
+    sidebar={<Sidebar selectedAddress={connectedAddress} canViewAdmin={canViewAdmin} />}
     main={main}
   />
   )

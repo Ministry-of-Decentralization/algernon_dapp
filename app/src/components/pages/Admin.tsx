@@ -11,16 +11,16 @@ import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 
 export default () => {
   // @ts-ignore
-  const { algernonInstance, address, isAdmin } = useContext(WalletContext)
+  const { algernonInstance, address, isAdmin, isTagger, canViewAdmin } = useContext(WalletContext)
   const {loading, tags} = useGetTags(theGraphClient, 0, 100)
-  console.log(`tags are ${tags && JSON.stringify(tags[0])}`)
+  console.log(`in admin ${algernonInstance}`)
   const tagOptions = tagsToOptions(tags || [], [{value: '0', label: 'No Parent'}])
-  const main = loading && algernonInstance ? 'loading' : <AdminMain connectedAddress={address} algernonInstance={algernonInstance} tags={tagOptions} />
+  const main = loading || algernonInstance == undefined ? 'loading' : <AdminMain connectedAddress={address} algernonInstance={algernonInstance} tags={tagOptions} isAdmin={isAdmin} isTagger={isTagger} />
   return (
     <MainLayout
       header={<Header />}
       // @ts-ignore
-      sidebar={<Sidebar selectedAddress={address} isAdmin={isAdmin} />}
+      sidebar={<Sidebar selectedAddress={address} canViewAdmin={canViewAdmin} />}
       main={main}
     />
   )

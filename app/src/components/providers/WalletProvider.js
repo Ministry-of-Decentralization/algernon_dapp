@@ -10,6 +10,8 @@ const initialState = {
   wallet: null,
   address: null,
   isAdmin: false,
+  isTagger: false,
+  canViewAdmin: false,
   provider: null
 }
 
@@ -24,6 +26,7 @@ const reducer = (state, action) => {
         address: action.payload.address,
         isAdmin: action.payload.isAdmin,
         isTagger: action.payload.isTagger,
+        canViewAdmin: action.payload.isAdmin || action.payload.isTagger,
         provider: action.payload.provider,
         algernonInstance: action.payload.algernonInstance
       }

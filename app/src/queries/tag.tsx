@@ -42,7 +42,8 @@ export const useGetTags = (client: any, skip: number, first: number) => {
       variables: {
         skip,
         first
-      }
+      },
+      fetchPolicy: 'no-cache'
     });
 
   return {
