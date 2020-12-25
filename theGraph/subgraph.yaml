@@ -21,10 +21,12 @@ dataSources:
         - Stake
       abis:
         - name: Algernon
-          file: ./abis/Algernon.abi
+          file: ./abis/Algernon.json
       eventHandlers:
-        - event: TagAdded(uint256,string,address)
+        - event: TagAdded(uint256,string,uint256,address)
           handler: handleTagAdded
+        - event: TagUpdated(uint256,string,uint256,address)
+          handler: handleTagUpdated
         - event: TopicCreated(uint256,uint256[],indexed address,string)
           handler: handleTopicCreated
         - event: TopicUpdated(uint256,uint256[],string)

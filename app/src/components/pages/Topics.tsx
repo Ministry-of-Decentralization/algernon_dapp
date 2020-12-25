@@ -10,7 +10,7 @@ import { WalletContext } from '../providers/WalletProvider'
 
 export default () => {
   // @ts-ignore
-  const { address } = useContext(WalletContext)
+  const { address, canViewAdmin } = useContext(WalletContext)
   const {loading, topics} = useGetTopics(theGraphClient, 0, 100)
   const topicList = (
     <div>
@@ -23,7 +23,7 @@ export default () => {
     <MainLayout
       header={<Header />}
       // @ts-ignore
-      sidebar={<Sidebar selectedAddress={address} />}
+      sidebar={<Sidebar selectedAddress={address} canViewAdmin={canViewAdmin} />}
       main={main}
     />
   )

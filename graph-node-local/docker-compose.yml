@@ -21,6 +21,7 @@ services:
       RUST_LOG: info
       RUST_BACKTRACE: 1
       ETHEREUM_REORG_THRESHOLD: 2
+      GRAPH_ALLOW_NON_DETERMINISTIC_IPFS: 'TRUE'
   ipfs:
     image: ipfs/go-ipfs:v0.4.23
     ports:

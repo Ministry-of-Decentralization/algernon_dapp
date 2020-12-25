@@ -1,42 +1,56 @@
 pragma solidity ^0.6.0;
 
+import "./Roles.sol";
+
 /** @title Tags. */
-contract Tags {
+contract Tags is Roles {
 
-  mapping (string => bool) tagExists;
-  string[] tags;
+  struct Tag {
+    string label;
+    uint256 parent; 
+  }
 
-  event TagAdded(uint id, string tag, address addedBy);
+  mapping (string => bool) public tagExists;
 
-  function addMasterTag(string memory _tag) public {
+  Tag[] private tags;
+
+  event TagAdded(uint id, string tag, uint parent, address addedBy);
+  event TagUpdated(uint id, string tag, uint parent, address updatedBy);
+
+
+  function addTag(string memory _tag, uint256 _parent) public {
+    require(hasRole(TAGGER_ROLE, msg.sender), "Caller is not a tagger");
+    require(bytes(_tag).length != 0, 'Tag Cannot be an empty string');
     require(tagExists[_tag] == false, 'Tag already exists');
-    uint id = tags.length;
-    tags.push(_tag);
+
+    // reserve 0 as null id for parentless tags
+    uint256 id = tags.length + 1;
+    Tag memory tag = Tag(_tag, _parent);
+    tags.push(tag);
     tagExists[_tag] = true;
-    emit TagAdded(id, _tag, msg.sender);
+    emit TagAdded(id, _tag, _parent, msg.sender);
   }
 
-  function addTags(uint256[] memory _toAdd, uint256[] storage _sourceIdxs) internal {
-    for (uint256 i; i < _toAdd.length; i++) {
-      _sourceIdxs.push(_toAdd[i]);
-    }
-  }
+  function updateParent(uint256 _id, uint256 _newParent) public {
+    require(hasRole(TAGGER_ROLE, msg.sender), "Caller is not a tagger");
 
-  function removeTag(uint256 _toRemove, uint256[]  storage _sourceIdxs) internal {
-    _sourceIdxs[_toRemove] = _sourceIdxs[_sourceIdxs.length-1];
-    _sourceIdxs.pop();
-  }
+    uint256 id = _id - 1; 
+    Tag storage tag = tags[id];
 
-  function doesTagExist(string memory _tag) public view returns (bool) {
-    return tagExists[_tag];
+    require(tagExists[tag.label] == true, 'Tag does not exist');
+
+    tag.parent = _newParent;
+
+    emit TagUpdated(id, tag.label, tag.parent, msg.sender);
   }
 
   function getTagCount() public view returns (uint256) {
     return tags.length;
   }
 
-  function getTag(uint256 _id) public view returns (string memory) {
-    return tags[_id];
+  function getTag(uint256 _id) public view returns (uint256, string memory, uint256) {
+    Tag storage tag = tags[_id - 1];
+    return (_id, tag.label, tag.parent);
   }
 
 }

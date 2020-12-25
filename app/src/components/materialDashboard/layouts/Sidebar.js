@@ -5,12 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import PeopleIcon from '@material-ui/icons/People';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
-import ImageIcon from '@material-ui/icons/Image';
-import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import SettingsIcon from '@material-ui/icons/Settings';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-
+import AssignmentIcon from '@material-ui/icons/Assignment';
 import SidebarNav from '../components/SidebarNav';
 
 const useStyles = makeStyles(theme => ({
@@ -37,7 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Sidebar = props => {
-  const { open, variant, onClose, className, selectedAddress, ...rest } = props;
+  const { open, variant, onClose, className, selectedAddress, canViewAdmin,  ...rest } = props;
 
   const classes = useStyles();
 
@@ -55,6 +50,12 @@ const Sidebar = props => {
       getHref: () => '/tags',
     },
     {
+      title: 'Admin',
+      icon: <AssignmentIcon />,
+      shouldRender: (_, canViewAdmin) => canViewAdmin,
+      getHref: () => '/admin',
+    },
+    {
       title: 'Users',
       icon: <PeopleIcon />,
       shouldRender: () => false,
@@ -62,7 +63,7 @@ const Sidebar = props => {
     }
   ];
 
-  const showPages = pages.filter(page => page.shouldRender(selectedAddress))
+  const showPages = pages.filter(page => page.shouldRender(selectedAddress, canViewAdmin))
     .map(page => ({
       ...page,
       href: page.getHref(selectedAddress)
@@ -88,7 +89,8 @@ Sidebar.propTypes = {
   onClose: PropTypes.func,
   open: PropTypes.bool.isRequired,
   variant: PropTypes.string.isRequired,
-  selectedAddress: PropTypes.string
+  selectedAddress: PropTypes.string,
+  canViewAdmin:PropTypes.bool.isRequired
 };
 
 export default Sidebar;

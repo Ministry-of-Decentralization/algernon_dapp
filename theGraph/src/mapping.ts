@@ -1,13 +1,21 @@
-import { TagAdded, TopicCreated, TopicUpdated, TopicTagsUpdated } from '../generated/Algernon/Algernon'
+import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated } from '../generated/Algernon/Algernon'
 import { Tag, User, Topic } from '../generated/schema'
 import { log, Bytes, BigInt, json, ipfs } from '@graphprotocol/graph-ts'
 
 export function handleTagAdded(event: TagAdded): void {
-
     let newTag = new Tag(event.params.id.toString())
     newTag.tag = event.params.tag
+    if (event.params.parent.toString() != '0') {
+      newTag.parent = event.params.parent.toString() 
+    }
     newTag.createdAt = event.block.timestamp
     newTag.save()
+}
+
+export function handleTagUpdated(event: TagUpdated): void {
+  let tag = Tag.load(event.params.id.toString())
+  tag.parent = event.params.parent.toString()
+  tag.save()
 }
 
 function updateTopicContent(topic: Topic, content: Bytes): Topic {

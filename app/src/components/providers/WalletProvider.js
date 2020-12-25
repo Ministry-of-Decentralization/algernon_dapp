@@ -9,6 +9,9 @@ const initialState = {
   walletType: null,
   wallet: null,
   address: null,
+  isAdmin: false,
+  isTagger: false,
+  canViewAdmin: false,
   provider: null
 }
 
@@ -21,6 +24,9 @@ const reducer = (state, action) => {
         walletType: action.payload.walletType,
         wallet: action.payload.wallet,
         address: action.payload.address,
+        isAdmin: action.payload.isAdmin,
+        isTagger: action.payload.isTagger,
+        canViewAdmin: action.payload.isAdmin || action.payload.isTagger,
         provider: action.payload.provider,
         algernonInstance: action.payload.algernonInstance
       }
@@ -37,7 +43,19 @@ export default ({children}) => {
   const contextValue = useMemo(() => {
     return {
       ...state,
-      setWallet: ({ walletType, wallet, address, algernonInstance, provider }) => dispatch({type: UPDATE_TYPES.SET_WALLET, payload: { walletType, wallet, address, algernonInstance, provider }})
+      setWallet: ({ walletType, wallet, address, isAdmin, isTagger, algernonInstance, provider }) =>
+        dispatch({
+          type: UPDATE_TYPES.SET_WALLET,
+          payload: {
+            walletType,
+            wallet,
+            address,
+            isAdmin,
+            isTagger,
+            algernonInstance,
+            provider 
+          }
+        })
     };
   }, [state, dispatch]);
 

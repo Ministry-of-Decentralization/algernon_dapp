@@ -13,4 +13,4 @@ export const topicsToOptions = (topics) => topics.map(topic => {
   }
 })
 
-export const tagsToOptions = (tags) => tags.map(tag => ({value: tag.id, label:tag.tag}))
+export const tagsToOptions = (tags, firstOption = []) => firstOption.concat(tags.map(tag => ({value: tag.id, label:tag.tag})))

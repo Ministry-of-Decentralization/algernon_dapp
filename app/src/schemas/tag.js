@@ -3,9 +3,12 @@ import { tagSchema } from './common';
 
 export const createTagSchema = {
   defaultValues: {
-    tag: ''
+    tag: '',
+    parent: 0
   },
   schema: Yup.object({
-    tag: tagSchema
+    tag: tagSchema,
+    parent: Yup.number().required()
+
   })
 }
