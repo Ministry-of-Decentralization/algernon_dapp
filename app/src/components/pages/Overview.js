@@ -13,21 +13,25 @@ import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 
 const colleges = [
   {
+    id: 1,
     title: 'Blockchain School',
     description: 'Bitcoin, Ethereum, and other crypto projects',
     icon: <AccountTreeIcon />
   },
   {
-    title: 'Smart Contracts',
-    description: 'Learn about smart contracts and how to create them.',
+    id: 2,
+    title: 'Solidity',
+    description: 'Learn about Solidity and writing smart contracts.',
     icon: <AccountBalanceWalletIcon />
   },
   {
+    id: 3,
     title: 'Cryptography',
     description: 'Cryptographic keys, encryption schemas, and the math the makes it all work.',
     icon: <EnhancedEncryptionIcon />
   },
   {
+    id: 4,
     title: 'Decentralized Applications',
     description: 'Designing and developing dapps.',
     icon: <PeopleIcon />
