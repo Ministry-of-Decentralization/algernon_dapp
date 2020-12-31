@@ -12,8 +12,10 @@ export default ({ id, title, url, description, owner, tags }: Topic) => {
     <div style={{marginBottom: '1em'}}>
       <Paper>
         <Flex>
-          {owner && <div style={{margin: "1.5em"}}>
-            <Blockie address={owner?.address} size={10} scale={8} />
+          {owner && <div style={{margin: "0 1.5em"}}>
+            <Link to={`/profile/${owner.address}`}>
+              <Blockie address={owner?.address} size={10} scale={8} />
+            </Link>
           </div>}
           <div>
             <Link to={`/topic/${id}`}><h2>{title}</h2></Link>

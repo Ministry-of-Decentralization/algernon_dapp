@@ -44,8 +44,8 @@ export default (props: TopicDetailProps): React.ReactNode => {
 
   const isOwner = equalAddresses(owner.address, connectedAddress)
   const createdEl = (
-    <div style={{color: '#808080', marginTop: '.5em', fontStyle: 'italic'}}>
-      Last Updated: {new Date(1000*updatedAt).toDateString()}
+    <div style={{color: '#808080', marginTop: '.5em', fontStyle: 'italic', fontSize: '.9em'}}>
+      Last Updated: {new Date(1000*updatedAt).toLocaleDateString()}
     </div>
   )
 
@@ -74,12 +74,14 @@ export default (props: TopicDetailProps): React.ReactNode => {
       </Flex>
       <Paper style={containerStyle}>
         <Flex flexDirection="column">
-          <Flex style={{marginLeft: 'auto'}}>
-            <Badge address={owner.address} subEl={createdEl} />
+          <Flex>
+            <Box style={{width: '70%'}}>
+              <h1>{title}</h1>
+            </Box>
+            <Box style={{width: '25%'}}>
+              <Badge address={owner.address} subEl={createdEl} />
+            </Box>
           </Flex>
-          <Box>
-            <h1>{title}</h1>
-          </Box>
           <Box>
             {description}
           </Box>

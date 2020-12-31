@@ -3,7 +3,7 @@ import ImageCard from '../../materialDashboard/components/ImageCard'
 import Box from '../../atoms/Box'
 import Link from '../../atoms/Link'
 
-const CollegeCard = ({college}) => (
+const CollegeCard = ({ college }) => (
   <div style={{margin: '2em 4em'}}>
     <Link
       to={`/tags/${college.id}`}
