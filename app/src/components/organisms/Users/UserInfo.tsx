@@ -1,12 +1,8 @@
 import React from 'react'
 import Badge from '../../molecules/user/Badge'
-import { User as UserType } from 'algernonTypes'
 
-interface Props {
-  profile: UserType
-}
 export default (
-  { profile }: Props
+  { profile }: any
   ) => {
     const {
       stakeAddress, 

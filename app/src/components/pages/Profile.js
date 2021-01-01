@@ -3,7 +3,6 @@ import MainLayout from '../layouts/MainLayout'
 import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
 import ProfileMain from '../organisms/Profile/ProfileMain'
-import { useGetUser } from '../../queries/user';
 import { useGetTopicsForOwner } from '../../queries/topic'
 import { useGetTags } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
@@ -17,7 +16,7 @@ export default (props) => {
   const { tags } = useGetTags(theGraphClient, 0, 100)
   const tagOptions = tagsToOptions(tags || [])
 
-  const { user, loading : userLoading, refetch: refetchUser } = useGetUser(address);
+  const { user, loading : userLoading, refetch: refetchUser } = {}
   // @ts-ignore
   const { algernonInstance, address: connectedAddress, canViewAdmin } = useContext(WalletContext)
 

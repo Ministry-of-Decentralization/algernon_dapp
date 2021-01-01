@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import SignUpForm from '../forms/SignUp'
-import { useGetUser } from '../../../queries/user'
+
 
 const User = ({stakeAddress, username, description}:{stakeAddress: string, username: string, description: string}) =>
     <div>
@@ -11,12 +10,12 @@ const User = ({stakeAddress, username, description}:{stakeAddress: string, usern
     </div>
 
 const UserConnection = ({connectedAddress}:{connectedAddress: string}) => {
-  const user = useGetUser(connectedAddress)
+  const user = {user: null} 
   let signUpContent = null
   if (user.user) {
     signUpContent = <div>you are an algeronian</div>
   } else {
-    signUpContent = <SignUpForm connectedAddress={connectedAddress} />
+    signUpContent = <div></div>
   }
 
   return signUpContent
@@ -25,7 +24,7 @@ const UserConnection = ({connectedAddress}:{connectedAddress: string}) => {
 
 const UserList = ({users, connectedAddress}: {users: any, connectedAddress: string}) => {
   const connectedWallet = connectedAddress ?
-    <UserConnection connectedAddress={connectedAddress} /> : <div>Connect A Wallet</div>
+    <div>connected</div> : <div>Connect A Wallet</div>
 
   return (
     <div>

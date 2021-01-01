@@ -4,13 +4,12 @@ import Header from '../materialDashboard/layouts/Topbar'
 import Sidebar from '../materialDashboard/layouts/Sidebar'
 import UserList from '../organisms/Users/UserList'
 import useGetAccount from '../hooks/useGetAccount'
-import { useGetUsers } from '../../queries/user';
 
 
 
 
 export default () => {
-  const { loading, users } = useGetUsers();
+  const { loading, users } = {};
 
   const connectedAddress = useGetAccount()
 
