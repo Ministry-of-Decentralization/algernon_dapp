@@ -18,8 +18,7 @@ const initialState = {
 const reducer = (state, action) => {
   switch(action.type) {
     case UPDATE_TYPES.SET_WALLET:
-      console.log(`reducin ${action.payload.address}`)
-      return {
+    return {
         ...state,
         walletType: action.payload.walletType,
         wallet: action.payload.wallet,
@@ -39,7 +38,7 @@ export const WalletContext = createContext(null)
 
 export default ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  console.log(`state inside provider ${state && state.address}`)
+
   const contextValue = useMemo(() => {
     return {
       ...state,

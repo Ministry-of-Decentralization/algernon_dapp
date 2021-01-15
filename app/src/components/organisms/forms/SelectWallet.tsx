@@ -59,7 +59,7 @@ const getSubmitArgs = async (values: any) => {
   const algernonInstance = getAlgernonInstance(wallet)
   const isAdmin = await algernonInstance.methods.isAdmin(address).call()
   const isTagger = await algernonInstance.methods.isTagger(address).call()
-  console.log(`got wallet address:${address}-- admin:${isAdmin}`)
+
   return {
     walletType: values.walletType,
     wallet,

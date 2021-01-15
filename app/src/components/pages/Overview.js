@@ -39,7 +39,6 @@ const colleges = [
 ]
 
 export default () => {
-  // @ts-ignore
   const { address, canViewAdmin } = useContext(WalletContext)
 
   return (
