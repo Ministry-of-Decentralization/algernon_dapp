@@ -1,13 +1,12 @@
+import config from '../config'
 const ipfs = require('ipfs-http-client')
 
-export default async (ipfsEndpoint) => {
-  console.log(`getting ipfs client`)
-  ipfsEndpoint = "/ip4/0.0.0.0/tcp/5001" || ipfsEndpoint || process.env.IPFS_ENDPOINT || "/ip4/0.0.0.0/tcp/5001"
+export default async () => {
 
-  const ipfsClient = ipfs(ipfsEndpoint)
+  const ipfsClient = ipfs(config.ipfsEndpoint)
 
   const clientId = await ipfsClient.id()
-  console.log(`initing ipfs client at ${ipfsEndpoint} -- client id ${clientId}`)
+  console.log(`initing ipfs client at ${config.ipfsEndpoint} -- client id ${clientId}`)
 
 
   const saveFile = async (fileData) => {
