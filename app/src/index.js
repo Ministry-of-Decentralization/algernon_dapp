@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter} from 'react-router-dom'
+import { HashRouter} from 'react-router-dom'
 import { ApolloProvider } from '@apollo/react-hooks';
 import { BaseStyles } from "rimble-ui";
 import { ThemeProvider } from "styled-components";
@@ -9,18 +9,16 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import apolloClient from './utils/apolloClient'
 import algernonTheme from './theme'
-require('dotenv').config()
-
 
 ReactDOM.render((
   <ApolloProvider client={apolloClient}>
-    <BrowserRouter>
+    <HashRouter>
       <ThemeProvider theme={algernonTheme}>
         <BaseStyles>
           <App />
         </BaseStyles>
       </ThemeProvider>
-    </BrowserRouter>
+    </HashRouter>
   </ApolloProvider>),
   document.getElementById('root')
 );

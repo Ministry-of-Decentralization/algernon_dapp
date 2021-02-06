@@ -27,7 +27,7 @@ const colleges = [
   {
     id: 3,
     title: 'Cryptography',
-    description: 'Cryptographic keys, encryption schemas, and the math the makes it all work.',
+    description: 'Crypto basics and wallets',
     icon: <EnhancedEncryptionIcon />
   },
   {

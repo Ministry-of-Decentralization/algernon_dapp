@@ -1,0 +1,36 @@
+specVersion: 0.0.2
+description: Peer to peer learning network
+repository: https://github.com/Ministry-of-Decentralization/algernon_dapp/subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: algernon
+    network: kovan
+    source:
+      address: '0x1acE7049142881d42Fe104B212C8E7a457eE0C91'
+      abi: Algernon
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - Tag
+        - Topic
+        - User
+        - Stake
+      abis:
+        - name: Algernon
+          file: ./abis/Algernon.json
+      eventHandlers:
+        - event: TagAdded(uint256,string,uint256,address)
+          handler: handleTagAdded
+        - event: TagUpdated(uint256,string,uint256,address)
+          handler: handleTagUpdated
+        - event: TopicCreated(uint256,uint256[],indexed address,string)
+          handler: handleTopicCreated
+        - event: TopicUpdated(uint256,uint256[],string)
+          handler: handleTopicUpdated
+        - event: TopicTagsUpdated(uint256,uint256[])
+          handler: handleTopicTagsUpdated
+      file: ./src/mapping.ts

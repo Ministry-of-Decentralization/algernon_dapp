@@ -68,37 +68,6 @@ const ImageCard = props => {
         </Typography>
       </CardContent>
       <Divider />
-      <CardActions>
-        <Grid
-          container
-          justify="space-between"
-        >
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <AccessTimeIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              Updated 2hr ago
-            </Typography>
-          </Grid>
-          <Grid
-            className={classes.statsItem}
-            item
-          >
-            <GetAppIcon className={classes.statsIcon} />
-            <Typography
-              display="inline"
-              variant="body2"
-            >
-              {item.totalDownloads} Downloads
-            </Typography>
-          </Grid>
-        </Grid>
-      </CardActions>
     </Card>
   );
 };
