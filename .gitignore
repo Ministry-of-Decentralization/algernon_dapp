@@ -5,6 +5,6 @@
 **/src/contracts
 **/generated
 .env
-**/.eslintcache
+*/.eslintcache
 scratch.txt
 **/data
