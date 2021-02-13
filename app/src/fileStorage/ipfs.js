@@ -1,7 +1,7 @@
 import config from '../config'
 const ipfs = require('ipfs-http-client')
 
-export default async () => {
+const Ipfs = async () => {
 
   const ipfsClient = ipfs(config.ipfsEndpoint)
 
@@ -25,4 +25,4 @@ export default async () => {
   }
 }
 
-
+export default Ipfs

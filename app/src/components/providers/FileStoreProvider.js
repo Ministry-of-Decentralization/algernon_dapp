@@ -42,7 +42,7 @@ const Provider = ({children}) => {
 
   useEffect(() => {
     initClient(contextValue.setClient)
-  }, [null])
+  })
 
   return (
     <FileStoreContext.Provider value={contextValue}>

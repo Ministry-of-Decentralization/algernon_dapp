@@ -3,8 +3,7 @@ import ReactQuill from 'react-quill'
 
 import 'react-quill/dist/quill.snow.css';
 
-
-export default (props) => (
+const RichText = (props) => (
   <div style={{paddingBottom: '1.25em'}}>
     <ReactQuill
       value={props.value}
@@ -12,3 +11,5 @@ export default (props) => (
       theme={"bubble"} />
   </div>
 )
+
+export default RichText

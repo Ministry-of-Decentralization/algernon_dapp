@@ -1,5 +1,5 @@
 import { gql } from 'apollo-boost';
-import { useQuery, useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { Tag as TagType } from 'theGraphTypes';
 
 interface TagQueryVars {
@@ -7,11 +7,6 @@ interface TagQueryVars {
   first?: number,
   ids?: string[],
   id?: string
-}
-
-interface TagFilteredQueryVars {
-  tag_contains: string,
-  first: number
 }
 
 interface GetTagsData {

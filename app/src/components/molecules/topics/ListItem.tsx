@@ -6,7 +6,7 @@ import Blockie from '../../atoms/Blockie'
 import Flex from '../../atoms/Flex'
 import TagBadges from '../tags/TagBadges'
 
-export default ({ id, title, url, description, owner, tags }: Topic) => {
+const ListItem = ({ id, title, description, owner, tags }: Topic) => {
 
   return (
     <div style={{marginBottom: '1em'}}>
@@ -28,4 +28,6 @@ export default ({ id, title, url, description, owner, tags }: Topic) => {
       </Paper>
     </div>
   )
-  }
+}
+
+export default ListItem

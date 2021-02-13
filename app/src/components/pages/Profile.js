@@ -10,7 +10,7 @@ import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 import { WalletContext } from '../providers/WalletProvider'
 
 
-export default (props) => {
+const Profile = (props) => {
   const address = props.match.params.address
   const { topics, refetch: refetchTopics } = useGetTopicsForOwner(theGraphClient, 0, 100, address)
   const { tags } = useGetTags(theGraphClient, 0, 100)
@@ -44,3 +44,5 @@ export default (props) => {
   />
   )
 }
+
+export default Profile

@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import { Formik } from 'formik'
 import { callMethod } from './utils'
 import { Web3FormProps, FormStateEls } from '../types'
-import { any } from 'prop-types'
 
 
 /*

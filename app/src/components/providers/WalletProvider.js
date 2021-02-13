@@ -36,7 +36,7 @@ const reducer = (state, action) => {
 
 export const WalletContext = createContext(null)
 
-export default ({children}) => {
+const WalletProvider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
   const contextValue = useMemo(() => {
@@ -64,3 +64,5 @@ export default ({children}) => {
     </WalletContext.Provider>
   )
 }
+
+export default WalletProvider

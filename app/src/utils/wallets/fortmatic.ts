@@ -16,7 +16,9 @@ export const getNewFortmaticInstance = () => {
     return [ new Web3(provider), provider];
 }
 
-  export default {
+const fortmatic = {
     ...base,
     connectWallet: getNewFortmaticInstance
   }
+
+  export default fortmatic

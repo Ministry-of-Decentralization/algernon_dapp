@@ -8,7 +8,7 @@ import Box from '../../atoms/Box'
 import Flex from '../../atoms/Flex'
 import RichText from '../../atoms/RichText'
 import Badge from '../user/Badge'
-import MetaAndForm from './MetaAndForm'
+// import MetaAndForm from './MetaAndForm'
 import NotesAndForm from './NotesAndForm'
 import UpdateTopicMetaForm from '../../organisms/forms/UpdateTopicMeta'
 
@@ -37,7 +37,7 @@ const RelatedCourse = (props:any) => {
   )
 }
 
-export default (props: TopicDetailProps): React.ReactNode => {
+const Detail = (props: TopicDetailProps): React.ReactNode => {
   const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
   const { title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
@@ -105,6 +105,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
     </div>
   )
 
+  /*
   const editableMeta = (
     <MetaAndForm
       formProps ={{
@@ -118,6 +119,7 @@ export default (props: TopicDetailProps): React.ReactNode => {
       defaultContent={<MetaDetails />} 
     />
   )
+  */
 
   const editableNotes = (
     <NotesAndForm
@@ -140,3 +142,5 @@ export default (props: TopicDetailProps): React.ReactNode => {
     </Fragment>
   )
 }
+
+export default Detail

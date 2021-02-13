@@ -2,7 +2,7 @@ import React, {Fragment} from 'react'
 import Flex from '../atoms/Flex'
 import Box from '../atoms/Box'
 
-export default ({ header, sidebar, main }) =>
+const Layout = ({ header, sidebar, main }) =>
   <Fragment>
     <Flex>
       <Box justifyContent="center">{header}</Box>
@@ -16,3 +16,5 @@ export default ({ header, sidebar, main }) =>
       </div>
     </div>
   </Fragment>
+
+export default Layout

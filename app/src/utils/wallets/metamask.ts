@@ -15,7 +15,9 @@ const connectMetamask = async () => {
   return false;
 }
 
-export default {
+const metamask = {
   ...base,
   connectWallet: connectMetamask
 }
+
+export default metamask
