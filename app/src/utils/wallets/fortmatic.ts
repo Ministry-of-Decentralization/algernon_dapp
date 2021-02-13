@@ -8,7 +8,7 @@ export const getNewFortmaticInstance = () => {
   const fortmatic = new Fortmatic(
     config.fortmaticApiKey,
     {
-      rpcUrl: config.ethNodeEndpoint,
+      rpcUrl: config.chainEndpoint,
       chainId: config.chainId
     })
     const provider = fortmatic.getProvider();
