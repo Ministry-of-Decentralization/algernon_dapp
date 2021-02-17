@@ -1,23 +1,27 @@
 import config from '../config'
-const ipfs = require('ipfs-http-client')
+const axios = require('axios').default;
 
-const Ipfs = async () => {
-
-  const ipfsClient = ipfs(config.ipfsEndpoint)
-
-  const clientId = await ipfsClient.id()
-  console.log(`initing ipfs client at ${config.ipfsEndpoint} -- client id ${clientId}`)
-
+const Ipfs = () => {
 
   const saveFile = async (fileData) => {
-    console.log(`saving file ${fileData}`)
-    const savedFile = await ipfsClient.add(fileData)
-    console.log('saved file is ', savedFile)
-  
-    return savedFile.cid.toString()
+    const addEndpoint = '/ipfsAdd'  
+    const body = {
+      input: fileData
+    }
+    const response = await axios.post(`${config.ipfsEndpoint}${addEndpoint}`, body)
+    console.log(`saved file response${JSON.stringify(response)}`)
+
+    return response.data.hash
   }
 
-  const getFile = (url) => ipfsClient.get(url)
+  const getFile = async (url) => {
+    const getEndpoint = '/ipfsGet'  
+    const body = {
+      input: url
+    }
+    const response = await axios.post(`${config.ipfsEndpoint}${getEndpoint}`, body)
+    return response.data
+  }
 
   return {
     saveFile,
