@@ -1,7 +1,7 @@
 import React from 'react'
 import Blockies from 'react-blockies';
 
-export default ({address, size, scale}) => (
+ const Blockie = ({address, size, scale}) => (
 
   <Blockies
     seed={address}
@@ -10,3 +10,5 @@ export default ({address, size, scale}) => (
   />
 
 )
+
+export default Blockie

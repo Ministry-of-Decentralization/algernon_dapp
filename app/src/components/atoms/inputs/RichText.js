@@ -4,7 +4,7 @@ import { useField } from 'formik'
 import 'react-quill/dist/quill.snow.css';
 import ErrorMessage from './ErrorMessage';
 
-export default (props) => {
+const RichText = (props) => {
   const [field, meta] = useField(props);
   const isError = meta.touched && !!meta.error
 
@@ -19,3 +19,5 @@ export default (props) => {
     </div>
   )
 }
+
+export default RichText

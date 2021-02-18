@@ -2,6 +2,8 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import web3 from 'web3'
 import { Topic as TopicType } from 'theGraphTypes';
+import selectTopic from '../selectors/topic'
+import { SelectedTopic } from '../selectors/types'
 
 interface TopicListQueryVars {
   skip?: number,
@@ -15,11 +17,11 @@ interface TopicItemQueryVars {
 }
 
 interface GetTopicsData {
-  topics: TopicType[]
+  topics: SelectedTopic[]
 }
 
 interface GetTopicData {
-  topic: TopicType
+  topic: SelectedTopic
 }
 
 
@@ -49,7 +51,7 @@ export const useGetTopics = (client: any, skip: number, first: number) => {
   return {
     loading,
     error,
-    topics: data ? data.topics : null
+    topics: data ? data.topics.map(selectTopic) : null
   } 
 }
 
@@ -119,7 +121,7 @@ export const useGetTopicsForOwner = (client: any, skip: number, first: number, o
     loading,
     error,
     refetch,
-    topics: data ? data.topics : null
+    topics: data ? data.topics.map(selectTopic) : null
   } 
 }
 
@@ -172,10 +174,11 @@ export const useGetTopic = (client: any, id: string) => {
       fetchPolicy: 'no-cache'
     });
     
+    console.log(`got topic ${JSON.stringify(data?.topic, null, 2)}`)
   return {
     loading,
     error,
     refetch,
-    topic: data ? data.topic : null
+    topic: data ? selectTopic(data.topic) : null
   } 
 }

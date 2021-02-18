@@ -24,9 +24,6 @@ allow users to stake tokens against content to help other users find quality con
 # the Graph Protocol
   - Tracks transactions on chain and updates a Postgres db
 
-# Server
- - backend providing connections to different datastores or services
-
 ### 3rd Party Libs
   - Graph Protocol
   - Fortmatic
@@ -34,37 +31,46 @@ allow users to stake tokens against content to help other users find quality con
 ## Running Locally
 
 - configure .env
+`cp env.example app/.env`
 
 
 - install ganache-cli and truffle globally
-  - npm install -g ganache-cli truffle
+`npm install -g ganache-cli truffle`
 
 
-- Start a local ganache instance
-  - yarn run-ganache
+- Start a local ganache instance, inside the root directory
+`yarn run-ganache`
+the first account listed by ganache is the default admin for the contract
 
 
 - Deploy smart contracts to ganache instance
-  - cd contracts/
-  - yarn deploy-local
+`cd contracts/`
+`yarn deploy-local`
 
 
 - Run a theGraph Node
   https://thegraph.com/docs/quick-start
+the docker-compose.yml file in graph-node-local/ will run a graph and ipfs node locally
+`cd graph-node-local`
+`docker-compose up`
 
+- Deploy the subgraph
+`cd subgraph/`
+`yarn`
+`yarn create-local`
+`yarn deploy-local`
 
-- update theGraph/subgraph.yaml with Alergernon contract address from deploy step
-- Start the theGraph app
-  - cd theGraph/ && yarn create-local && yarn deploy-local
+- run the IPFS Proxy
+`cd serverless/lambdaIPFSProxy/`
+`yarn`
+`yarn run-local`
 
 - Run the app
-  - cd app/ && yarn start
+`cd app/`
+`yarn`
+`yarn start`
 
 ### Data Flow
 ![Data Flow Diagram](images/algernon_data_flow.png)
 
-# Known Issues
-
-## Update Subscriptions
-  - After performing a state update the UI does not automatically reflect the change, FIX: reload the page
 

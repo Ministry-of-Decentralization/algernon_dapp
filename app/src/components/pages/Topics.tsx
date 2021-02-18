@@ -8,7 +8,7 @@ import { theGraphClient } from '../../utils/apolloClient'
 import { WalletContext } from '../providers/WalletProvider'
 
 
-export default () => {
+const Topics = () => {
   // @ts-ignore
   const { address, canViewAdmin } = useContext(WalletContext)
   const {loading, topics} = useGetTopics(theGraphClient, 0, 100)
@@ -28,3 +28,5 @@ export default () => {
     />
   )
 }
+
+export default Topics

@@ -1,9 +1,9 @@
 import React from 'react'
 import TopicListItem from '../../molecules/topics/ListItem'
-import { Topic as TopicType } from 'theGraphTypes';
+import { SelectedTopic } from '../../../selectors/types';
 
 interface TopicListProps {
-  topics: TopicType[]
+  topics: SelectedTopic[]
 }
 const TopicList = ({ topics }: TopicListProps) => {
   return (

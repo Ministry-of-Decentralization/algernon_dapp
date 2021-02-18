@@ -1,0 +1,18 @@
+{
+  "name": "lambda-ipfs-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "run-local": "serverless offline"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ipfs-http-client": "^49.0.2"
+  },
+  "devDependencies": {
+    "serverless-offline": "^6.8.0"
+  }
+}

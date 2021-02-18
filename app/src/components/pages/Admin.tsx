@@ -9,13 +9,13 @@ import { WalletContext } from '../providers/WalletProvider'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 
 
-export default () => {
+const AdminPage = () => {
   // @ts-ignore
   const { algernonInstance, address, isAdmin, isTagger, canViewAdmin } = useContext(WalletContext)
   const {loading, tags} = useGetTags(theGraphClient, 0, 100)
   console.log(`in admin ${algernonInstance}`)
   const tagOptions = tagsToOptions(tags || [], [{value: '0', label: 'No Parent'}])
-  const main = loading || algernonInstance == undefined ? 'loading' : <AdminMain connectedAddress={address} algernonInstance={algernonInstance} tags={tagOptions} isAdmin={isAdmin} isTagger={isTagger} />
+  const main = loading || algernonInstance == null ? 'loading' : <AdminMain connectedAddress={address} algernonInstance={algernonInstance} tags={tagOptions} isAdmin={isAdmin} isTagger={isTagger} />
   return (
     <MainLayout
       header={<Header />}
@@ -25,3 +25,5 @@ export default () => {
     />
   )
 }
+
+export default AdminPage

@@ -1,8 +1,10 @@
 import React from 'react'
 
-export default ({isError, errorMsg}) => {
+const ErrorMessage = ({isError, errorMsg}) => {
 
   return isError ? (
     <div className="error">{errorMsg}</div>
   ) : null
 }
+
+export default ErrorMessage

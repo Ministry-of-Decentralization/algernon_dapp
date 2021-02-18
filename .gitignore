@@ -6,5 +6,7 @@
 **/generated
 .env
 */.eslintcache
+**/.serverless
 scratch.txt
 **/data
+app/public

@@ -9,8 +9,6 @@ import PeopleIcon from '@material-ui/icons/People'
 import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 
-
-
 const colleges = [
   {
     id: 1,
@@ -27,7 +25,7 @@ const colleges = [
   {
     id: 3,
     title: 'Cryptography',
-    description: 'Cryptographic keys, encryption schemas, and the math the makes it all work.',
+    description: 'Crypto basics and wallets',
     icon: <EnhancedEncryptionIcon />
   },
   {
@@ -38,7 +36,7 @@ const colleges = [
   },
 ]
 
-export default () => {
+const Overview = () => {
   const { address, canViewAdmin } = useContext(WalletContext)
 
   return (
@@ -49,3 +47,5 @@ export default () => {
     />
   )
 }
+
+export default Overview
