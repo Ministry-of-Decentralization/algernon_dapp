@@ -5,10 +5,7 @@ import Sidebar from '../materialDashboard/layouts/Sidebar'
 import UserList from '../organisms/Users/UserList'
 import useGetAccount from '../hooks/useGetAccount'
 
-
-
-
-export default () => {
+const Users = () => {
   const { loading, users } = {};
 
   const connectedAddress = useGetAccount()
@@ -22,3 +19,5 @@ export default () => {
     />
   )
 }
+
+export default Users

@@ -8,8 +8,7 @@ import TagDetail from '../organisms/Tags/TagDetail'
 import Box from '../atoms/Box'
 import { WalletContext } from '../providers/WalletProvider'
 
-// @ts-ignore
-export default ({match: { params: id}}) => {
+const Tag = ({match: { params: id}}: any) => {
   // @ts-ignore
   const { address, canViewAdmin } = useContext(WalletContext)
   const {loading, tag} = useGetTag(theGraphClient, id.id)
@@ -29,3 +28,5 @@ export default ({match: { params: id}}) => {
     />
   )
 }
+
+export default Tag

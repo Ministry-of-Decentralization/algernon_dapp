@@ -11,6 +11,7 @@ import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
 import { FileStoreContext } from '../../providers/FileStoreProvider'
 import { getTopicSelectRenderValues } from '../../../utils/formatters'
+import LoadingCard from '../../molecules/common/LoadingCard'
 
 const Success = ({receipt, cancel}) => {
   console.log(`in success ${receipt}`)
@@ -29,11 +30,7 @@ const FormError = ({error}) => (
   </div>
 )
 
-const PendingOffChain = () => (
-  <div>
-    <h3>Processing Course Creation</h3>
-  </div>
-)
+const PendingOffChain = () => <LoadingCard message='Processing Course Creation' />
 
 const SignatureRequired = () => (
   <div>
@@ -41,11 +38,7 @@ const SignatureRequired = () => (
   </div>
 )
 
-const PendingOnChain = () => (
-  <div>
-    <h3>Saving New Course</h3>
-  </div>
-)
+const PendingOnChain = () => <LoadingCard message='Saving New Course<' />
 
 const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
   <Form style={{width: "50em"}}>

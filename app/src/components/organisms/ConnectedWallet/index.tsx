@@ -4,7 +4,7 @@ import { WalletContext } from '../../providers/WalletProvider'
 import SelectWallet from '../forms/SelectWallet'
 import Badge from '../../molecules/user/Badge'
 
-export default ({style}: any) => {
+const ConnectedWallet = ({style}: any) => {
   // @ts-ignore
   const { wallet, setWallet, address } = useContext(WalletContext)
   // @ts-ignore
@@ -15,3 +15,5 @@ export default ({style}: any) => {
     </Box>
   )
 }
+
+export default ConnectedWallet

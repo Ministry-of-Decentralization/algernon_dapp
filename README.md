@@ -40,6 +40,7 @@ allow users to stake tokens against content to help other users find quality con
 
 - Start a local ganache instance, inside the root directory
 `yarn run-ganache`
+the first account listed by ganache is the default admin for the contract
 
 
 - Deploy smart contracts to ganache instance
@@ -49,19 +50,20 @@ allow users to stake tokens against content to help other users find quality con
 
 - Run a theGraph Node
   https://thegraph.com/docs/quick-start
-the docker-compose.yml file is in graph-node-local/
+the docker-compose.yml file in graph-node-local/ will run a graph and ipfs node locally
 `cd graph-node-local`
 `docker-compose up`
-after all services are running enable cors
-`./cors-config.sh`
-after enabling cors restart the ipfs container
-`docker restart graph-node-local_ipfs_1`
 
 - Deploy the subgraph
 `cd subgraph/`
 `yarn`
 `yarn create-local`
 `yarn deploy-local`
+
+- run the IPFS Proxy
+`cd serverless/lambdaIPFSProxy/`
+`yarn`
+`yarn run-local`
 
 - Run the app
 `cd app/`

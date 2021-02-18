@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Formik } from 'formik'
 import { callMethod } from './utils'
 import { Web3FormProps, FormStateEls } from '../types'
-import { any } from 'prop-types'
+import LoadingCard from '../../molecules/common/LoadingCard'
 
 
 /*
@@ -46,11 +46,7 @@ const Error = () => (
   </div>
 )
 
-const Pending = () => (
-  <div>
-    <h3>Transaction Pending</h3>
-  </div>
-)
+const Pending = () => <LoadingCard message='Transaction Pending' />
 
 const getContent = (
   getForm: any,

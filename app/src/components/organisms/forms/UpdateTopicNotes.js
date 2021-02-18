@@ -6,6 +6,7 @@ import Button from '../../atoms/inputs/buttons/Button'
 import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
 import { FileStoreContext } from '../../providers/FileStoreProvider'
+import LoadingCard from '../../molecules/common/LoadingCard'
 
 
 const Success = ({title}) => (
@@ -21,11 +22,7 @@ const FormError = ({error}) => (
   </div>
 )
 
-const PendingOffChain = () => (
-  <div>
-    <h3>Processing Course Update</h3>
-  </div>
-)
+const PendingOffChain = () => <LoadingCard message='Processing Course Update' />
 
 const SignatureRequired = () => (
   <div>
@@ -33,11 +30,7 @@ const SignatureRequired = () => (
   </div>
 )
 
-const PendingOnChain = () => (
-  <div>
-    <h3>Updating Course</h3>
-  </div>
-)
+const PendingOnChain = () => <LoadingCard message='Saving Updates' />
 
 const getForm = () => (submitForm, isValid, cancelForm) => (
   <Form>
@@ -49,8 +42,8 @@ const getForm = () => (submitForm, isValid, cancelForm) => (
       <Button
         onClick={submitForm}
         disabled={!isValid}
-        label='Update Course'
-      />
+        label='Edit Course'
+      />Edit
     </div>
   </Form>
 )

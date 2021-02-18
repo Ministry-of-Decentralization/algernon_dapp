@@ -11,11 +11,11 @@ import { formatAddFileVariables } from '../../formikTLDR/forms/utils'
 import CallAndWeb3Form from '../../formikTLDR/forms/CallAndWeb3Form'
 import { FileStoreContext } from '../../providers/FileStoreProvider'
 import { getTopicSelectRenderValues } from '../../../utils/formatters'
+import LoadingCard from '../../molecules/common/LoadingCard'
 
-const Success = ({title}) => (
+const Success = () => (
   <div>
     <h3>Course Updated!</h3>
-    <h4>{title}</h4>
   </div>
 )
 
@@ -26,9 +26,7 @@ const FormError = ({error}) => (
 )
 
 const PendingOffChain = () => (
-  <div>
-    <h3>Processing Course Update</h3>
-  </div>
+  <LoadingCard message='Processing Course Update' />
 )
 
 const SignatureRequired = () => (
@@ -38,9 +36,7 @@ const SignatureRequired = () => (
 )
 
 const PendingOnChain = () => (
-  <div>
-    <h3>Updating Course</h3>
-  </div>
+  <LoadingCard message='Updating Course' />
 )
 
 const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
@@ -98,9 +94,10 @@ const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) 
         label="Cancel"
       />
       <Button
+        style={{marginLeft: '1em'}}
         onClick={submitForm}
         disabled={!isValid}
-        label='Update Course'
+        label='Edit MetaData'
       />
     </div>
   </Form>
@@ -140,9 +137,9 @@ const UpdateTopicMetaForm = ({ connectedAddress, algernonInstance, tagOptions, t
   }
   return (
     <Modal 
-      triggerText='Update Course'
+      triggerText='Edit Course'
       triggerColor="#FFF"
-      title='Update Course Details'
+      title='Editing Course Details'
       contentText=''
       getForm={(cancelForm) => (
         <CallAndWeb3Form

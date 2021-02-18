@@ -1,6 +1,8 @@
 import { gql } from 'apollo-boost';
-import { useQuery, useLazyQuery } from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import { Tag as TagType } from 'theGraphTypes';
+import { SelectedTag } from '../selectors/types';
+import selectTopic from '../selectors/topic';
 
 interface TagQueryVars {
   skip?: number,
@@ -9,17 +11,12 @@ interface TagQueryVars {
   id?: string
 }
 
-interface TagFilteredQueryVars {
-  tag_contains: string,
-  first: number
-}
-
 interface GetTagsData {
-  tags: TagType[]
+  tags: SelectedTag[]
 }
 
 interface GetTagData {
-  tag: TagType
+  tag: SelectedTag
 }
 
 export const GET_TAGS = gql`
@@ -86,7 +83,7 @@ export const useGetTag = (client: any, id: string) => {
   return {
     loading,
     error,
-    tag: data ? data.tag : null
+    tag: data ? { ...data.tag, topics: data.tag.topics.map(selectTopic)} : null
   } 
 }
 

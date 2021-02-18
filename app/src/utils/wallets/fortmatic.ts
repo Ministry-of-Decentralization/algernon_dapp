@@ -8,7 +8,7 @@ export const getNewFortmaticInstance = () => {
   const fortmatic = new Fortmatic(
     config.fortmaticApiKey,
     {
-      rpcUrl: config.ethNodeEndpoint,
+      rpcUrl: config.chainEndpoint,
       chainId: config.chainId
     })
     const provider = fortmatic.getProvider();
@@ -16,7 +16,9 @@ export const getNewFortmaticInstance = () => {
     return [ new Web3(provider), provider];
 }
 
-  export default {
+const fortmatic = {
     ...base,
     connectWallet: getNewFortmaticInstance
   }
+
+  export default fortmatic

@@ -3,7 +3,7 @@ import { useField } from 'formik'
 import TextField from '@material-ui/core/TextField'
 import ErrorMessage from './ErrorMessage';
 
-export default (props) => {
+const Text = (props) => {
   const [field, meta] = useField(props);
   const isError = meta.touched && !!meta.error
 
@@ -20,3 +20,5 @@ export default (props) => {
   )
 
 }
+
+export default Text

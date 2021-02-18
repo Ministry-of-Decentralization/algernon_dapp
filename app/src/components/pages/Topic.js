@@ -9,7 +9,7 @@ import { tagsToOptions, topicsToOptions } from '../atoms/inputs/optionsFormatter
 import { useGetTags } from '../../queries/tag'
 import { WalletContext } from '../providers/WalletProvider'
 
-export default ({match: { params: id}}) => {
+const Topic = ({match: { params: id}}) => {
   id = id.id
 
   const { algernonInstance, canViewAdmin, address: connectedAddress } = useContext(WalletContext)
@@ -39,3 +39,5 @@ export default ({match: { params: id}}) => {
     />
   )
 }
+
+export default Topic

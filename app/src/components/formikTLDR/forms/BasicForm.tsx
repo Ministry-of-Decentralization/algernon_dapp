@@ -3,17 +3,19 @@ import { Formik } from 'formik'
 import { BasicFormProps } from '../types'
 
 const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: BasicFormProps}) => {
-  {
-    const {values, isValid} = formikProps
-    const { getForm, getSubmitArgs, submit, cancel } = formProps
-    
-    const onSubmit = async () => {
-      const args  = await getSubmitArgs(values)
-      console.log(`subbing ${args.address}`)
+  const {values, isValid, setErrors, errors } = formikProps
+  const { getForm, getSubmitArgs, submit, cancel } = formProps
+  
+  const onSubmit = async () => {
+    const args = await getSubmitArgs(values, setErrors)
+    if (args) {
       submit(args)
+      return true
+    } else {
+      return false
     }
-    return getForm(isValid, onSubmit, cancel)
   }
+  return getForm(isValid, onSubmit, cancel, errors)
 }
 
 const MutationForm = (formProps: BasicFormProps) => {

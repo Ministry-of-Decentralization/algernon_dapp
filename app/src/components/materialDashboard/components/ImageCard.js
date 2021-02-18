@@ -5,13 +5,9 @@ import { makeStyles } from '@material-ui/styles';
 import {
   Card,
   CardContent,
-  CardActions,
   Typography,
-  Grid,
   Divider
 } from '@material-ui/core';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import GetAppIcon from '@material-ui/icons/GetApp';
 
 const useStyles = makeStyles(theme => ({
   root: {flex: '0 45%'},

@@ -8,7 +8,7 @@ import { theGraphClient } from '../../utils/apolloClient'
 import { WalletContext } from '../providers/WalletProvider'
 
 
-export default () => {
+const Tags = () => {
   // @ts-ignore
   const { address, canViewAdmin } = useContext(WalletContext)
   const {loading, tags} = useGetTags(theGraphClient, 0, 100)
@@ -21,3 +21,5 @@ export default () => {
     />
   )
 }
+
+export default Tags

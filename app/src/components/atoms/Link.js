@@ -1,8 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-export default ({to, element}) => (
+const LinkComp = ({to, element}) => (
   <div>
     <Link to={to}>{element}</Link>
   </div>
 )
+
+export default LinkComp
