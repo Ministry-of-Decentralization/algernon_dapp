@@ -12,7 +12,6 @@ const initialState = {
 const reducer = (state, action) => {
   switch(action.type) {
     case UPDATE_TYPES.SET_CLIENT:
-      console.log(`reducin ${action.payload.address}`)
       return {
         ...state,
         client: action.payload.client
@@ -26,12 +25,10 @@ export const FileStoreContext = createContext(null)
 
 const initClient = async (setClient) => {
   const client = await initIpfs()
-  console.log(`inited client ${client}`)
   setClient({client}) 
 }
 const Provider = ({children}) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  console.log(`state inside filestore provider ${state.client}`)
 
   const contextValue = useMemo(() => {
     return {
@@ -42,7 +39,7 @@ const Provider = ({children}) => {
 
   useEffect(() => {
     initClient(contextValue.setClient)
-  })
+  },[])
 
   return (
     <FileStoreContext.Provider value={contextValue}>

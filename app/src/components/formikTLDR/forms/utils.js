@@ -18,5 +18,4 @@ export const formatAddFileVariables = (contentFields, staticValues = {}) => (val
     return acc
   }, {})
   return JSON.stringify(contentValues)
-
 }

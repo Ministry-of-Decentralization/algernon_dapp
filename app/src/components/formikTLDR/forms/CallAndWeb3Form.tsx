@@ -3,6 +3,7 @@ import { Formik } from 'formik'
 import { callMethod } from './utils'
 import { Success } from './common'
 import { CallAndWeb3FormProps, MutationAndWeb3FormStateEls } from '../types'
+import LoadingCard from '../../molecules/common/LoadingCard'
 
 const Error = () => (
   <div>
@@ -10,11 +11,7 @@ const Error = () => (
   </div>
 )
 
-const PendingOffChain = () => (
-  <div>
-    <h3>Processing Update</h3>
-  </div>
-)
+const PendingOffChain = () => <LoadingCard message='Processing Update' />
 
 const SignatureRequired = () => (
   <div>
@@ -22,11 +19,7 @@ const SignatureRequired = () => (
   </div>
 )
 
-const PendingOnChain = () => (
-  <div>
-    <h3>Transaction Pending</h3>
-  </div>
-)
+const PendingOnChain = () => <LoadingCard message='Saving Update' />
 
 const getContent = (
   getForm: any,

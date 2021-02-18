@@ -11,6 +11,7 @@ import Badge from '../user/Badge'
 // import MetaAndForm from './MetaAndForm'
 import NotesAndForm from './NotesAndForm'
 import UpdateTopicMetaForm from '../../organisms/forms/UpdateTopicMeta'
+import { convertToChecksum } from '../../../utils/web3'
 
 
 const equalAddresses = (addressA: string, addressB: string) => {
@@ -41,8 +42,9 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
   const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
   const { title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
+  const address = convertToChecksum(owner.address)
 
-  const isOwner = equalAddresses(owner.address, connectedAddress)
+  const isOwner = equalAddresses(address, connectedAddress)
   const createdEl = (
     <div style={{color: '#808080', marginTop: '.5em', fontStyle: 'italic', fontSize: '.9em'}}>
       Last Updated: {new Date(1000*updatedAt).toLocaleDateString()}
@@ -79,7 +81,7 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
               <h1>{title}</h1>
             </Box>
             <Box style={{width: '25%'}}>
-              <Badge address={owner.address} subEl={createdEl} />
+              <Badge address={address} subEl={createdEl} />
             </Box>
           </Flex>
           <Box>

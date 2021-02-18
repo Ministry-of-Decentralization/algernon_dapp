@@ -8,10 +8,11 @@ import { useGetTags } from '../../queries/tag'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 import { WalletContext } from '../providers/WalletProvider'
+import { convertToChecksum } from '../../utils/web3'
 
 
 const Profile = (props) => {
-  const address = props.match.params.address
+  const address = convertToChecksum(props.match.params.address)
   const { topics, refetch: refetchTopics } = useGetTopicsForOwner(theGraphClient, 0, 100, address)
   const { tags } = useGetTags(theGraphClient, 0, 100)
   const tagOptions = tagsToOptions(tags || [])
