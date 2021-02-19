@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { Form } from 'formik'
+import { Link } from 'react-router-dom'
 import { createTopicSchema } from '../../../schemas/topic'
 import Select from '../../atoms/inputs/Select'
 import Text from '../../atoms/inputs/Text'
@@ -13,13 +14,15 @@ import { FileStoreContext } from '../../providers/FileStoreProvider'
 import { getTopicSelectRenderValues } from '../../../utils/formatters'
 import LoadingCard from '../../molecules/common/LoadingCard'
 
-const Success = ({receipt, cancel}) => {
-  console.log(`in success ${receipt}`)
+const Success = ({ receipt }) => {
+  console.log(`in success -- ${receipt}`)
+  const id = receipt.events.TopicCreated.returnValues["0"]
   return (
     <div>
-      <h3>Course Created!</h3>
+      <h4>Course Created!</h4>
+      <Link to={`/topic/${id}`}><Button label='View course' /></Link>
 
-      <Button onClick={cancel} label='Return to Courses' />
+      
     </div>
   )
 }
@@ -34,11 +37,11 @@ const PendingOffChain = () => <LoadingCard message='Processing Course Creation' 
 
 const SignatureRequired = () => (
   <div>
-    <h3>Confirm Course Creation in your web3 wallet</h3>
+    <h5>Confirm Course Creation in your web3 wallet</h5>
   </div>
 )
 
-const PendingOnChain = () => <LoadingCard message='Saving New Course<' />
+const PendingOnChain = () => <LoadingCard message='Saving New Course' />
 
 const getForm = (tagOptions, topicOptions) => (submitForm, isValid, cancelForm) => (
   <Form style={{width: "50em"}}>

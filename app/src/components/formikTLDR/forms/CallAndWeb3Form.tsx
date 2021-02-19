@@ -33,11 +33,11 @@ const getContent = (
   if (false && !state.isOpen && triggerEl) {
     return triggerEl
   }
-
+  console.log(`getting content ${JSON.stringify(state, null, 2)}`)
   if (state.receipt) {
     return (
       <div>
-        { stateEls.successEl ? stateEls.successEl({cancel: cancelForm, reciept: state.receipt }) : <Success /> }
+        { stateEls.successEl ? stateEls.successEl({cancel: cancelForm, receipt: state.receipt }) : <Success /> }
       </div>
     )
   } else if (state.error) {
@@ -157,7 +157,9 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: CallA
   const callVariables = getCallVariables({...values})
 
   const submitForm = async () => {
+    setState({...state, offChainPending: true})
     const callResponse = await call(callVariables)
+    setState({...state, offChainPending: false, offChainCompleted: true})
     console.log(`inside CallAndWeb3Form got call response\n${callResponse}`)
     handleResponse(callResponse)
   }

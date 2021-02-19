@@ -26,7 +26,7 @@ const PendingOffChain = () => <LoadingCard message='Processing Course Update' />
 
 const SignatureRequired = () => (
   <div>
-    <h3>Confirm Course Update With Your Web3 Wallet</h3>
+    <h5>Confirm Course Update With Your Web3 Wallet</h5>
   </div>
 )
 
