@@ -88,7 +88,7 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
             {description}
           </Box>
           <Box>
-            <a target="blank" href={'//'+url}>{url}</a>
+            <a target="blank" href={url}>{url}</a>
           </Box>
           <Box>
             {tags.map(tag => <Link id={tag.tag} to={`/tags/${tag.id}`} element={<Chip style={{cursor: 'pointer'}} label={tag.tag} />} />)}
