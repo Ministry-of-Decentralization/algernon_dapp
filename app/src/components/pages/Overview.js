@@ -6,30 +6,23 @@ import CollegeCards from '../organisms/Colleges/CollegeCards'
 import { WalletContext } from '../providers/WalletProvider'
 import AccountTreeIcon from '@material-ui/icons/AccountTree'
 import PeopleIcon from '@material-ui/icons/People'
-import EnhancedEncryptionIcon from '@material-ui/icons/EnhancedEncryption'
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet'
 
 const colleges = [
   {
-    id: 1,
-    title: 'Blockchain School',
-    description: 'Bitcoin, Ethereum, and other crypto projects',
-    icon: <AccountTreeIcon />
-  },
-  {
-    id: 2,
+    id: 3,
     title: 'Solidity',
-    description: 'Learn about Solidity and writing smart contracts.',
+    description: 'Learn about Solidity and smart contracts.',
     icon: <AccountBalanceWalletIcon />
   },
   {
-    id: 3,
-    title: 'Cryptography',
-    description: 'Crypto basics and wallets',
-    icon: <EnhancedEncryptionIcon />
+    id: 2,
+    title: 'Ethereum',
+    description: 'Smart contracts on the Ethereum network',
+    icon: <AccountTreeIcon />
   },
   {
-    id: 4,
+    id: 20,
     title: 'Decentralized Applications',
     description: 'Designing and developing dapps.',
     icon: <PeopleIcon />
