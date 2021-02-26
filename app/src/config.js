@@ -16,11 +16,11 @@ const ENVS = {
   KOVAN: {
     chainId: 42,
     networkName: 'Kovan',
-    chainEndpint: process.env.REACT_APP_LOCAL_CHAIN_ENDPOINT,
+    chainEndpoint: process.env.REACT_APP_KOVAN_CHAIN_ENDPOINT,
     algernonAddress: '0x1acE7049142881d42Fe104B212C8E7a457eE0C91',
-    theGraphEndpoint: process.env.REACT_APP_LOCAL_SUBGRAPH_ENDPOINT,
+    theGraphEndpoint: process.env.REACT_APP_KOVAN_SUBGRAPH_ENDPOINT,
     ipfsEndpoint: process.env.REACT_APP_KOVAN_IPFS_ENDPOINT,
-    fortmaticApiKey: process.env.REACT_APP_FORTMATIC_API_LIVE_KEY
+    fortmaticApiKey: process.env.REACT_APP_FORTMATIC_API_TEST_KEY
   }
 }
 

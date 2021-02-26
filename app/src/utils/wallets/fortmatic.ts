@@ -4,7 +4,6 @@ import config from '../../config';
 import base from './base'
 
 export const getNewFortmaticInstance = () => {
-  console.log(`conencting Fortmatic wallet ${process.env.FORTMATIC_API_KEY}`)
   const fortmatic = new Fortmatic(
     config.fortmaticApiKey,
     {

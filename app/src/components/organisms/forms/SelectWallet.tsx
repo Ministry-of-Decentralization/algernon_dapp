@@ -28,9 +28,9 @@ const walletOptions = [
 ]
 
 const isValidProviderNetwork = (provider: any): boolean => {
-  console.log()
-  // confirm  the provider chainId matches
-  if (parseInt(provider.chainId, 16) !== config.chainId) {
+
+  // confirm  the provider chainId matches if not fortmatic
+  if (!provider.isFortmatic && parseInt(provider.chainId, 16) !== config.chainId) {
     return false
   }
 
