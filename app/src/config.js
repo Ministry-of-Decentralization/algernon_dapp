@@ -7,19 +7,19 @@ const ENVS = {
   DEV: {
     chainId: 1337,
     networkName: 'Ganache Local',
-    chainEndpoint: 'http://localhost:8545',
+    chainEndpoint: process.env.REACT_APP_LOCAL_CHAIN_ENDPOINT,
     algernonAddress: '0x26950f5d5B2eA2AC11d8A2cB67a62D8831Be3d8F',
-    theGraphEndpoint: 'http://127.0.0.1:8000/subgraphs/name/cirsteve/algernon',
-    ipfsEndpoint: process.env.REACT_APP_IPFS_ENDPOINT,
+    theGraphEndpoint: process.env.REACT_APP_LOCAL_SUBGRAPH_ENDPOINT,
+    ipfsEndpoint: process.env.REACT_APP_LOCAL_IPFS_ENDPOINT,
     fortmaticApiKey: process.env.REACT_APP_FORTMATIC_API_TEST_KEY
   },
   KOVAN: {
     chainId: 42,
     networkName: 'Kovan',
-    chainEndpint: 'https://kovan.infura.io/v3/52c9ebfa30ed43fd88c2392826f8c3ad',
+    chainEndpint: process.env.REACT_APP_LOCAL_CHAIN_ENDPOINT,
     algernonAddress: '0x1acE7049142881d42Fe104B212C8E7a457eE0C91',
-    theGraphEndpoint: 'https://api.thegraph.com/subgraphs/name/ministry-of-decentralization/algernon-kovan',
-    ipfsEndpoint: process.env.REACT_APP_IPFS_ENDPOINT,
+    theGraphEndpoint: process.env.REACT_APP_LOCAL_SUBGRAPH_ENDPOINT,
+    ipfsEndpoint: process.env.REACT_APP_KOVAN_IPFS_ENDPOINT,
     fortmaticApiKey: process.env.REACT_APP_FORTMATIC_API_LIVE_KEY
   }
 }
