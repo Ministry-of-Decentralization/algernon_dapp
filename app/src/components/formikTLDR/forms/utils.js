@@ -1,6 +1,6 @@
 export const callMethod = (props) => {
   console.log(`calling methods ${JSON.stringify(props)}`)
-  props.contractMethod.call(null, ...props.args).send({from: props.connectedAddress})
+  props.contractMethod.call(null, ...props.args).send({from: props.connectedAddress, value: '0'})
     .on('transactionHash', props.handleTxHash)
     .on('receipt', (receipt) => {
       props.handleReceipt(receipt)

@@ -7,7 +7,6 @@ import TagBadges from '../tags/TagBadges'
 import { SelectedTopic } from '../../../selectors/types'
 
 const ListItem = ({ id, title, description, owner, tags, checksumOwnerAddress }: SelectedTopic) => {
-  console.log(`chcksum ${checksumOwnerAddress}`)
   return (
     <div style={{marginBottom: '1em'}}>
       <Paper>

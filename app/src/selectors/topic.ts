@@ -11,7 +11,6 @@ const getTopic = (topic: Topic):Topic => {
 const selectTopic = createSelector(
   [getTopic],
   (topic) => {
-    console.log(`selecting topic ${JSON.stringify(topic, null, 2)}`)
     return {
       ...topic,
       checksumOwnerAddress: convertToChecksum(topic.owner?.address)

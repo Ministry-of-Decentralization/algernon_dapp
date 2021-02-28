@@ -9,7 +9,7 @@ import MetaMaskIcon from '../../atoms/logos/MetaMask'
 import CardSelect from '../../atoms/inputs/CardSelect'
 import Flex from '../../atoms/Flex'
 import Modal from '../../atoms/Modal'
-import { getAlgernonInstance } from '../../../utils/web3'
+import { getAlgernonInstance, getAlgerTokenInstance } from '../../../utils/web3'
 import config from '../../../config'
 
 const walletOptions = [
@@ -96,6 +96,9 @@ const getSubmitArgs = async (values: any, setErrors: any) => {
   // @ts-ignore
   const address = await wallets[values.walletType].getAddress(wallet)
   const algernonInstance = getAlgernonInstance(wallet)
+  console.log(`gt algernon instance ${JSON.stringify(algernonInstance, null, 2)}`)
+  const algerTokenInstance = getAlgerTokenInstance(wallet)
+  console.log(`gt algerToken instance ${algerTokenInstance}`)
   const isAdmin = await algernonInstance.methods.isAdmin(address).call()
   const isTagger = await algernonInstance.methods.isTagger(address).call()
 
@@ -106,7 +109,8 @@ const getSubmitArgs = async (values: any, setErrors: any) => {
     isAdmin,
     isTagger,
     provider,
-    algernonInstance
+    algernonInstance,
+    algerTokenInstance
   }
 
   return args
