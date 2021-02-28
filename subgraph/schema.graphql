@@ -9,7 +9,7 @@ type Tag @entity {
   parent: Tag
   children: [Tag!] @derivedFrom(field: "parent")
   topics: [Topic!] @derivedFrom(field: "tags")
-  stakes: [Stake!] @serivedFrom(field: "tag")
+  stakes: [Stake!] @derivedFrom(field: "tag")
   createdAt: BigInt!
 }
 
@@ -36,6 +36,9 @@ type User @entity {
   stakes: [Stake!] @derivedFrom(field: "staker")
   firstActive: BigInt!
   lastActive: BigInt!
+  undepositedBalance: BigInt!
+  unstakedBalance: BigInt!
+  stakedBalance: BigInt!
 }
 
 type Stake @entity {

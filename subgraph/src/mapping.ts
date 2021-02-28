@@ -1,6 +1,25 @@
-import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated } from '../generated/Algernon/Algernon'
+import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated, TokensReceived } from '../generated/Algernon/Algernon'
+import { Sent, Minted, Burned } from '../generated/AlgerToken/AlgerToken'
+
 import { Tag, User, Topic } from '../generated/schema'
-import { log, Bytes, BigInt, json, ipfs } from '@graphprotocol/graph-ts'
+import { log, Bytes, BigInt, json, ipfs, Address } from '@graphprotocol/graph-ts'
+import { ZERO } from './common'
+
+function getOrCreateUser(address: Address, timestamp: BigInt): User {
+  let user = User.load(address.toHex())
+  if (user == null) {
+    user = new User(address.toHex())
+    user.address = address
+    user.firstActive = timestamp
+    user.lastActive = timestamp
+    user.undepositedBalance = ZERO
+    user.unstakedBalance = ZERO
+    user.stakedBalance = ZERO
+    user.save()
+  }
+
+  return user as User
+}
 
 export function handleTagAdded(event: TagAdded): void {
     let newTag = new Tag(event.params.id.toString())
@@ -62,19 +81,12 @@ export function handleTopicCreated(event: TopicCreated): void {
   let timestamp = event.block.timestamp
   let topic = new Topic(event.params.id.toString())
 
+  let user = getOrCreateUser(event.params.owner, timestamp)
 
-  let user = User.load(event.params.owner.toHex())
-  if (user == null) {
-    user = new User(event.params.owner.toHex())
-    user.address = event.params.owner
-    user.firstActive = timestamp
-    user.lastActive = timestamp
-    user.save()
-  } else {
-    user.lastActive = timestamp
-    user.save()
-  }
-  topic.owner = event.params.owner.toHex()
+  user.lastActive = timestamp
+  user.save()
+
+  topic.owner = user.id
   topic.contentHash = event.params.content.toString()
   
   topic.createdAt = timestamp
@@ -119,3 +131,38 @@ export function handleTopicTagsUpdated(event: TopicTagsUpdated): void {
 
   topic.save()
 }
+
+export function handleTokensReceived(event: TokensReceived): void {
+  let timestamp = event.block.timestamp
+
+  let user = getOrCreateUser(event.params.from, timestamp)
+  user.unstakedBalance = user.unstakedBalance .plus(event.params.amount)
+  user.save()
+}
+
+export function handleSent(event: Sent): void {
+  let from = getOrCreateUser(event.params.from, event.block.timestamp)
+  let to = getOrCreateUser(event.params.to, event.block.timestamp)
+
+  from.undepositedBalance = from.undepositedBalance.minus(event.params.amount)
+  from.save()
+
+  to.undepositedBalance = to.undepositedBalance.plus(event.params.amount)
+  to.save()
+
+}
+
+export function handleMinted(event: Minted): void {
+  let to = getOrCreateUser(event.params.to, event.block.timestamp)
+  
+  to.undepositedBalance = to.undepositedBalance.plus(event.params.amount)
+  to.save()
+}
+
+export function handleBurned(event: Burned): void {
+  let from = getOrCreateUser(event.params.from, event.block.timestamp)
+
+  from.undepositedBalance = from.undepositedBalance.minus(event.params.amount)
+  from.save()
+}
+
