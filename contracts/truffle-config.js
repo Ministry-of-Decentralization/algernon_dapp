@@ -15,7 +15,7 @@ const skaleWalletArgs = {
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: path.join(__dirname, "app/src/contracts"),
+  contracts_build_directory: path.join(__dirname, "build/"),
   networks: {
     development: {
       host: "0.0.0.0",
@@ -35,7 +35,7 @@ module.exports = {
   },
   compilers: {
     solc: {
-      version: "0.6.2"
+      version: "0.8.1"
     }
   }
 };
