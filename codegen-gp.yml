@@ -1,7 +1,7 @@
 overwrite: true
-schema: "theGraph/schema.graphql"
+schema: "subgraph/schema.graphql"
 generates:
-  ./typings/generated/theGraph/index.d.ts:
+  ./typings/generated/subgraph/index.d.ts:
     plugins:
       - "typescript"
       - "typescript-operations"
