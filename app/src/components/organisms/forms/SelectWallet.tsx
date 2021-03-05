@@ -96,9 +96,7 @@ const getSubmitArgs = async (values: any, setErrors: any) => {
   // @ts-ignore
   const address = await wallets[values.walletType].getAddress(wallet)
   const algernonInstance = getAlgernonInstance(wallet)
-  console.log(`gt algernon instance ${JSON.stringify(algernonInstance, null, 2)}`)
   const algerTokenInstance = getAlgerTokenInstance(wallet)
-  console.log(`gt algerToken instance ${algerTokenInstance}`)
   const isAdmin = await algernonInstance.methods.isAdmin(address).call()
   const isTagger = await algernonInstance.methods.isTagger(address).call()
 

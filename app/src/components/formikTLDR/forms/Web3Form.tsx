@@ -108,8 +108,8 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Web3F
   const handleError = (error: any) => setState({...state, error})
 
   const staticArgsProps = staticArgs || []
-  console.log(`in web3form methodArgs ${methodArgs}`)
   const args = getMethodArgs ? getMethodArgs(values) : staticArgsProps.concat(methodArgs.map((arg: string) => values[arg]))
+  console.log(`in web3form args ${args} -- ${connectedAddress}`)
   
   const submit = () => isValid ?
     callMethod({

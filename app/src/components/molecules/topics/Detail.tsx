@@ -12,6 +12,8 @@ import Badge from '../user/Badge'
 import NotesAndForm from './NotesAndForm'
 import UpdateTopicMetaForm from '../../organisms/forms/UpdateTopicMeta'
 import { convertToChecksum } from '../../../utils/web3'
+import TagBadge from '../tags/TagBadge'
+import CreateStakeForm from '../../organisms/forms/CreateStake'
 
 
 const equalAddresses = (addressA: string, addressB: string) => {
@@ -38,9 +40,24 @@ const RelatedCourse = (props:any) => {
   )
 }
 
+const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitle}) => {
+  return tags.map(tag => {
+    const trigger = algernonInstance ?
+      <CreateStakeForm
+        connectedAddress={connectedAddress}
+        algernonInstance={algernonInstance}
+        topicId={topicId}
+        tagId={tag.id}
+        topicTitle={topicTitle}
+        tag={tag.tag}
+      /> : null
+    return <TagBadge key={tag.id} tag={tag} stakeTrigger={trigger} />
+  })
+}
+
 const Detail = (props: TopicDetailProps): React.ReactNode => {
   const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
-  const { title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
+  const { id, title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
   const address = convertToChecksum(owner.address)
 
@@ -59,7 +76,7 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
       </Paper>
     </Flex>
   )
-
+  console.log(`inside detail alg insance ${algernonInstance}`)
   const MetaDetails: React.FC = () => (
     <div style={{marginTop: '2em'}}>
       <Flex>
@@ -91,7 +108,7 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
             <a target="blank" href={url}>{url}</a>
           </Box>
           <Box>
-            {tags.map(tag => <Link id={tag.tag} to={`/tags/${tag.id}`} element={<Chip style={{cursor: 'pointer'}} label={tag.tag} />} />)}
+            <TopicTags tags={tags} algernonInstance={algernonInstance} connectedAddress={connectedAddress} topicId={topic.id} topicTitle={topic.title} />
           </Box>
           <Flex justifyContent="space-around">
             <Flex flexDirection="column" style={{width: '50%'}}>

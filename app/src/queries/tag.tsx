@@ -24,9 +24,6 @@ export const GET_TAGS = gql`
     tags(skip: $skip, first: $first) {
       id
       tag
-      topics {
-        id
-      }
     }
 }
 `;
@@ -55,18 +52,25 @@ export const GET_TAG = gql`
     tag(id: $id) {
       id
       tag
-      topics {
+      topics(orderBy: totalStaked, orderDirection: desc) {
         id
-        owner {
-          address
-        }
-        tags {
+        topic {
           id
-          tag
+          owner {
+            address
+          }
+          tags(orderBy: totalStaked, orderDirection: desc) {
+            id
+            totalStaked
+            tag {
+              id
+              tag
+            }
+          }
+          title
+          description
+          url
         }
-        title
-        description
-        url
       }
     }
 }
@@ -77,13 +81,15 @@ export const useGetTag = (client: any, id: string) => {
     GET_TAG,
     {
       client,
-      variables: {id}
+      variables: {id},
+      fetchPolicy: 'no-cache'
     });
-  
+  console.log(`got tag--\n ${JSON.stringify(data, null, 2)}`)
   return {
     loading,
     error,
-    tag: data ? { ...data.tag, topics: data.tag.topics.map(selectTopic)} : null
+    // @ts-ignore
+    tag: data ? { ...data.tag, topics: data.tag.topics.map(t => t.topic).map(selectTopic)} : null
   } 
 }
 
@@ -94,6 +100,9 @@ export const GET_FILTERED_TAGS = gql`
       tag
       topics {
         id
+        topic {
+          id
+        }
       }
     }
 }
