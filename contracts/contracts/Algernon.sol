@@ -1,10 +1,10 @@
 pragma solidity ^0.8.0;
 
 import "openzeppelin-solidity/contracts/token/ERC777/IERC777Recipient.sol";
-import './Stake.sol';
+import './Staking.sol';
 import "./ERC1820Client.sol";
 
-contract Algernon is IERC777Recipient, Stake, ERC1820Client {
+contract Algernon is IERC777Recipient, Staking, ERC1820Client {
   address owner;
   IERC777  private _token;
 
