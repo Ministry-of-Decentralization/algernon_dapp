@@ -1,7 +1,7 @@
-import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated, TokensReceived } from '../generated/Algernon/Algernon'
+import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated, TokensReceived, StakeIncreased, StakeDecreased, StakeAdded } from '../generated/Algernon/Algernon'
 import { Sent, Minted, Burned } from '../generated/AlgerToken/AlgerToken'
 
-import { Tag, User, Topic } from '../generated/schema'
+import { Tag, User, Topic, TaggedTopic, Stake } from '../generated/schema'
 import { log, Bytes, BigInt, json, ipfs, Address } from '@graphprotocol/graph-ts'
 import { ZERO } from './common'
 
@@ -15,10 +15,26 @@ function getOrCreateUser(address: Address, timestamp: BigInt): User {
     user.undepositedBalance = ZERO
     user.unstakedBalance = ZERO
     user.stakedBalance = ZERO
+    user.ownerRewards = ZERO
     user.save()
   }
 
   return user as User
+}
+
+function getOrCreateTaggedTopic(tagId: string, topicId: string): TaggedTopic {
+  let id = tagId + '-' + topicId
+  let taggedTopic = TaggedTopic.load(id)
+  if (taggedTopic == null) {
+    taggedTopic = new TaggedTopic(id)
+    taggedTopic.tag = tagId
+    taggedTopic.topic = topicId
+    taggedTopic.totalStaked = ZERO
+    taggedTopic.active = true
+    taggedTopic.save()
+  }
+
+  return taggedTopic as TaggedTopic
 }
 
 export function handleTagAdded(event: TagAdded): void {
@@ -28,6 +44,7 @@ export function handleTagAdded(event: TagAdded): void {
       newTag.parent = event.params.parent.toString() 
     }
     newTag.createdAt = event.block.timestamp
+    newTag.totalStaked = ZERO
     newTag.save()
 }
 
@@ -56,19 +73,17 @@ function updateTopicContent(topic: Topic, content: Bytes): Topic {
   for (let i = 0; i < requireIds.length; i++) {
     requires.push(requireIds[i].toString())
   }
-  topic.requires = requires
+ topic.requires = requires
 
   return topic
 }
 
-function updateTopicTags(topic: Topic, tagIds: BigInt[]): Topic {
-  let tags:string[] = []
+function updateTopicTags(topic: Topic, tagIds: BigInt[]): void {
+  // TODO: updat to active:false for taggedTopics attached to the Topic that are no longer attached
+  // create any TaggedTopic that does not exist
   for (let i = 0; i < tagIds.length; i++) {
-    tags.push(tagIds[i].toString())
+    getOrCreateTaggedTopic(tagIds[i].toString(), topic.id)
   }
-  topic.tags = tags
-
-  return topic
 }
 
 function updateUserLastActive(userId: string, lastActive: BigInt): void {
@@ -92,7 +107,7 @@ export function handleTopicCreated(event: TopicCreated): void {
   topic.createdAt = timestamp
   topic.updatedAt = timestamp
   
-  topic = updateTopicTags(topic, event.params.tagIds) 
+  updateTopicTags(topic, event.params.tagIds) 
 
   let data = ipfs.cat(topic.contentHash)
   if (data !== null) {
@@ -110,7 +125,7 @@ export function handleTopicUpdated(event: TopicUpdated): void {
 
   topic.updatedAt = event.block.timestamp
   topic.contentHash = event.params.content.toString()
-  topic = updateTopicTags(topic as Topic, event.params.tagIds) 
+  updateTopicTags(topic as Topic, event.params.tagIds) 
 
   let data = ipfs.cat(topic.contentHash)
 
@@ -127,7 +142,7 @@ export function handleTopicTagsUpdated(event: TopicTagsUpdated): void {
   updateUserLastActive(topic.owner, event.block.timestamp)
 
   topic.updatedAt = event.block.timestamp
-  topic = updateTopicTags(topic as Topic, event.params.tagIds)
+  updateTopicTags(topic as Topic, event.params.tagIds)
 
   topic.save()
 }
@@ -164,5 +179,70 @@ export function handleBurned(event: Burned): void {
 
   from.undepositedBalance = from.undepositedBalance.minus(event.params.amount)
   from.save()
+}
+
+function increaseStakedBalances(stake: Stake, totalAmt: BigInt, stakeAmt: BigInt): void {
+  let taggedTopic = TaggedTopic.load(stake.taggedTopic)
+  let staker = User.load(stake.staker)
+  let topic = Topic.load(taggedTopic.topic)
+  let owner = User.load(topic.owner)
+  let ownerShare = totalAmt - stakeAmt
+  let tag = Tag.load(taggedTopic.tag)
+
+  owner.ownerRewards = owner.ownerRewards + ownerShare
+  owner.save()
+
+  taggedTopic.totalStaked = taggedTopic.totalStaked + stakeAmt
+  taggedTopic.save()
+
+  tag.totalStaked = tag.totalStaked + stakeAmt
+  tag.save()
+
+  staker.stakedBalance = staker.stakedBalance + stakeAmt
+  staker.unstakedBalance = staker.unstakedBalance - totalAmt
+  staker.save()
+}
+
+export function handleStakeAdded(event: StakeAdded): void {
+  let taggedTopic = getOrCreateTaggedTopic(event.params.tagId.toString(), event.params.topicId.toString())
+  let stake = new Stake(event.params.stakeIdx.toString())
+
+  stake.staker = event.params.staker.toHex()
+  stake.taggedTopic = taggedTopic.id
+  stake.amount = event.params.stakeAmt
+  stake.createdAt = event.block.timestamp
+  stake.updatedAt = event.block.timestamp
+  stake.save()
+
+  increaseStakedBalances(stake, event.params.totalAmt, event.params.stakeAmt)
+
+}
+
+export function handleStakeIncreased(event: StakeIncreased): void {
+  let stake = Stake.load(event.params.stakeIdx.toString()) as Stake
+  stake.amount = stake.amount + event.params.stakeAmt
+  increaseStakedBalances(stake, event.params.totalAmt, event.params.stakeAmt)
+}
+
+export function handleStakeDecreased(event: StakeDecreased): void {
+  let stake = Stake.load(event.params.stakeIdx.toString())
+  stake.amount = stake.amount - event.params.amt
+  stake.updatedAt = event.block.timestamp
+  stake.save()
+
+  let taggedTopic = TaggedTopic.load(stake.taggedTopic)
+
+  taggedTopic.totalStaked = taggedTopic.totalStaked - event.params.amt
+  taggedTopic.save()
+
+  let tag = Tag.load(taggedTopic.tag)
+  tag.totalStaked = tag.totalStaked - event.params.amt
+  tag.save()
+
+  let staker = User.load(stake.staker)
+  staker.stakedBalance = staker.stakedBalance - event.params.amt
+  staker.unstakedBalance = staker.unstakedBalance + event.params.amt
+  staker.save()
+
 }
 
