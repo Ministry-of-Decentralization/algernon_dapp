@@ -14,6 +14,7 @@ import UpdateTopicMetaForm from '../../organisms/forms/UpdateTopicMeta'
 import { convertToChecksum } from '../../../utils/web3'
 import TagBadge from '../tags/TagBadge'
 import CreateStakeForm from '../../organisms/forms/CreateStake'
+import UpdateStakeForm from '../../organisms/forms/UpdateStake'
 
 
 const equalAddresses = (addressA: string, addressB: string) => {
@@ -26,7 +27,8 @@ type TopicDetailProps = {
   topicOptions: string[],
   topic: any,
   refetchTopic: any,
-  algernonInstance: any
+  algernonInstance: any,
+  userStakes: any
 }
 
 const RelatedCourse = (props:any) => {
@@ -40,23 +42,34 @@ const RelatedCourse = (props:any) => {
   )
 }
 
-const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitle}) => {
+const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitle, userStakes}) => {
   return tags.map(tag => {
+    const existingStake = userStakes && userStakes.find(s => s.tagId === tag.id)
     const trigger = algernonInstance ?
-      <CreateStakeForm
-        connectedAddress={connectedAddress}
-        algernonInstance={algernonInstance}
-        topicId={topicId}
-        tagId={tag.id}
-        topicTitle={topicTitle}
-        tag={tag.tag}
-      /> : null
+      existingStake ?
+        <UpdateStakeForm
+          connectedAddress={connectedAddress}
+          algernonInstance={algernonInstance}
+          stake={existingStake}
+          topicTitle={topicTitle}
+          tag={tag.tag}
+        /> 
+        :
+        <CreateStakeForm
+          connectedAddress={connectedAddress}
+          algernonInstance={algernonInstance}
+          topicId={topicId}
+          tagId={tag.id}
+          topicTitle={topicTitle}
+          tag={tag.tag}
+        />
+      : null
     return <TagBadge key={tag.id} tag={tag} stakeTrigger={trigger} />
   })
 }
 
 const Detail = (props: TopicDetailProps): React.ReactNode => {
-  const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic } = props
+  const { connectedAddress, algernonInstance, topic, topicOptions, tagOptions, refetchTopic, userStakes } = props
   const { id, title, url, description, owner, notes, requires, supports, tags, updatedAt } = topic
   const containerStyle = { margin:"2em", padding: "2em" }
   const address = convertToChecksum(owner.address)
@@ -108,7 +121,14 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
             <a target="blank" href={url}>{url}</a>
           </Box>
           <Box>
-            <TopicTags tags={tags} algernonInstance={algernonInstance} connectedAddress={connectedAddress} topicId={topic.id} topicTitle={topic.title} />
+            <TopicTags
+              tags={tags}
+              algernonInstance={algernonInstance}
+              connectedAddress={connectedAddress}
+              topicId={topic.id}
+              topicTitle={topic.title}
+              userStakes={userStakes}
+            />
           </Box>
           <Flex justifyContent="space-around">
             <Flex flexDirection="column" style={{width: '50%'}}>

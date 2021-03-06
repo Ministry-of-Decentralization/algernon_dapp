@@ -28,13 +28,13 @@ contract Staking is Topics, Percent {
   event StakeIncreased(uint stakeIdx, uint totalAmt, uint stakeAmt);
   event StakeDecreased(uint stakeIdx, uint amt);
 
-  function getStake(uint _idx) public view returns (staker, amount, topicId, tagId) {
+  function getStake(uint _idx) public view returns (address staker, uint amount, uint topicId, uint tagId) {
     // we skip the 0 index so decrement the index by one to look it up in the stakes array
     Stake storage stake = stakes[_idx - 1];
-    Address staker = stake.staker;
-    uint amount = stake.amt;
-    uint topicId = stake.topicId;
-    uint tagId = stake.tagId;
+    staker = stake.staker;
+    amount = stake.amt;
+    topicId = stake.topicId;
+    tagId = stake.tagId;
   }
 
   function distributeStake(uint _amt, uint _topicId, address from) internal returns (uint){
@@ -48,7 +48,7 @@ contract Staking is Topics, Percent {
   }
 
   function addStake(uint _topicId, uint _tagId, uint _amt) public {
-    require(userStakes[msg.sender][topicId][tagId] == 0, 'Stake already exists');
+    require(userStakes[msg.sender][_topicId][_tagId] == 0, 'Stake already exists');
     require(tokenBalances[msg.sender] >= _amt, 'Insufficient token balance');
 
     uint stakeAmt = distributeStake(_amt, _topicId, msg.sender);
@@ -56,7 +56,7 @@ contract Staking is Topics, Percent {
     stakes.push(stake);
     // store the index after update so that 0 index represents null 
     uint256 stakeIdx = stakes.length;
-    userStakes[msg.sender][topicId][tagId] = stakeIdx;
+    userStakes[msg.sender][_topicId][_tagId] = stakeIdx;
 
     emit StakeAdded(stakeIdx, msg.sender, _amt, stakeAmt, _topicId, _tagId);
 
@@ -79,7 +79,7 @@ contract Staking is Topics, Percent {
     stake.amt -= _amt;
     tokenBalances[msg.sender] += _amt;
 
-    emit StakeDecreased(stake.amt, _amt);
+    emit StakeDecreased(_stakeIdx, _amt);
 
   }
  }

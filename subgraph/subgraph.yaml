@@ -38,7 +38,7 @@ dataSources:
         - event: StakeAdded(uint256,address,uint256,uint256,uint256,uint256)
           handler: handleStakeAdded
         - event: StakeIncreased(uint256,uint256,uint256)
-          handler: handleStakedIncreased   
+          handler: handleStakeIncreased   
         - event: StakeDecreased(uint256,uint256)
           handler: handleStakeDecreased      
       file: ./src/mapping.ts

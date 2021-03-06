@@ -28,7 +28,8 @@ export interface Web3FormProps {
   defaultValues: any;
   schema: any;
   getForm: any;
-  contractMethod: string;
+  contractMethod?: string;
+  getContractMethod?: any;
   connectedAddress: string;
   methodArgs?: any;
   staticArgs?: any;

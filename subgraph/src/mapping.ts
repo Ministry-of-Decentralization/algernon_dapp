@@ -221,7 +221,9 @@ export function handleStakeAdded(event: StakeAdded): void {
 export function handleStakeIncreased(event: StakeIncreased): void {
   let stake = Stake.load(event.params.stakeIdx.toString()) as Stake
   stake.amount = stake.amount + event.params.stakeAmt
+  stake.save()
   increaseStakedBalances(stake, event.params.totalAmt, event.params.stakeAmt)
+
 }
 
 export function handleStakeDecreased(event: StakeDecreased): void {

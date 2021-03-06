@@ -90,6 +90,7 @@ const initialState: InnerFormState = {
 const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Web3FormProps}) => {
   const {
     contractMethod,
+    getContractMethod,
     connectedAddress,
     methodArgs,
     getMethodArgs,
@@ -109,11 +110,12 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Web3F
 
   const staticArgsProps = staticArgs || []
   const args = getMethodArgs ? getMethodArgs(values) : staticArgsProps.concat(methodArgs.map((arg: string) => values[arg]))
-  console.log(`in web3form args ${args} -- ${connectedAddress}`)
+  const method = getContractMethod ? getContractMethod(values) : contractMethod
   
+  console.log(`web3 form method ${method}`)
   const submit = () => isValid ?
     callMethod({
-      contractMethod,
+      contractMethod: method,
       connectedAddress,
       args,
       handleTxHash,
