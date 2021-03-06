@@ -1,11 +1,11 @@
 import React from 'react'
-import CloseIcon from '@material-ui/icons/Close'
+import Icon from '@material-ui/icons/UnfoldMore'
 
-const CloseIcon = (props) => {
+const StakeIcon = (props) => {
   const fontSize = props.size || "medium"
   const color = props.color || "primary"
   return (
-    <CloseIcon
+    <Icon
       fontSize={fontSize}
       color={color}
       onClick={props.onClick}
@@ -13,4 +13,4 @@ const CloseIcon = (props) => {
   )
 }
 
-export default CloseIcon
+export default StakeIcon

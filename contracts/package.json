@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "truffle test",
     "deploy-skale": "truffle deploy --reset --network skale --compile-all",
     "deploy-local": "truffle deploy --reset --network development",
     "deploy-kovan": "truffle deploy --reset --network kovan",
@@ -25,10 +25,11 @@
   },
   "homepage": "https://github.com/truffle-box/drizzle-box#readme",
   "dependencies": {
+    "@openzeppelin/contracts": "^4.0.0-beta.0",
     "@openzeppelin/test-helpers": "^0.5.7",
     "@truffle/hdwallet-provider": "^1.2.1",
     "dotenv": "^8.2.0",
-    "openzeppelin-solidity": "^3.2.0",
+    "openzeppelin-solidity": "^4.0.0-beta.0",
     "typescript": "^3.7.2"
   }
 }

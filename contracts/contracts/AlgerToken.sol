@@ -1,4 +1,4 @@
-pragma solidity ^0.6.2;
+pragma solidity ^0.8.0;
 
 import "openzeppelin-solidity/contracts/token/ERC777/ERC777.sol";
 
@@ -9,7 +9,7 @@ import "openzeppelin-solidity/contracts/token/ERC777/ERC777.sol";
  */
 contract AlgerToken is ERC777 {
 
-    constructor () public ERC777("AlgerToken", "ALG", new address[](0)) {
+    constructor () ERC777("AlgerToken", "ALG", new address[](0)) {
         _mint(msg.sender, 21000000 * 10 ** 18, "", "");
     }
 }

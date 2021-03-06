@@ -27,7 +27,8 @@ const reducer = (state, action) => {
         isTagger: action.payload.isTagger,
         canViewAdmin: action.payload.isAdmin || action.payload.isTagger,
         provider: action.payload.provider,
-        algernonInstance: action.payload.algernonInstance
+        algernonInstance: action.payload.algernonInstance,
+        algerTokenInstance: action.payload.algerTokenInstance
       }
     default:
       return state
@@ -42,7 +43,7 @@ const WalletProvider = ({children}) => {
   const contextValue = useMemo(() => {
     return {
       ...state,
-      setWallet: ({ walletType, wallet, address, isAdmin, isTagger, algernonInstance, provider }) =>
+      setWallet: ({ walletType, wallet, address, isAdmin, isTagger, algernonInstance, algerTokenInstance, provider }) =>
         dispatch({
           type: UPDATE_TYPES.SET_WALLET,
           payload: {
@@ -52,6 +53,7 @@ const WalletProvider = ({children}) => {
             isAdmin,
             isTagger,
             algernonInstance,
+            algerTokenInstance,
             provider 
           }
         })

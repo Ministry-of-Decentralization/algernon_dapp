@@ -3,9 +3,10 @@ import TopicList from '../Topics/TopicList'
 import CreateTopic from '../forms/CreateTopic'
 import { topicsToOptions } from '../../atoms/inputs/optionsFormatters'
 import BlockieAddress from '../../molecules/user/BlockieAddress'
+import TokenBalances from './TokenBalances'
 
-const Profile = ({address, connectedAddress, algernonInstance, tagOptions, topics, refetchTopics, unlockedContract}) => {
-  const create = address === connectedAddress ?
+const Profile = ({address, connectedAddress, algernonInstance, algerTokenInstance, tagOptions, topics, refetchTopics, refetchUser, user}) => {
+  const create = address === connectedAddress && algernonInstance ?
     tagOptions.length ?
       <CreateTopic
         connectedAddress={connectedAddress}
@@ -21,8 +22,13 @@ const Profile = ({address, connectedAddress, algernonInstance, tagOptions, topic
 
   return (
     <div>
-  
-        <BlockieAddress address={address} />
+      <BlockieAddress address={address} />
+      <TokenBalances
+        user={user}
+        connectedAddress={connectedAddress}
+        algerTokenInstance={algerTokenInstance}
+        to={algernonInstance && algernonInstance.options.address}
+        refetchUser={refetchUser} />
 
       {create}
       <h3>Courses</h3>

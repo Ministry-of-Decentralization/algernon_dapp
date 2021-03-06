@@ -7,6 +7,7 @@ import Button from './inputs/buttons/Button';
 
 interface Props {
   triggerText: string;
+  trigger?: any;
   triggerColor?: string;
   title: string;
   contentText: string;
@@ -25,13 +26,18 @@ export default function Modal(props: Props) {
   };
   const color = props.triggerColor || "#fff"
 
+  const triggerEl = props.trigger ?
+    <span onClick={handleClickOpen}>{props.trigger}</span>
+    :
+    <Button
+      style={{ color }}
+      onClick={handleClickOpen}
+      label={props.triggerText}
+    />
   return (
     <div >
-      <Button
-        style={{ color }}
-        onClick={handleClickOpen}
-        label={props.triggerText}
-      />
+      {triggerEl}
+
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">{props.title}</DialogTitle>
         <DialogContent>

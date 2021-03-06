@@ -3,11 +3,10 @@ import Paper from '../../atoms/Paper'
 import { Link } from 'react-router-dom'
 import Blockie from '../../atoms/Blockie'
 import Flex from '../../atoms/Flex'
-import TagBadges from '../tags/TagBadges'
+import TagBadge from '../tags/TagBadge'
 import { SelectedTopic } from '../../../selectors/types'
 
 const ListItem = ({ id, title, description, owner, tags, checksumOwnerAddress }: SelectedTopic) => {
-  console.log(`chcksum ${checksumOwnerAddress}`)
   return (
     <div style={{marginBottom: '1em'}}>
       <Paper>
@@ -22,7 +21,7 @@ const ListItem = ({ id, title, description, owner, tags, checksumOwnerAddress }:
             <p>{description}</p>
           </div>
           <Flex style={{width: '30%', marginLeft: 'auto', order: 2}}>
-            <TagBadges tags={tags} />
+            { tags.map( tag => <TagBadge key={tag?.id} tag={tag} /> )}
           </Flex>
         </Flex>
       </Paper>

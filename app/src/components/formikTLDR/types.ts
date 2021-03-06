@@ -28,13 +28,15 @@ export interface Web3FormProps {
   defaultValues: any;
   schema: any;
   getForm: any;
-  contractMethod: string;
+  contractMethod?: string;
+  getContractMethod?: any;
   connectedAddress: string;
-  methodArgs: any;
-  staticArgs: any;
-  getMethodArgs: any;
+  methodArgs?: any;
+  staticArgs?: any;
+  getMethodArgs?: any;
   stateEls: FormStateEls;
   formOnSuccess: boolean;
+  cancelForm?: any
 }
 
 export interface MutationAndWeb3FormStateEls {

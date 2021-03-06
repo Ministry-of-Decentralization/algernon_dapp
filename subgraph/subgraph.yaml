@@ -33,4 +33,36 @@ dataSources:
           handler: handleTopicUpdated
         - event: TopicTagsUpdated(uint256,uint256[])
           handler: handleTopicTagsUpdated
+        - event: TokensReceived(address,address,address,uint256,bytes,bytes)
+          handler: handleTokensReceived
+        - event: StakeAdded(uint256,address,uint256,uint256,uint256,uint256)
+          handler: handleStakeAdded
+        - event: StakeIncreased(uint256,uint256,uint256)
+          handler: handleStakeIncreased   
+        - event: StakeDecreased(uint256,uint256)
+          handler: handleStakeDecreased      
+      file: ./src/mapping.ts
+
+  - kind: ethereum/contract
+    name: AlgerToken
+    network: development
+    source:
+      address: '0x98012ed413Bc79B2A2fc1420FDC90670aAb96B61'
+      abi: AlgerToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - User
+      abis:
+        - name: AlgerToken
+          file: ./abis/AlgerToken.json
+      eventHandlers:
+        - event: Minted(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleMinted
+        - event: Burned(indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleBurned
+        - event: Sent(indexed address,indexed address,indexed address,uint256,bytes,bytes)
+          handler: handleSent
       file: ./src/mapping.ts

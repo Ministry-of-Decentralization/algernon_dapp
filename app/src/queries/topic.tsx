@@ -24,6 +24,19 @@ interface GetTopicData {
   topic: SelectedTopic
 }
 
+ const fragments = {
+  comment: gql`
+    fragment CommentsPageComment on Comment {
+      id
+      postedBy {
+        login
+        html_url
+      }
+      createdAt
+      content
+    }
+  `,
+};
 
 export const GET_TOPICS = gql`
   query topics($skip: Int!, $first: Int!){
@@ -31,9 +44,13 @@ export const GET_TOPICS = gql`
       id
       createdAt
       updatedAt
-      tags {
+      tags(orderBy: totalStaked, orderDirection: desc) {
         id
-        tag
+        totalStaked
+        tag {
+          id
+          tag
+        }
       }
       owner {
         address
@@ -61,16 +78,20 @@ export const GET_TOPICS_BY_ID = gql`
       id
       createdAt
       updatedAt
-      tags {
+      title
+      description
+      url
+      tags(orderBy: totalStaked, orderDirection: desc) {
         id
-        tag
+        totalStaked
+        tag {
+          id
+          tag
+        }
       }
       owner {
         address
       }
-      title
-      description
-      url
     }
 }
 `;
@@ -92,9 +113,13 @@ export const GET_TOPICS_FOR_OWNER = gql`
       id
       createdAt
       updatedAt
-      tags {
+      tags(orderBy: totalStaked, orderDirection: desc) {
+        totalStaked
         id
-        tag
+        tag {
+          id
+          tag
+        }
       }
       title
       description
@@ -116,7 +141,6 @@ export const useGetTopicsForOwner = (client: any, skip: number, first: number, o
       },
       fetchPolicy: 'no-cache'
     });
-
   return {
     loading,
     error,
@@ -131,9 +155,13 @@ export const GET_TOPIC = gql`
       id
       createdAt
       updatedAt
-      tags {
+      tags(orderBy: totalStaked, orderDirection: desc) {
         id
-        tag
+        totalStaked
+        tag {
+          id
+          tag
+        }
       }
       owner {
         address
@@ -174,7 +202,6 @@ export const useGetTopic = (client: any, id: string) => {
       fetchPolicy: 'no-cache'
     });
     
-    console.log(`got topic ${JSON.stringify(data?.topic, null, 2)}`)
   return {
     loading,
     error,

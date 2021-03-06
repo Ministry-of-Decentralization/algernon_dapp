@@ -8,15 +8,15 @@ type Tag @entity {
   tag: String!
   parent: Tag
   children: [Tag!] @derivedFrom(field: "parent")
-  topics: [Topic!] @derivedFrom(field: "tags")
-  stakes: [Stake!] @serivedFrom(field: "tag")
+  topics: [TaggedTopic!] @derivedFrom(field: "tag")
+  totalStaked: BigInt!
   createdAt: BigInt!
 }
 
 type Topic @entity {
   id: ID!
   owner: User
-  tags: [Tag]!
+  tags: [TaggedTopic!] @derivedFrom(field: "topic")
   contentHash: String!
   title: String!
   description: String
@@ -24,9 +24,17 @@ type Topic @entity {
   notes: String
   supports: [Topic!]!
   requires: [Topic!]!
-  stakes: [Stake!] @derivedFrom(field: "topic")
   createdAt: BigInt!
   updatedAt: BigInt!
+}
+
+type TaggedTopic @entity {
+  id: ID!
+  tag: Tag!
+  topic: Topic!
+  stakes: [Stake!] @derivedFrom(field: "taggedTopic")
+  totalStaked: BigInt!
+  active: Boolean!
 }
 
 type User @entity {
@@ -36,13 +44,16 @@ type User @entity {
   stakes: [Stake!] @derivedFrom(field: "staker")
   firstActive: BigInt!
   lastActive: BigInt!
+  undepositedBalance: BigInt!
+  unstakedBalance: BigInt!
+  stakedBalance: BigInt!
+  ownerRewards: BigInt!
 }
 
 type Stake @entity {
   id: ID!
   staker: User!  
-  topic: Topic!
-  tag: Tag!
+  taggedTopic: TaggedTopic!
   amount: BigInt!
   createdAt: BigInt!
   updatedAt: BigInt!

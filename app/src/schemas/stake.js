@@ -1,16 +1,21 @@
-const contract = [
-  {
-    name: 'amount',
-    label: 'Amount',
-    type: 'number',
-    default: 0
-  }
-]
+import * as Yup from 'yup';
 
-const offChain = []
+export const createStakeSchema = {
+  defaultValues: {
+    amount: 0
+  },
+  schema: Yup.object({
+    amount: Yup.number().required()
+  })
+}
 
-
-export default {
-  contract,
-  offChain
+export const updateStakeSchema = {
+  defaultValues: {
+    amount: 0,
+    update: 'increase'
+  },
+  schema: Yup.object({
+    amount: Yup.number().required(),
+    update: Yup.string().oneOf(['increase', 'decrease']).required()
+  })
 }
