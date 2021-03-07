@@ -1,12 +1,10 @@
 import React from 'react'
 import { Form } from 'formik'
 import { updateStakeSchema } from '../../../schemas/stake'
-import Select from '../../atoms/inputs/Select'
 import Web3Form from '../../formikTLDR/forms/Web3Form'
 import Text from '../../atoms/inputs/Text'
 import Button from '../../atoms/inputs/buttons/Button'
 import Modal from '../../atoms/Modal'
-import Box from '../../atoms/Box'
 import StakeIcon from '../../atoms/icons/Stake'
 import { displayToNativeBalance } from '../../../utils/formatters'
 import Radio from '../../atoms/inputs/Radio'
@@ -59,7 +57,7 @@ const getMethodArgs = (stakeIdx: string) => (values: any) => {
   return [stakeIdx, displayToNativeBalance(values.amount)]
 }
 
-const UpdateStakeForm = ({ connectedAddress, algernonInstance, tag, topicTitle, stake }: any) => {
+const UpdateStakeForm = ({ connectedAddress, algernonInstance, tag, topicTitle, stake, onSuccess }: any) => {
   console.log(`instance methods ${Object.keys(algernonInstance.methods)} -- ${typeof algernonInstance.methods.decreaseStake}`)
   const formProps = {
     defaultValues: updateStakeSchema.defaultValues,
@@ -71,7 +69,8 @@ const UpdateStakeForm = ({ connectedAddress, algernonInstance, tag, topicTitle, 
     stateEls: {
       successEl: Success
     },
-    formOnSuccess: false
+    formOnSuccess: false,
+    onSuccess
   }
   return (
     <Modal

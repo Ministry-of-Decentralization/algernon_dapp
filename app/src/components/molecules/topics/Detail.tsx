@@ -42,7 +42,7 @@ const RelatedCourse = (props:any) => {
   )
 }
 
-const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitle, userStakes}) => {
+const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitle, userStakes, refetchTopic }) => {
   return tags.map(tag => {
     const existingStake = userStakes && userStakes.find(s => s.tagId === tag.id)
     const trigger = algernonInstance ?
@@ -53,6 +53,7 @@ const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitl
           stake={existingStake}
           topicTitle={topicTitle}
           tag={tag.tag}
+          onSuccess={refetchTopic}
         /> 
         :
         <CreateStakeForm
@@ -62,6 +63,7 @@ const TopicTags = ({tags, connectedAddress, algernonInstance, topicId, topicTitl
           tagId={tag.id}
           topicTitle={topicTitle}
           tag={tag.tag}
+          onSuccess={refetchTopic}
         />
       : null
     return <TagBadge key={tag.id} tag={tag} stakeTrigger={trigger} />
@@ -128,6 +130,7 @@ const Detail = (props: TopicDetailProps): React.ReactNode => {
               topicId={topic.id}
               topicTitle={topic.title}
               userStakes={userStakes}
+              refetchTopic={refetchTopic}
             />
           </Box>
           <Flex justifyContent="space-around">

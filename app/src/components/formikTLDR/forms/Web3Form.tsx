@@ -54,10 +54,12 @@ const getContent = (
   submit: any,
   isValid: boolean,
   stateEls: FormStateEls,
-  formOnSuccess: boolean
+  formOnSuccess: boolean,
+  onSuccess: any
   ) => {
   const { successEl, pendingEl, errorEl } = stateEls
   if (state.receipt) {
+    onSuccess && onSuccess()
     return (
       <div>
         {formOnSuccess && getForm(submit)}
@@ -97,6 +99,7 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Web3F
     getForm,
     stateEls,
     formOnSuccess,
+    onSuccess = () => {},
     staticArgs } = formProps
   const {values, setSubmitting, resetForm, isValid} = formikProps
   const [state, setState] = useState(initialState)
@@ -133,7 +136,8 @@ const InnerForm = ({formikProps, formProps}: {formikProps: any, formProps: Web3F
     submit,
     isValid,
     stateEls,
-    formOnSuccess
+    formOnSuccess,
+    onSuccess
     )
 }
 
