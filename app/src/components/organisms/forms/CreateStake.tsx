@@ -40,7 +40,7 @@ const getMethodArgs = (topicId: string, tagId: string) => (values: any) => {
   return [topicId, tagId, displayToNativeBalance(values.amount)]
 }
 
-const CreateStakeForm = ({ connectedAddress, algernonInstance, topicId, tagId, tag, topicTitle }: any) => {
+const CreateStakeForm = ({ connectedAddress, algernonInstance, topicId, tagId, tag, topicTitle, onSuccess }: any) => {
   const formProps = {
     defaultValues: createStakeSchema.defaultValues,
     schema: createStakeSchema.schema,
@@ -51,7 +51,8 @@ const CreateStakeForm = ({ connectedAddress, algernonInstance, topicId, tagId, t
     stateEls: {
       successEl: Success
     },
-    formOnSuccess: false
+    formOnSuccess: false,
+    onSuccess
   }
   return (
     <Modal

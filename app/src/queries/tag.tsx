@@ -84,7 +84,6 @@ export const useGetTag = (client: any, id: string) => {
       variables: {id},
       fetchPolicy: 'no-cache'
     });
-  console.log(`got tag--\n ${JSON.stringify(data, null, 2)}`)
   return {
     loading,
     error,

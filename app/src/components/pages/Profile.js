@@ -5,12 +5,11 @@ import Sidebar from '../materialDashboard/layouts/Sidebar'
 import ProfileMain from '../organisms/Profile/ProfileMain'
 import { useGetTopicsForOwner } from '../../queries/topic'
 import { useGetTags } from '../../queries/tag'
+import { useGetOwnerByAddress } from '../../queries/user'
 import { theGraphClient } from '../../utils/apolloClient'
 import { tagsToOptions } from '../atoms/inputs/optionsFormatters'
 import { WalletContext } from '../providers/WalletProvider'
 import { convertToChecksum } from '../../utils/web3'
-import { useGetOwnerByAddress } from '../../queries/user'
-
 
 const Profile = (props) => {
   const address = convertToChecksum(props.match.params.address)
@@ -22,7 +21,6 @@ const Profile = (props) => {
 
   // @ts-ignore
   const { algernonInstance, algerTokenInstance, address: connectedAddress, canViewAdmin } = useContext(WalletContext)
-
   const main = (
     <div>
       <ProfileMain

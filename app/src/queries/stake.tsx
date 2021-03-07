@@ -9,6 +9,10 @@ interface StakeQueryVars {
   staker: string
 }
 
+interface UserStakeQueryVars {
+  staker: string
+}
+
 interface Stake {
   id: string
   amount: string
@@ -20,6 +24,15 @@ interface TaggedTopic {
 interface GetStakeData {
   taggedTopics: TaggedTopic
 }
+
+interface User {
+  id: string
+  stakes: [Stake]
+}
+interface GetUserStakeData {
+  user: User
+}
+
 
 export const GET_USER_TOPIC_STAKES  = gql`
   query tag($topicId: String!, $staker: String!){
@@ -46,11 +59,47 @@ export const useGetUserTopicStake = (client: any, topicId: string, staker: strin
       variables: {topicId, staker },
       fetchPolicy: 'no-cache'
     });
-  console.log(`getting user ${staker} topic ${topicId} stakes ${data && JSON.stringify(data.taggedTopics, null, 2)}`)
   return {
     loading,
     error,
     // @ts-ignore
     stakes: data ? selectUserStakesForTopic(data.taggedTopics) : null
+  } 
+}
+
+export const GET_USER_STAKES  = gql`
+  query tag($staker: String!){
+    user(id: $staker) {
+      id
+      stakes {
+        id
+        amount
+        topic {
+          id
+          title
+        }
+        tag {
+          id
+          tag
+        }
+      }
+    }
+}
+`;
+
+export const useGetUserStakes = (client: any, staker: string) => {
+  staker =  staker && staker.split('').map(f => f.toLowerCase()).join('')
+  const {loading, error, data} = useQuery<GetUserStakeData, UserStakeQueryVars>(
+    GET_USER_STAKES,
+    {
+      client,
+      variables: { staker },
+      fetchPolicy: 'no-cache'
+    });
+  return {
+    loading,
+    error,
+    // @ts-ignore
+    stakes: data ? data.user.stakes : null
   } 
 }

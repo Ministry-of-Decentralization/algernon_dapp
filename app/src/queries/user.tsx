@@ -1,8 +1,7 @@
 import { gql } from 'apollo-boost';
 import { useQuery } from '@apollo/react-hooks';
 import web3 from 'web3'
-import selectTopic from '../selectors/topic'
-import { SelectedTopic } from '../selectors/types'
+import selectUser from '../selectors/user'
 import { nativeToDisplayBalance } from '../utils/formatters';
 import { add } from 'lodash';
 
@@ -24,17 +23,27 @@ export const GET_OWNER_BY_ADDRESS = gql`
       undepositedBalance
       stakedBalance
       unstakedBalance
+      stakes {
+        amount
+        taggedTopic {
+        id
+        topic {
+          id
+          title
+          owner {
+            id
+          }
+        }
+        tag {
+          id
+          tag
+        }
+        }
+      }
     }
 }
 `
 
-const addDisplayBalances = (balances: any): any => {
-  const balanceTypes = Object.keys(balances)
-  return balanceTypes.reduce((acc, balanceType) => {
-    acc[balanceType + 'Display'] = nativeToDisplayBalance(balances[balanceType])
-    return acc
-  }, {...balances})
-}
 export const useGetOwnerByAddress = (client: any, owner: string) => {
   const checksummedAddress = web3.utils.toHex(owner)
   const {loading, error, data, refetch} =  useQuery<UserData, UserQueryVars>(
@@ -47,18 +56,18 @@ export const useGetOwnerByAddress = (client: any, owner: string) => {
       fetchPolicy: 'no-cache'
     });
 
-  const defaultBalances = { 
+  const defaultUser = { 
     undepositedBalance: "0",
     unstakedBalance: "0",
-    stakedBalance: "0"
+    stakedBalance: "0",
+    stakes: []
   }
-
-  const user = data ?
-    data.user ?
-      addDisplayBalances(data.user)
-      :
-      addDisplayBalances(defaultBalances)
-    : addDisplayBalances(defaultBalances)
+  const user = data && data.user ?
+  // @ts-ignore
+    selectUser(data.user)
+    :
+    // @ts-ignore
+    selectUser(defaultUser)
 
   return {
     loading,

@@ -37,6 +37,7 @@ export interface Web3FormProps {
   stateEls: FormStateEls;
   formOnSuccess: boolean;
   cancelForm?: any
+  onSuccess?: any
 }
 
 export interface MutationAndWeb3FormStateEls {
