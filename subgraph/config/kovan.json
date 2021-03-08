@@ -1,0 +1,15 @@
+{
+  "networkName": "kovan",
+  "contracts": {
+    "Algernon": {
+      "address": "0xE494E00411D49cfb6466391c5aA0166505fEe6B7",
+      "startBlock": 23807119,
+      "abiFile": "./abis/Algernon.json"
+    },
+    "AlgerToken": {
+      "address": "0xDC904045490Fd90415B3299373A4741B15393fD5",
+      "startBlock": 23807116,
+      "abiFile": "./abis/AlgerToken.json"
+    }
+  }
+}

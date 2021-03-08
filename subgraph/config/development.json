@@ -1,0 +1,15 @@
+{
+  "networkName": "development",
+  "contracts": {
+    "Algernon": {
+      "address": "0x26950f5d5B2eA2AC11d8A2cB67a62D8831Be3d8F",
+      "startBlock": 0,
+      "abiFile": "./abis/Algernon.json"
+    },
+    "AlgerToken": {
+      "address": "0x98012ed413Bc79B2A2fc1420FDC90670aAb96B61",
+      "startBlock": 0,
+      "abiFile": "./abis/AlgerToken.json"
+    }
+  }
+}
