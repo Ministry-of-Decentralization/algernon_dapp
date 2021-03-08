@@ -6,10 +6,10 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Algernon
-    network: kovan
+    network: {{networkName}}
     source:
-      address: '0xE494E00411D49cfb6466391c5aA0166505fEe6B7'
-      startBlock: 23807119	
+      address: '{{contracts.Algernon.address}}'
+      startBlock: {{contracts.Algernon.startBlock}}	
       abi: Algernon
     mapping:
       kind: ethereum/events
@@ -46,10 +46,10 @@ dataSources:
 
   - kind: ethereum/contract
     name: AlgerToken
-    network: kovan
+    network: {{networkName}}
     source:
-      address: '0xDC904045490Fd90415B3299373A4741B15393fD5'
-      startBlock: 23807116	
+      address: '{{contracts.AlgerToken.address}}'
+      startBlock: {{contracts.AlgerToken.startBlock}}	
       abi: AlgerToken
     mapping:
       kind: ethereum/events

@@ -2,28 +2,24 @@
   "name": "algernon-subgraph",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create cirsteve/algerNote --node https://api.thegraph.com/deploy/",
-    "create-local": "graph create cirsteve/algernon --node http://127.0.0.1:8020",
-    "remove-local": "graph remove cirsteve/algernon --node http://127.0.0.1:8020",
+    "prepare:development": "mustache config/development.json subgraph.template.yaml > subgraph.yaml",
+    "prepare:kovan": "mustache config/kovan.json subgraph.template.yaml > subgraph.yaml",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy cirsteve/algernon --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/",
+    "create-local": "graph create cirsteve/algernon --node http://127.0.0.1:8020",
     "deploy-local": "graph deploy cirsteve/algernon --ipfs http://localhost:5001 --node http://127.0.0.1:8020",
-    "reset-local": "yarn remove-local && yarn create-local && yarn deploy-local",
-    "build-kovan": "graph build kovan.subgraph.yaml",
-    "codegen-kovan": "graph codegen kovan.subgraph.yaml",
-    "deploy-kovan": "graph deploy ministry-of-decentralization/algernon-kovan --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/ kovan.subgraph.yaml"
+    "deploy-kovan": "graph deploy ministry-of-decentralization/algernon-kovan --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.19.0",
-    "@graphprotocol/graph-ts": "^0.19.0",
-    "handlebars": "^4.5.2"
+    "@graphprotocol/graph-ts": "^0.19.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "dotenv": "^8.2.0",
     "ipfs": "^0.43.1",
+    "mustache": "^4.1.0",
     "truffle": "^5.0.4",
     "truffle-contract": "^4.0.5",
     "truffle-hdwallet-provider": "^1.0.4",
