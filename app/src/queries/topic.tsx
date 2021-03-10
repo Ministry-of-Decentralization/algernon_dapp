@@ -44,7 +44,7 @@ export const GET_TOPICS = gql`
       id
       createdAt
       updatedAt
-      tags(orderBy: totalStaked, orderDirection: desc) {
+      tags(orderBy: totalStaked, orderDirection: desc, where: {active: true}) {
         id
         totalStaked
         tag {
@@ -81,7 +81,7 @@ export const GET_TOPICS_BY_ID = gql`
       title
       description
       url
-      tags(orderBy: totalStaked, orderDirection: desc) {
+      tags(orderBy: totalStaked, orderDirection: desc, where: {active: true}) {
         id
         totalStaked
         tag {
@@ -113,7 +113,7 @@ export const GET_TOPICS_FOR_OWNER = gql`
       id
       createdAt
       updatedAt
-      tags(orderBy: totalStaked, orderDirection: desc) {
+      tags(orderBy: totalStaked, orderDirection: desc, where: {active: true}) {
         totalStaked
         id
         tag {
@@ -155,7 +155,7 @@ export const GET_TOPIC = gql`
       id
       createdAt
       updatedAt
-      tags(orderBy: totalStaked, orderDirection: desc) {
+      tags(orderBy: totalStaked, orderDirection: desc, where: {active: true}) {
         id
         totalStaked
         tag {

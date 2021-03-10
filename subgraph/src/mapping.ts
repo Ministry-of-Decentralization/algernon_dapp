@@ -2,7 +2,7 @@ import { TagAdded, TagUpdated, TopicCreated, TopicUpdated, TopicTagsUpdated, Tok
 import { Sent, Minted, Burned } from '../generated/AlgerToken/AlgerToken'
 
 import { Tag, User, Topic, TaggedTopic, Stake } from '../generated/schema'
-import { log, Bytes, BigInt, json, ipfs, Address } from '@graphprotocol/graph-ts'
+import { log, Bytes, BigInt, json, ipfs, Address, store } from '@graphprotocol/graph-ts'
 import { ZERO } from './common'
 
 function getOrCreateUser(address: Address, timestamp: BigInt): User {
@@ -22,8 +22,12 @@ function getOrCreateUser(address: Address, timestamp: BigInt): User {
   return user as User
 }
 
+function getTaggedTopicId(tagId: string, topicId: string): string {
+  return tagId + '-' + topicId
+}
+
 function getOrCreateTaggedTopic(tagId: string, topicId: string): TaggedTopic {
-  let id = tagId + '-' + topicId
+  let id = getTaggedTopicId(tagId, topicId)
   let taggedTopic = TaggedTopic.load(id)
   if (taggedTopic == null) {
     taggedTopic = new TaggedTopic(id)
@@ -78,12 +82,35 @@ function updateTopicContent(topic: Topic, content: Bytes): Topic {
   return topic
 }
 
+function updateRemovedTaggedTopics(topicId: string, currentTagIds: BigInt[], newTagIds: BigInt[]): void {
+  for (let i = 0; i < currentTagIds.length; i++) {
+    let testTagId = currentTagIds[i]
+    if (newTagIds.includes(testTagId) == false) {
+      let taggedTopicId = getTaggedTopicId(testTagId.toString(), topicId)
+      let taggedTopic = TaggedTopic.load(taggedTopicId)
+      taggedTopic.active = false
+      taggedTopic.save()
+    }
+  }
+}
+
 function updateTopicTags(topic: Topic, tagIds: BigInt[]): void {
-  // TODO: updat to active:false for taggedTopics attached to the Topic that are no longer attached
+
+  // set any removed tags to active.false
+  updateRemovedTaggedTopics(topic.id, topic.tagIds, tagIds)
+
   // create any TaggedTopic that does not exist
   for (let i = 0; i < tagIds.length; i++) {
-    getOrCreateTaggedTopic(tagIds[i].toString(), topic.id)
+    let tag = getOrCreateTaggedTopic(tagIds[i].toString(), topic.id)
+    if (tag.active == false) {
+      tag.active = true
+      tag.save()
+    }
   }
+
+  // update the tags property for use in mapping updates
+  topic.tagIds = tagIds
+  topic.save()
 }
 
 function updateUserLastActive(userId: string, lastActive: BigInt): void {
@@ -106,8 +133,7 @@ export function handleTopicCreated(event: TopicCreated): void {
   
   topic.createdAt = timestamp
   topic.updatedAt = timestamp
-  
-  updateTopicTags(topic, event.params.tagIds) 
+  topic.tagIds = []
 
   let data = ipfs.cat(topic.contentHash)
   if (data !== null) {
@@ -115,6 +141,8 @@ export function handleTopicCreated(event: TopicCreated): void {
   }
   
   topic.save()
+
+  updateTopicTags(topic, event.params.tagIds) 
 
 }
 
