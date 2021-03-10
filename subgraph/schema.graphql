@@ -17,6 +17,7 @@ type Topic @entity {
   id: ID!
   owner: User
   tags: [TaggedTopic!] @derivedFrom(field: "topic")
+  tagIds: [BigInt!]!
   contentHash: String!
   title: String!
   description: String

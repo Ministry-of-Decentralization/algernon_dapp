@@ -59,7 +59,7 @@ export const GET_TAG = gql`
           owner {
             address
           }
-          tags(orderBy: totalStaked, orderDirection: desc) {
+          tags(orderBy: totalStaked, orderDirection: desc, where: {active: true}) {
             id
             totalStaked
             tag {
