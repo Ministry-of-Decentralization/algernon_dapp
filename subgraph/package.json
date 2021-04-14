@@ -18,7 +18,7 @@
     "babel-polyfill": "^6.26.0",
     "babel-register": "^6.26.0",
     "dotenv": "^8.2.0",
-    "ipfs": "^0.43.1",
+    "ipfs": "^0.54.4",
     "mustache": "^4.1.0",
     "truffle": "^5.0.4",
     "truffle-contract": "^4.0.5",
