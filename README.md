@@ -57,6 +57,7 @@ the docker-compose.yml file in graph-node-local/ will run a graph and ipfs node 
 - Deploy the subgraph
 `cd subgraph/`
 `yarn`
+`yarn prepare:development && yarn codegen && yarn build`
 `yarn create-local`
 `yarn deploy-local`
 
