@@ -350,9 +350,9 @@
     try-require "^1.2.1"
 
 "@openzeppelin/contracts@^4.0.0-beta.0":
-  version "4.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.0.0-beta.0.tgz#e16c9f5f667b05e5bf86ecbf32ed92f145a7c890"
-  integrity sha512-O/LC1F04y6PiXuU6oDRmNUIlVwoEC9mS8Lmij6nRt4N1em0fLvirK33QiDc5IgheRZQ7QJ3pyPNCRhNiZNKfLQ==
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/contracts/-/contracts-4.4.2.tgz#4e889c9c66e736f7de189a53f8ba5b8d789425c2"
+  integrity sha512-NyJV7sJgoGYqbtNUWgzzOGW4T6rR19FmX1IJgXGdapGPWsuMelGJn9h03nos0iqfforCbCB0iYIR0MtIuIFLLw==
 
 "@openzeppelin/test-helpers@^0.5.7":
   version "0.5.7"
